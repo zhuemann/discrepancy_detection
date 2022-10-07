@@ -30,6 +30,7 @@ if __name__ == '__main__':
                   "train_samples": .8, "test_samples": .5, "data_path": "D:/candid_ptx/"}
 
     seeds = [117, 295, 98, 456, 915, 1367, 712]
+    seeds = [712]
 
     for seed in seeds:
 
