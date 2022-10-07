@@ -119,10 +119,15 @@ def train_discrepancy_detection(config):
             for _, data in tqdm(enumerate(valid_loader, 0)):
                 ids = data['ids'].to(device, dtype=torch.long)
                 mask = data['mask'].to(device, dtype=torch.long)
-                token_type_ids = data['token_type_ids'].to(device, dtype=torch.long)
+                ids1 = data['ids1'].to(device, dtype=torch.long)
+                mask1 = data['mask1'].to(device, dtype=torch.long)
+                ids2 = data['ids2'].to(device, dtype=torch.long)
+                mask2 = data['mask2'].to(device, dtype=torch.long)
+                #token_type_ids = data['token_type_ids'].to(device, dtype=torch.long)
                 targets = data['targets'].to(device, dtype=torch.float)
 
-                outputs = model(ids, mask, token_type_ids)
+                #outputs = model(ids, mask, token_type_ids)
+                outputs = model(ids1, mask1, ids2, mask2)
                 outputs = torch.squeeze(outputs, dim=1)
 
                 # put output between 0 and 1 and rounds to nearest integer ie 0 or 1 labels
@@ -154,12 +159,17 @@ def train_discrepancy_detection(config):
     with torch.no_grad():
         test_accuracy = []
         for _, data in tqdm(enumerate(test_loader, 0)):
+            ids1 = data['ids1'].to(device, dtype=torch.long)
+            mask1 = data['mask1'].to(device, dtype=torch.long)
+            ids2 = data['ids2'].to(device, dtype=torch.long)
+            mask2 = data['mask2'].to(device, dtype=torch.long)
             ids = data['ids'].to(device, dtype=torch.long)
             mask = data['mask'].to(device, dtype=torch.long)
-            token_type_ids = data['token_type_ids'].to(device, dtype=torch.long)
+            #token_type_ids = data['token_type_ids'].to(device, dtype=torch.long)
             targets = data['targets'].to(device, dtype=torch.float)
 
-            outputs = model(ids, mask, token_type_ids)
+            #outputs = model(ids, mask, token_type_ids)
+            outputs = model(ids1, mask1, ids2, mask2)
             outputs = torch.squeeze(outputs, dim=1)
 
             sigmoid = torch.sigmoid(outputs)
