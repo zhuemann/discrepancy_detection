@@ -35,7 +35,7 @@ def train_discrepancy_detection(config):
     print("after all is loaded")
 
     for param in language_model.parameters():
-        param.requires_grad = True
+        param.requires_grad = False
 
     model = T5Classifier(language_model, n_class=1)
 
