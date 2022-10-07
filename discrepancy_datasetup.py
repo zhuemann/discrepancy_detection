@@ -8,7 +8,8 @@ def discrepancy_datasetup(config):
     dataframe_location = os.path.join(dir_base,
                                       'Zach_Analysis/discrepancy_data/first_labeled_batch.xlsx')
 
-    df = pd.read_excel(dataframe_location, engine='openpyxl')
+    df = pd.concat(pd.read_excel(dataframe_location, sheet_name=None, engine='openpyxl'), ignore_index=True)
+    #df = pd.read_excel(dataframe_location, engine='openpyxl')
     df = df.dropna(axis=0, how='all')
 
     pd.set_option('display.max_columns', None)
