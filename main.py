@@ -26,7 +26,7 @@ if __name__ == '__main__':
     else:
         directory_base = "/UserData/"
 
-    config = {"seed": 1, "batch_size": 8, "dir_base": directory_base, "epochs": 50, "n_classes": 2, "LR": 1e-5,
+    config = {"seed": 1, "batch_size": 8, "dir_base": directory_base, "epochs": 250, "n_classes": 2, "LR": 5e-5,
                   "train_samples": .8, "test_samples": .5, "data_path": "D:/candid_ptx/"}
 
     seeds = [117, 295, 98, 456, 915, 1367, 712]
@@ -35,7 +35,7 @@ if __name__ == '__main__':
     for seed in seeds:
 
         folder_name = "seed" + str(seed) + "/"
-        save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/initial_testingv3/" + folder_name
+        save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/initial_testingv4/" + folder_name
         save_location = os.path.join(directory_base, save_string)
         #save_location = ""
 
