@@ -26,11 +26,11 @@ if __name__ == '__main__':
     else:
         directory_base = "/UserData/"
 
-    config = {"seed": 1, "batch_size": 8, "dir_base": directory_base, "epochs": 35, "n_classes": 2, "LR": 1e-5,
+    config = {"seed": 1, "batch_size": 8, "dir_base": directory_base, "epochs": 50, "n_classes": 2, "LR": 5e-6,
                   "train_samples": .8, "test_samples": .5, "data_path": "D:/candid_ptx/"}
 
     seeds = [117, 295, 98, 456, 915, 1367, 712]
-    seeds = [712]
+    #seeds = [712]
 
     for seed in seeds:
 
