@@ -117,8 +117,8 @@ def train_discrepancy_detection(config):
             valid_accuracy = []
 
             for _, data in tqdm(enumerate(valid_loader, 0)):
-                ids = data['ids'].to(device, dtype=torch.long)
-                mask = data['mask'].to(device, dtype=torch.long)
+                #ids = data['ids'].to(device, dtype=torch.long)
+                #mask = data['mask'].to(device, dtype=torch.long)
                 ids1 = data['ids1'].to(device, dtype=torch.long)
                 mask1 = data['mask1'].to(device, dtype=torch.long)
                 ids2 = data['ids2'].to(device, dtype=torch.long)
@@ -163,8 +163,8 @@ def train_discrepancy_detection(config):
             mask1 = data['mask1'].to(device, dtype=torch.long)
             ids2 = data['ids2'].to(device, dtype=torch.long)
             mask2 = data['mask2'].to(device, dtype=torch.long)
-            ids = data['ids'].to(device, dtype=torch.long)
-            mask = data['mask'].to(device, dtype=torch.long)
+            #ids = data['ids'].to(device, dtype=torch.long)
+            #mask = data['mask'].to(device, dtype=torch.long)
             #token_type_ids = data['token_type_ids'].to(device, dtype=torch.long)
             targets = data['targets'].to(device, dtype=torch.float)
 
