@@ -27,6 +27,7 @@ def train_discrepancy_detection(config):
     df = pd.read_excel(dataframe_location, engine='openpyxl')
     df.set_index("id", inplace=True)
 
+    print(df)
     t5_path = os.path.join(dir_base, 'Zach_Analysis/models/t5_large/')
     tokenizer = T5Tokenizer.from_pretrained(t5_path)
     language_model = T5Model.from_pretrained(t5_path)
