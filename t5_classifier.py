@@ -7,7 +7,7 @@ class T5Classifier(torch.nn.Module):
         self.lang_encoder = model
         self.classifier = torch.nn.Linear(2048, n_class)
 
-    def forward(self, ids1, mask1, ids2, mask2, token_type_ids):
+    def forward(self, ids1, mask1, ids2, mask2): #, token_type_ids):
 
         # feed text through t5 then average across encoding dimension and then do two class classification
         encoder_output1 = self.lang_encoder.encoder(input_ids=ids1, attention_mask=mask1, return_dict=True)
