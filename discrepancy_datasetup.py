@@ -37,7 +37,7 @@ def discrepancy_datasetup(config):
                 data_with_labels.loc[label_idx] = [accession, report1, report2, label]
                 label_idx += 1
             else:
-                if num_neg < 100:
+                if num_neg < 200:
                     data_with_labels.loc[label_idx] = [accession, report1, report2, label]
                     num_neg += 1
                     label_idx += 1
