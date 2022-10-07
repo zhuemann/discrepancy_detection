@@ -14,15 +14,15 @@ from t5_classifier import T5Classifier
 def train_discrepancy_detection(config):
     nltk.download('punkt')
     dir_base = config["dir_base"]
-    not_setup = False
+    not_setup = True
     if not_setup:
         df = discrepancy_datasetup(config)
-        save_path = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/all_data_df.xlsx')
+        save_path = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/all_data_undersampled_df.xlsx')
         df.to_excel(save_path, index=False)
 
     #print(df)
     #dir_base = config["dir_base"]
-    dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/all_data_df.xlsx')
+    dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/all_data_undersampled_df.xlsx')
 
     df = pd.read_excel(dataframe_location, engine='openpyxl')
     df.set_index("id", inplace=True)

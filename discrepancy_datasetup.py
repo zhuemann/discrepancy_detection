@@ -16,6 +16,7 @@ def discrepancy_datasetup(config):
     label_idx = 0
     data_with_labels = pd.DataFrame(columns=['id', 'impression1', 'impression2', 'label'])
     index = -1
+    num_neg = 0
     for _, row in df.iterrows():
 
         index += 1
@@ -31,8 +32,13 @@ def discrepancy_datasetup(config):
             #print(report1)
             report2 = impression2['Impression']
             label = impression2['Discrepancy']
-            data_with_labels.loc[label_idx] = [accession, report1, report2, label]
-            label_idx += 1
+            if label == 1:
+                data_with_labels.loc[label_idx] = [accession, report1, report2, label]
+                label_idx += 1
+            else:
+                if num_neg < 100:
+                    data_with_labels.loc[label_idx] = [accession, report1, report2, label]
+                    num_neg += 1
 
     return data_with_labels
 
