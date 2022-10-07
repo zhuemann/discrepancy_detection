@@ -103,7 +103,7 @@ def setup_dataloader(df, config, tokenizer):
         # stratify=test_valid_df.label.values
     )
 
-    train_df = balance_dataset(config, df)
+    train_df = balance_dataset(df, config)
     training_set = TextDataset(train_df, tokenizer, dir_base=dir_base)
     valid_set = TextDataset(valid_df, tokenizer, dir_base=dir_base)
     test_set = TextDataset(test_df, tokenizer, dir_base=dir_base)
