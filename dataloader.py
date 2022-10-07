@@ -30,7 +30,7 @@ class TextDataset(Dataset):
         text1 = " ".join(text1.split())
         text2 = str(self.text2[index])
         text2 = " ".join(text2.split())
-        text = text1 + text2
+
         #print(text)
         #text = ""
 
@@ -43,8 +43,8 @@ class TextDataset(Dataset):
         #text = text.replace("[PERSONALNAME]", "")
         #text = text.replace("\n", "")
 
-        inputs = self.tokenizer.encode_plus(
-            text,
+        inputs1 = self.tokenizer.encode_plus(
+            text1,
             None,
             add_special_tokens=True,
             max_length=self.max_len,
@@ -54,14 +54,34 @@ class TextDataset(Dataset):
             truncation='longest_first',
             return_token_type_ids=True
         )
-        ids = inputs['input_ids']
-        mask = inputs['attention_mask']
-        token_type_ids = inputs["token_type_ids"]
+        ids1 = inputs1['input_ids']
+        mask1 = inputs1['attention_mask']
+        token_type_ids1 = inputs1["token_type_ids"]
+
+        inputs2 = self.tokenizer.encode_plus(
+            text2,
+            None,
+            add_special_tokens=True,
+            max_length=self.max_len,
+            #pad_to_max_length=True,
+            padding= 'max_length',   #True,  # #TOD self.max_len,
+            # padding='longest',
+            truncation='longest_first',
+            return_token_type_ids=True
+        )
+        ids2 = inputs2['input_ids']
+        mask2 = inputs2['attention_mask']
+        token_type_ids2 = inputs2["token_type_ids"]
 
         return {
-            'ids': torch.tensor(ids, dtype=torch.long),
-            'mask': torch.tensor(mask, dtype=torch.long),
-            'token_type_ids': torch.tensor(token_type_ids, dtype=torch.long),
+            'ids1': torch.tensor(ids1, dtype=torch.long),
+            'mask1': torch.tensor(mask1, dtype=torch.long),
+            'token_type_ids1': torch.tensor(token_type_ids1, dtype=torch.long),
+
+            'ids2': torch.tensor(ids2, dtype=torch.long),
+            'mask2': torch.tensor(mask2, dtype=torch.long),
+            'token_type_ids2': torch.tensor(token_type_ids2, dtype=torch.long),
+
             'targets': torch.tensor(self.targets[index], dtype=torch.float),
             'row_ids': self.row_ids[index],
         }
