@@ -105,7 +105,7 @@ def train_discrepancy_detection(config):
             #    training_dice.append(dice)
 
         avg_training_accuracy = np.average(training_accuracy)
-        print(f"Epoch {str(epoch)}, Average Training Dice Score = {avg_training_accuracy}")
+        print(f"Epoch {str(epoch)}, Average Training Accuracy = {avg_training_accuracy}")
 
         # each epoch, look at validation data
         with torch.no_grad():
@@ -134,7 +134,7 @@ def train_discrepancy_detection(config):
                         valid_accuracy.append(0)
 
             avg_valid_acc = np.average(valid_accuracy)
-            print(f"Epoch {str(epoch)}, Average Valid Dice Score = {avg_valid_acc}")
+            print(f"Epoch {str(epoch)}, Average Valid Accuracy = {avg_valid_acc}")
             valid_log.append(avg_valid_acc)
 
             if avg_valid_acc >= best_acc:
@@ -170,6 +170,6 @@ def train_discrepancy_detection(config):
                     test_accuracy.append(0)
 
         avg_test_acc = np.average(test_accuracy)
-        print(f"Epoch {str(epoch)}, Average Test Dice Score = {avg_test_acc}")
+        print(f"Epoch {str(epoch)}, Average Test Accuracy = {avg_test_acc}")
 
         return avg_test_acc, valid_log
