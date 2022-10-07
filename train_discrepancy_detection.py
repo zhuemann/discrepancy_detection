@@ -10,24 +10,27 @@ from tqdm import tqdm
 from discrepancy_datasetup import discrepancy_datasetup
 from dataloader import setup_dataloader
 from t5_classifier import T5Classifier
+from discrepancy_datasetup import balance_dataset
 
 def train_discrepancy_detection(config):
     nltk.download('punkt')
     dir_base = config["dir_base"]
-    need_setup = False
+    need_setup = True
     if need_setup:
         df = discrepancy_datasetup(config)
-        save_path = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/all_data_undersampled_df.xlsx')
+        save_path = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/all_data_both_sheets_df.xlsx')
         df.to_excel(save_path, index=False)
 
     #print(df)
     #dir_base = config["dir_base"]
-    dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/all_data_undersampled_df.xlsx')
+    dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/all_data_both_sheets_df.xlsx')
 
     df = pd.read_excel(dataframe_location, engine='openpyxl')
-    df.set_index("id", inplace=True)
+    #df.set_index("id", inplace=True)
 
-    print(df)
+    #balanced_df = balance_dataset(df)
+    #print(balanced_df)
+    #print(df)
     t5_path = os.path.join(dir_base, 'Zach_Analysis/models/t5_large/')
     tokenizer = T5Tokenizer.from_pretrained(t5_path)
     language_model = T5Model.from_pretrained(t5_path)

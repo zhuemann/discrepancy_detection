@@ -4,6 +4,7 @@ from torch.utils.data import Dataset
 import os
 import torch
 
+from discrepancy_datasetup import balance_dataset
 class TextDataset(Dataset):
 
     def __init__(self, dataframe, tokenizer, dir_base):
@@ -102,6 +103,7 @@ def setup_dataloader(df, config, tokenizer):
         # stratify=test_valid_df.label.values
     )
 
+    train_df = balance_dataset(df)
     training_set = TextDataset(train_df, tokenizer, dir_base=dir_base)
     valid_set = TextDataset(valid_df, tokenizer, dir_base=dir_base)
     test_set = TextDataset(test_df, tokenizer, dir_base=dir_base)
