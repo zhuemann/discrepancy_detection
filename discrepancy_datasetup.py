@@ -32,7 +32,6 @@ def discrepancy_datasetup(config):
             #print(report1)
             report2 = impression2['Impression']
             label = impression2['Discrepancy']
-            print(label)
             if label == 1:
                 data_with_labels.loc[label_idx] = [accession, report1, report2, label]
                 label_idx += 1
