@@ -14,8 +14,8 @@ from t5_classifier import T5Classifier
 def train_discrepancy_detection(config):
     nltk.download('punkt')
     dir_base = config["dir_base"]
-    not_setup = True
-    if not_setup:
+    need_setup = False
+    if need_setup:
         df = discrepancy_datasetup(config)
         save_path = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/all_data_undersampled_df.xlsx')
         df.to_excel(save_path, index=False)
