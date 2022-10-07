@@ -1,0 +1,100 @@
+from sklearn import model_selection
+from torch.utils.data import DataLoader
+from torch.utils.data import Dataset
+import os
+import torch
+
+class TextDataset(Dataset):
+
+    def __init__(self, dataframe, tokenizer, dir_base):
+        self.tokenizer = tokenizer
+        self.data = dataframe
+        self.text1 = dataframe.impression1
+        self.text2 = dataframe.impression2
+        self.targets = self.data.label
+        self.row_ids = self.data.index
+        self.max_len = 512
+
+        #self.df_data = dataframe.values
+        self.data_path = os.path.join(dir_base, "public_datasets/candid_ptx/dataset1/dataset/")
+        self.dir_base = dir_base
+
+    def __len__(self):
+        return len(self.text1)
+
+
+    def __getitem__(self, index):
+        # text extraction
+        #global img, image
+        text = str(self.text1[index])
+        text = " ".join(text.split())
+        #print(text)
+        #text = ""
+
+        #text = text.replace("[ALPHANUMERICID]", "")
+        #text = text.replace("[date]", "")
+        #text = text.replace("[DATE]", "")
+        #text = text.replace("[AGE]", "")
+
+        #text = text.replace("[ADDRESS]", "")
+        #text = text.replace("[PERSONALNAME]", "")
+        #text = text.replace("\n", "")
+
+        inputs = self.tokenizer.encode_plus(
+            text,
+            None,
+            add_special_tokens=True,
+            max_length=self.max_len,
+            #pad_to_max_length=True,
+            padding= 'max_length',   #True,  # #TOD self.max_len,
+            # padding='longest',
+            truncation='longest_first',
+            return_token_type_ids=True
+        )
+        ids = inputs['input_ids']
+        mask = inputs['attention_mask']
+        token_type_ids = inputs["token_type_ids"]
+
+        return {
+            'ids': torch.tensor(ids, dtype=torch.long),
+            'mask': torch.tensor(mask, dtype=torch.long),
+            'token_type_ids': torch.tensor(token_type_ids, dtype=torch.long),
+            'targets': torch.tensor(self.targets[index], dtype=torch.float),
+            'row_ids': self.row_ids[index],
+        }
+
+
+def setup_dataloader(df, config, tokenizer):
+
+    seed = config["seed"]
+    dir_base = config["dir_base"]
+    BATCH_SIZE = config["batch_size"]
+    # Splits the data into 80% train and 20% valid and test sets
+    train_df, test_valid_df = model_selection.train_test_split(
+        df, train_size=config["train_samples"], random_state=seed, shuffle=True  # stratify=df.label.values
+    )
+    # Splits the test and valid sets in half so they are both 10% of total data
+    test_df, valid_df = model_selection.train_test_split(
+        test_valid_df, test_size=config["test_samples"], random_state=seed, shuffle=True
+        # stratify=test_valid_df.label.values
+    )
+
+    training_set = TextDataset(train_df, tokenizer, dir_base=dir_base)
+    valid_set = TextDataset(valid_df, tokenizer, dir_base=dir_base)
+    test_set = TextDataset(test_df, tokenizer, dir_base=dir_base)
+
+    train_params = {'batch_size': BATCH_SIZE,
+                    'shuffle': True,
+                    'num_workers': 1
+                    }
+
+    test_params = {'batch_size': BATCH_SIZE,
+                   'shuffle': True,
+                   'num_workers': 4
+                   }
+
+    training_loader = DataLoader(training_set, **train_params)
+    valid_loader = DataLoader(valid_set, **test_params)
+    test_loader = DataLoader(test_set, **test_params)
+
+    return training_loader, valid_loader, test_loader
