@@ -145,7 +145,7 @@ def train_discrepancy_detection(config):
 
     model.eval()
 
-    saved_path = os.path.join(config["save_location"], "best_segmentation_model_seed" + str(config["seed"]))
+    saved_path = os.path.join(config["save_location"], "best_model_seed" + str(config["seed"]))
     model.load_state_dict(torch.load(saved_path))
 
     with torch.no_grad():
