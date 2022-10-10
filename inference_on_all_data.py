@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-from transformers import T5Model, T5Tokenizer
+from transformers import T5Model, T5Tokenizer, AutoTokenizer
 import nltk
 import torch
 import torch.nn as nn
@@ -16,7 +16,8 @@ def inference_on_all_data(config):
     dir_base = config["dir_base"]
 
     t5_path = os.path.join(dir_base, 'Zach_Analysis/models/t5_large/')
-    tokenizer = T5Tokenizer.from_pretrained(t5_path)
+    tokenizer = AutoTokenizer.from_pretrained(t5_path)
+    #tokenizer = T5Tokenizer.from_pretrained(t5_path)
     language_model = T5Model.from_pretrained(t5_path)
 
     dir_base = config["dir_base"]
