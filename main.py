@@ -40,12 +40,12 @@ if __name__ == '__main__':
         folder_name = "seed" + str(seed) + "/"
         save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/initial_testing_augmented_data_unbalanced_v6/" + folder_name
         save_location = os.path.join(directory_base, save_string)
-        #save_location = ""
+        save_location = ""
 
         config["seed"] = seed
         config["save_location"] = save_location
 
-        acc, valid_log = train_discrepancy_detection(config)
+        #acc, valid_log = train_discrepancy_detection(config)
 
         df = pd.DataFrame(valid_log)
         df["test_accuracy"] = acc
