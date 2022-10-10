@@ -87,7 +87,13 @@ def inference_on_all_data(config):
 
     for param in language_model.parameters():
         param.requires_grad = False
+
     model = T5Classifier(language_model, n_class=1)
+
+    save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/initial_testing_augmented_data_unbalanced_v6/" + folder_name
+    save_location = os.path.join(config["dir_base"], save_string)
+    saved_path = os.path.join(save_location, "best_model_seed" + str(98))
+    model.load_state_dict(torch.load(saved_path))
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
@@ -99,7 +105,7 @@ def inference_on_all_data(config):
         # vision_model.train()
         # language_model.train()
         # model_obj.train()
-        model.train()
+        model.eval()
         training_accuracy = []
         gc.collect()
         torch.cuda.empty_cache()
