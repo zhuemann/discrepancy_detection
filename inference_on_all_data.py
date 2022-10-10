@@ -11,13 +11,14 @@ from dataloader import TextDataset
 from torch.utils.data import DataLoader
 from t5_classifier import T5Classifier
 
-HF_DATASETS_OFFLINE = "1"
+#HF_DATASETS_OFFLINE = "1"
 TRANSFORMERS_OFFLINE = "1"
 
 def inference_on_all_data(config):
     #HF_DATASETS_OFFLINE = "1"
     #TRANSFORMERS_OFFLINE = "1"
-    os.environ["CURL_CA_BUNDLE"] = ""
+    #os.environ["CURL_CA_BUNDLE"] = ""
+    os.environ["TRANSFORMERS_OFFLINE "] = "1"
     dir_base = config["dir_base"]
 
     t5_path = os.path.join(dir_base, 'Zach_Analysis/models/t5_large/')
