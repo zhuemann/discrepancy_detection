@@ -10,12 +10,11 @@ from tqdm import tqdm
 from dataloader import TextDataset
 from torch.utils.data import DataLoader
 from t5_classifier import T5Classifier
-import requests
 
 def inference_on_all_data(config):
-
+    os.environ["CURL_CA_BUNDLE"] = ""
     dir_base = config["dir_base"]
-    requests.get('https://www.huggingface.co')
+
     t5_path = os.path.join(dir_base, 'Zach_Analysis/models/t5_large/')
     tokenizer = AutoTokenizer.from_pretrained(t5_path)
     #tokenizer = T5Tokenizer.from_pretrained(t5_path)
