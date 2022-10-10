@@ -10,6 +10,7 @@ from tqdm import tqdm
 from dataloader import TextDataset
 from torch.utils.data import DataLoader
 from t5_classifier import T5Classifier
+TRANSFORMERS_OFFLINE=1
 
 def inference_on_all_data(config):
     os.environ["CURL_CA_BUNDLE"] = ""
