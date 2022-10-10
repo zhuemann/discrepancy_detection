@@ -45,7 +45,7 @@ if __name__ == '__main__':
         config["seed"] = seed
         config["save_location"] = save_location
 
-        #acc, valid_log = train_discrepancy_detection(config)
+        acc, valid_log = train_discrepancy_detection(config)
 
         df = pd.DataFrame(valid_log)
         df["test_accuracy"] = acc
