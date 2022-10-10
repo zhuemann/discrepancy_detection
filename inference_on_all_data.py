@@ -17,7 +17,7 @@ TRANSFORMERS_OFFLINE = "1"
 def inference_on_all_data(config):
     #HF_DATASETS_OFFLINE = "1"
     #TRANSFORMERS_OFFLINE = "1"
-    #os.environ["CURL_CA_BUNDLE"] = ""
+    os.environ["CURL_CA_BUNDLE"] = ""
     os.environ["TRANSFORMERS_OFFLINE "] = "1"
     dir_base = config["dir_base"]
 
