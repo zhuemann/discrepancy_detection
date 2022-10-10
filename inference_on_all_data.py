@@ -156,8 +156,8 @@ def inference_on_all_data(config):
                 else:
                     training_accuracy.append(0)
             #    training_dice.append(dice)
-            if prediction_idx > 20:
-                break
+            #if prediction_idx > 20:
+            #    break
 
         avg_training_accuracy = np.average(training_accuracy)
         print(f"Epoch {str(epoch)}, Average Score of All Pairs = {avg_training_accuracy}")
