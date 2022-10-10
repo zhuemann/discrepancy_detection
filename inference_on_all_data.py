@@ -10,6 +10,7 @@ from tqdm import tqdm
 from dataloader import TextDataset
 from torch.utils.data import DataLoader
 from t5_classifier import T5Classifier
+import gc
 
 #HF_DATASETS_OFFLINE = "1"
 #TRANSFORMERS_OFFLINE = "1"
@@ -17,9 +18,9 @@ from t5_classifier import T5Classifier
 def inference_on_all_data(config):
     #HF_DATASETS_OFFLINE = "1"
     #TRANSFORMERS_OFFLINE = "1"
-    os.environ["CURL_CA_BUNDLE"] = ""
-    os.environ["TRANSFORMERS_OFFLINE"] = "1"
-    os.environ["HF_DATASETS_OFFLINE"] = "1"
+    #os.environ["CURL_CA_BUNDLE"] = ""
+    #os.environ["TRANSFORMERS_OFFLINE"] = "1"
+    #os.environ["HF_DATASETS_OFFLINE"] = "1"
 
     dir_base = config["dir_base"]
 
@@ -69,6 +70,8 @@ def inference_on_all_data(config):
     print(df)
     print(data_with_labels)
 
+    del df
+
     data_df = data_with_labels
     data_df.set_index("id", inplace=True)
 
@@ -82,6 +85,8 @@ def inference_on_all_data(config):
 
     test_loader = DataLoader(test_set, **test_params)
 
+    for param in language_model.parameters():
+        param.requires_grad = False
     model = T5Classifier(language_model, n_class=1)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -93,7 +98,7 @@ def inference_on_all_data(config):
         # model_obj.train()
         model.train()
         training_accuracy = []
-        #gc.collect()
+        gc.collect()
         torch.cuda.empty_cache()
 
         loss_list = []
