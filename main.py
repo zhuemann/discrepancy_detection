@@ -3,6 +3,7 @@ import os
 
 import pandas as pd
 from train_discrepancy_detection import train_discrepancy_detection
+from inference_on_all_data import inference_on_all_data
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
@@ -20,7 +21,7 @@ if __name__ == '__main__':
     args = create_parser()
     # local = args.local
 
-    local = False
+    local = True
     if local:
         directory_base = "Z:/"
     else:
@@ -28,6 +29,8 @@ if __name__ == '__main__':
 
     config = {"seed": 1, "batch_size": 8, "dir_base": directory_base, "epochs": 100, "n_classes": 2, "LR": 1e-4,
                   "train_samples": .8, "test_samples": .5, "data_path": "D:/candid_ptx/"}
+
+    inference_on_all_data(config)
 
     seeds = [117, 295, 98, 456, 915, 1367, 712]
     #seeds = [712]
