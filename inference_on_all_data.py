@@ -150,6 +150,7 @@ def inference_on_all_data(config):
 
 
                 predictions.loc[prediction_idx] = [id, text1, text2, label, pred, score]
+                prediction_idx += 1
                 if outputs[i] == targets[i]:
                     training_accuracy.append(1)
                 else:
