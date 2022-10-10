@@ -75,10 +75,12 @@ class TextDataset(Dataset):
         token_type_ids2 = inputs2["token_type_ids"]
 
         return {
+            'text1' : text1,
             'ids1': torch.tensor(ids1, dtype=torch.long),
             'mask1': torch.tensor(mask1, dtype=torch.long),
             'token_type_ids1': torch.tensor(token_type_ids1, dtype=torch.long),
 
+            'text2' : text2,
             'ids2': torch.tensor(ids2, dtype=torch.long),
             'mask2': torch.tensor(mask2, dtype=torch.long),
             'token_type_ids2': torch.tensor(token_type_ids2, dtype=torch.long),

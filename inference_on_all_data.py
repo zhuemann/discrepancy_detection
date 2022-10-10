@@ -92,6 +92,9 @@ def inference_on_all_data(config):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
 
+    predictions = pd.DataFrame(columns=['id', 'impression1', 'impression2', 'label', 'prediction', 'score'])
+    prediction_idx = 0
+
     for epoch in range(1, 2):
         # vision_model.train()
         # language_model.train()
@@ -111,6 +114,7 @@ def inference_on_all_data(config):
             mask2 = data['mask2'].to(device, dtype=torch.long)
             #token_type_ids = data['token_type_ids'].to(device, dtype=torch.long)
             targets = data['targets'].to(device, dtype=torch.float)
+            row_id = data['row_ids']
 
             #outputs = model(ids1, mask1, ids2, mask2, token_type_ids)
             outputs = model(ids1, mask1, ids2, mask2)
@@ -123,20 +127,34 @@ def inference_on_all_data(config):
             #print(outputs)
 
 
-
             # put output between 0 and 1 and rounds to nearest integer ie 0 or 1 labels
             sigmoid = torch.sigmoid(outputs)
+
             outputs = torch.round(sigmoid)
 
             # calculates the dice coefficent for each image and adds it to the list
             for i in range(0, len(outputs)):
-            #    dice = dice_coeff(outputs[i], targets[i])
-            #    dice = dice.item()
+
+                id = row_id[i]
+                text1 = data["text1"][i]
+                text2 = data["text2"][i]
+                label = targets[i]
+                pred = outputs[i]
+                score = sigmoid[i]
+
+
+                predictions.loc[prediction_idx] = [id, text1, text2, label, pred, score]
                 if outputs[i] == targets[i]:
                     training_accuracy.append(1)
                 else:
                     training_accuracy.append(0)
             #    training_dice.append(dice)
+            break
 
         avg_training_accuracy = np.average(training_accuracy)
-        print(f"Epoch {str(epoch)}, Average Training Accuracy = {avg_training_accuracy}")
+        print(f"Epoch {str(epoch)}, Average Score of All Pairs = {avg_training_accuracy}")
+
+    save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/initial_testing_augmented_data_unbalanced_v6/seed98/"
+    save_location = os.path.join(config["dir_base"], save_string)
+    filepath = os.path.join(save_location, "inference" + '.xlsx')
+    predictions.to_excel(filepath, index=False)
