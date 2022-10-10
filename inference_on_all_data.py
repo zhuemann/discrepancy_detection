@@ -144,9 +144,9 @@ def inference_on_all_data(config):
                 id = row_id[i]
                 text1 = data["text1"][i]
                 text2 = data["text2"][i]
-                label = targets[i]
-                pred = outputs[i]
-                score = sigmoid[i]
+                label = targets[i].item()
+                pred = outputs[i].item()
+                score = sigmoid[i].item()
 
 
                 predictions.loc[prediction_idx] = [id, text1, text2, label, pred, score]
@@ -155,7 +155,8 @@ def inference_on_all_data(config):
                 else:
                     training_accuracy.append(0)
             #    training_dice.append(dice)
-            break
+            if prediction_idx > 20:
+                break
 
         avg_training_accuracy = np.average(training_accuracy)
         print(f"Epoch {str(epoch)}, Average Score of All Pairs = {avg_training_accuracy}")
