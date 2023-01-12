@@ -27,14 +27,21 @@ def discrepancy_datasetup(config):
         print(row["Report Type"])
         if row["Report Type"] == "Preliminary":
             prelim_impression = row['Impression']
-            print("found prelim")
+            prelim_accession = row['Accession Number']
         elif row["Report Type"] == "Final":
             final_impression = row['Impression']
-            print("found final")
+            final_accession = row['Accession Number']
         index += 1
         if pd.isna(row['Discrepancy']):
             continue
 
+        if prelim_accession == final_accession:
+            label = row['Discrepancy score']
+            print(type(label))
+            label = label[0]
+            data_with_labels.loc[label_idx] = [prelim_accession, prelim_impression, final_impression, label]
+
+        """
         impression1 = df.iloc[index-1]
         impression2 = row
 
@@ -52,7 +59,7 @@ def discrepancy_datasetup(config):
                     data_with_labels.loc[label_idx] = [accession, report1, report2, label]
                     num_neg += 1
                     label_idx += 1
-
+        """
     return data_with_labels
 
 def balance_dataset(df, config):
