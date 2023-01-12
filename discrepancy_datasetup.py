@@ -10,7 +10,7 @@ def discrepancy_datasetup(config):
 
     dir_base = config["dir_base"]
     dataframe_location = os.path.join(dir_base,
-                                      'Zach_Analysis/discrepancy_data/first_labeled_batch.xlsx')
+                                      'Zach_Analysis/discrepancy_data/second_labeled_batch.xlsx')
 
     df = pd.concat(pd.read_excel(dataframe_location, sheet_name=None, engine='openpyxl'), ignore_index=True)
     #df = pd.read_excel(dataframe_location, engine='openpyxl')
