@@ -30,7 +30,7 @@ if __name__ == '__main__':
     config = {"seed": 1, "batch_size": 8, "dir_base": directory_base, "epochs": 100, "n_classes": 2, "LR": 1e-4,
                   "train_samples": .8, "test_samples": .5, "data_path": "D:/candid_ptx/"}
 
-    inference_on_all_data(config)
+    #inference_on_all_data(config)
 
     seeds = [117, 295, 98, 456, 915, 1367, 712]
     #seeds = [712]
@@ -45,7 +45,7 @@ if __name__ == '__main__':
         config["seed"] = seed
         config["save_location"] = save_location
 
-        #acc, valid_log = train_discrepancy_detection(config)
+        acc, valid_log = train_discrepancy_detection(config)
 
         df = pd.DataFrame(valid_log)
         df["test_accuracy"] = acc

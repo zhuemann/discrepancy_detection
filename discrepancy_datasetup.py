@@ -93,8 +93,12 @@ def balance_dataset(df, config):
             # augment the example as many times as defined by the aug factor
             for i in range(aug_factor):
 
-                text1 = shuffledTextAugmentation(orig_text1)
+                #text1 = shuffledTextAugmentation(orig_text1)
+                text1 = orig_text1
+                print(f"text1 before: {text1}")
                 text1 = synonymsReplacement(wordDict, text1)
+                print(f"text1 after: {text1}")
+
                 text2 = shuffledTextAugmentation(orig_text2)
                 text2 = synonymsReplacement(wordDict, text2)
 
