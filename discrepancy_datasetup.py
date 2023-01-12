@@ -24,9 +24,9 @@ def discrepancy_datasetup(config):
     num_neg = 0
     for _, row in df.iterrows():
 
+        print(row["Report Type"])
         index += 1
         if pd.isna(row['Discrepancy']):
-            print("discrepancy is black")
             continue
 
         impression1 = df.iloc[index-1]
