@@ -22,6 +22,7 @@ def discrepancy_datasetup(config):
     data_with_labels = pd.DataFrame(columns=['id', 'impression1', 'impression2', 'label'])
     index = -1
     num_neg = 0
+    non_matching = 0
     for _, row in df.iterrows():
 
         if row["Report Type"] == "Preliminary":
@@ -36,12 +37,14 @@ def discrepancy_datasetup(config):
 
         if prelim_accession == final_accession:
             label = str(row['Discrepancy score'])
-            label = label[0]
+            label = label[-1]
             print(label)
             #print(type(label))
             #label = label[0]
             data_with_labels.loc[label_idx] = [prelim_accession, prelim_impression, final_impression, label]
             label_idx += 1
+        else:
+            non_matching += 1
 
         """
         impression1 = df.iloc[index-1]
@@ -62,6 +65,7 @@ def discrepancy_datasetup(config):
                     num_neg += 1
                     label_idx += 1
         """
+    print(non_matching)
     return data_with_labels
 
 def balance_dataset(df, config):
