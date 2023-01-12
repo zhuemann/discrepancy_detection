@@ -65,7 +65,7 @@ def discrepancy_datasetup(config):
                     num_neg += 1
                     label_idx += 1
         """
-    print(non_matching)
+    print(f"num unmatched: {non_matching}")
     return data_with_labels
 
 def balance_dataset(df, config):
