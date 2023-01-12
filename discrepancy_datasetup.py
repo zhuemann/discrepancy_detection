@@ -22,6 +22,7 @@ def discrepancy_datasetup(config):
     data_with_labels = pd.DataFrame(columns=['id', 'impression1', 'impression2', 'label'])
     index = -1
     num_neg = 0
+    discrepancy_that_are_nan = 0
     non_matching = 0
     for _, row in df.iterrows():
 
@@ -33,6 +34,7 @@ def discrepancy_datasetup(config):
             final_accession = row['Accession Number']
         index += 1
         if pd.isna(row['Discrepancy score']):
+            discrepancy_that_are_nan += 1
             continue
 
         if prelim_accession == final_accession:
@@ -66,6 +68,7 @@ def discrepancy_datasetup(config):
                     label_idx += 1
         """
     print(f"num unmatched: {non_matching}")
+    print(f"discrepancy nans: {discrepancy_that_are_nan}")
     return data_with_labels
 
 def balance_dataset(df, config):
