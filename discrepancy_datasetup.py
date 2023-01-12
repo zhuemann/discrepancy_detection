@@ -31,7 +31,7 @@ def discrepancy_datasetup(config):
             final_impression = row['Impression']
             final_accession = row['Accession Number']
         index += 1
-        if pd.isna(row['Discrepancy']):
+        if pd.isna(row['Discrepancy score']):
             continue
 
         if prelim_accession == final_accession:
