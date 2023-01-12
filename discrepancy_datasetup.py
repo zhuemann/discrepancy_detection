@@ -28,7 +28,7 @@ def discrepancy_datasetup(config):
         if row["Report Type"] == "Preliminary":
             prelim_impression = row['Impression']
             print("found prelim")
-        else row["Report Type"] == "Final":
+        elif row["Report Type"] == "Final":
             final_impression = row['Impression']
             print("found final")
         index += 1
