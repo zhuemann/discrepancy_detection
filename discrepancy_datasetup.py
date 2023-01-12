@@ -24,6 +24,11 @@ def discrepancy_datasetup(config):
     num_neg = 0
     discrepancy_that_are_nan = 0
     non_matching = 0
+    prelim_impression = "string1"
+    prelim_accession = "id1"
+    final_impression = "string2"
+    final_accession = "id2"
+
     for _, row in df.iterrows():
 
         if row["Report Type"] == "Preliminary":
