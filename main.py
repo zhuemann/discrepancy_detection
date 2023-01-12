@@ -40,7 +40,6 @@ if __name__ == '__main__':
         folder_name = "seed" + str(seed) + "/"
         save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/second_datasetv1/" + folder_name
         save_location = os.path.join(directory_base, save_string)
-        save_location = ""
 
         config["seed"] = seed
         config["save_location"] = save_location

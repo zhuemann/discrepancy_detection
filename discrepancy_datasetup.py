@@ -25,6 +25,12 @@ def discrepancy_datasetup(config):
     for _, row in df.iterrows():
 
         print(row["Report Type"])
+        if row["Report Type"] == "Preliminary":
+            prelim_impression = row['Impression']
+            print("found prelim")
+        else row["Report Type"] == "Final":
+            final_impression = row['Impression']
+            print("found final")
         index += 1
         if pd.isna(row['Discrepancy']):
             continue
