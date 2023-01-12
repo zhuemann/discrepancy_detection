@@ -101,6 +101,7 @@ def balance_dataset(df, config):
 
                 #text2 = shuffledTextAugmentation(orig_text2)
                 #text2 = synonymsReplacement(wordDict, text2)
+                text2 = orig_text2
 
                 id = row["id"] + "aug" + str(i)
                 balanced_df.loc[balanced_idx] = [id, text1, text2, row["label"]]
