@@ -67,8 +67,8 @@ def inference_on_all_data(config):
             #        num_neg += 1
             #        label_idx += 1
 
-    print(df)
-    print(data_with_labels)
+    #print(df)
+    #print(data_with_labels)
 
     del df
 
