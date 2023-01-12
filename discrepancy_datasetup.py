@@ -35,7 +35,8 @@ def discrepancy_datasetup(config):
             continue
 
         if prelim_accession == final_accession:
-            label = row['Discrepancy score']
+            label = str(row['Discrepancy score'])
+            label = label[0]
             print(label)
             #print(type(label))
             #label = label[0]
