@@ -26,6 +26,7 @@ def discrepancy_datasetup(config):
 
         index += 1
         if pd.isna(row['Discrepancy']):
+            print("discrepancy is black")
             continue
 
         impression1 = df.iloc[index-1]
