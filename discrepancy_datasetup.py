@@ -24,7 +24,6 @@ def discrepancy_datasetup(config):
     num_neg = 0
     for _, row in df.iterrows():
 
-        print(row["Report Type"])
         if row["Report Type"] == "Preliminary":
             prelim_impression = row['Impression']
             prelim_accession = row['Accession Number']
