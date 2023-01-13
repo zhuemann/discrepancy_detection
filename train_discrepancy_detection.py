@@ -41,7 +41,7 @@ def train_discrepancy_detection(config):
     for param in language_model.parameters():
         param.requires_grad = False
 
-    model = T5Classifier(language_model, n_class=5)
+    model = T5Classifier(language_model, n_class=1)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
@@ -98,7 +98,7 @@ def train_discrepancy_detection(config):
             optimizer.step()
 
             # put output between 0 and 1 and rounds to nearest integer ie 0 or 1 labels
-            sigmoid = torch.sigmoid(outputs)
+            #sigmoid = torch.sigmoid(outputs)
             outputs = torch.round(sigmoid)
 
             # calculates the dice coefficent for each image and adds it to the list
