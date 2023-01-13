@@ -136,8 +136,9 @@ def train_discrepancy_detection(config):
                 outputs = torch.squeeze(outputs, dim=1)
 
                 # put output between 0 and 1 and rounds to nearest integer ie 0 or 1 labels
-                sigmoid = torch.sigmoid(outputs)
-                outputs = torch.round(sigmoid)
+                #sigmoid = torch.sigmoid(outputs)
+                #outputs = torch.round(sigmoid)
+                outputs = torch.round(outputs)
                 #print(outputs)
                 # calculates the accuracy and adds it to the list
                 for i in range(0, len(outputs)):
@@ -177,8 +178,9 @@ def train_discrepancy_detection(config):
             outputs = model(ids1, mask1, ids2, mask2)
             outputs = torch.squeeze(outputs, dim=1)
 
-            sigmoid = torch.sigmoid(outputs)
-            outputs = torch.round(sigmoid)
+            #sigmoid = torch.sigmoid(outputs)
+            #outputs = torch.round(sigmoid)
+            outputs = torch.round(outputs)
             #print(outputs)
             # calculates the accuracy and adds it to the list
             for i in range(0, len(outputs)):
