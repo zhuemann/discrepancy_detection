@@ -139,7 +139,7 @@ def train_discrepancy_detection(config):
                 #sigmoid = torch.sigmoid(outputs)
                 #outputs = torch.round(sigmoid)
                 outputs = torch.round(outputs)
-                #print(outputs)
+                print(outputs)
                 # calculates the accuracy and adds it to the list
                 for i in range(0, len(outputs)):
                     if outputs[i] == targets[i]:
