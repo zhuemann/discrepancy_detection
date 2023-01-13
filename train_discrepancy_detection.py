@@ -99,7 +99,8 @@ def train_discrepancy_detection(config):
 
             # put output between 0 and 1 and rounds to nearest integer ie 0 or 1 labels
             #sigmoid = torch.sigmoid(outputs)
-            outputs = torch.round(sigmoid)
+            #outputs = torch.round(sigmoid)
+            outputs = torch.round(outputs)
 
             # calculates the dice coefficent for each image and adds it to the list
             for i in range(0, len(outputs)):
