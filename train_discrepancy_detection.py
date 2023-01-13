@@ -41,7 +41,7 @@ def train_discrepancy_detection(config):
     for param in language_model.parameters():
         param.requires_grad = False
 
-    model = T5Classifier(language_model, n_class=1)
+    model = T5Classifier(language_model, n_class=5)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
