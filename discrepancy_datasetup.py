@@ -30,15 +30,19 @@ def discrepancy_datasetup(config):
     prelim_accession = "id1"
     final_impression = "string2"
     final_accession = "id2"
+    prelim_num = 0
+    final_num = 0
 
     for _, row in df.iterrows():
 
         if row["Report Type"] == "Preliminary":
             prelim_impression = row['Impression']
             prelim_accession = row['Accession Number']
+            prelim_num += 1
         elif row["Report Type"] == "Final":
             final_impression = row['Impression']
             final_accession = row['Accession Number']
+            final_num += 1
         index += 1
         if pd.isna(row['Discrepancy score']):
             discrepancy_that_are_nan += 1
@@ -76,6 +80,8 @@ def discrepancy_datasetup(config):
         """
     print(f"num unmatched: {non_matching}")
     print(f"discrepancy nans: {discrepancy_that_are_nan}")
+    print(f"times prelim is defined: {prelim_num}")
+    print(f"times final is defined: {final_num}")
     return data_with_labels
 
 def balance_dataset(df, config):
