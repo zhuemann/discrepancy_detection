@@ -33,6 +33,7 @@ def discrepancy_datasetup(config):
     prelim_num = 0
     final_num = 0
 
+
     for _, row in df.iterrows():
 
         if row["Report Type"] == "Preliminary":
@@ -49,6 +50,7 @@ def discrepancy_datasetup(config):
             continue
         print(row)
         if prelim_accession == final_accession:
+
             label = str(row['Discrepancy score'])
             label = label[-1]
             print(label)
@@ -82,6 +84,7 @@ def discrepancy_datasetup(config):
     print(f"discrepancy nans: {discrepancy_that_are_nan}")
     print(f"times prelim is defined: {prelim_num}")
     print(f"times final is defined: {final_num}")
+    print(f"discrepancies delcared: {label_idx}")
     return data_with_labels
 
 def balance_dataset(df, config):

@@ -10,7 +10,7 @@ from tqdm import tqdm
 from discrepancy_datasetup import discrepancy_datasetup
 from dataloader import setup_dataloader
 from t5_classifier import T5Classifier
-from discrepancy_datasetup import balance_dataset
+#from discrepancy_datasetup import balance_dataset
 
 def train_discrepancy_detection(config):
     nltk.download('punkt')
