@@ -36,6 +36,8 @@ def discrepancy_datasetup(config):
 
     for _, row in df.iterrows():
 
+        if pd.isna(row['Accession Number']):
+            continue
         if row["Report Type"] == "Preliminary":
             prelim_impression = row['Impression']
             prelim_accession = row['Accession Number']
@@ -46,9 +48,11 @@ def discrepancy_datasetup(config):
             final_num += 1
         index += 1
         #print(row['Discrepancy score'])
-        if pd.isna(row['Discrepancy score']):
-            discrepancy_that_are_nan += 1
-            continue
+        #if pd.isna(row['Accession Number']):
+        #    continue
+        #if pd.isna(row['Discrepancy score']):
+        #    discrepancy_that_are_nan += 1
+        #    continue
         #print(row)
         if str(prelim_accession) == str(final_accession):
 
