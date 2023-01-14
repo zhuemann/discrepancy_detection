@@ -49,7 +49,7 @@ def discrepancy_datasetup(config):
             discrepancy_that_are_nan += 1
             continue
         print(row)
-        if prelim_accession == final_accession:
+        if str(prelim_accession) == str(final_accession):
 
             label = str(row['Discrepancy score'])
             label = label[-1]
