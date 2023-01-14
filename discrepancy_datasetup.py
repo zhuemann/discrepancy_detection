@@ -45,6 +45,7 @@ def discrepancy_datasetup(config):
             final_accession = row['Accession Number']
             final_num += 1
         index += 1
+        print(row['Discrepancy score'])
         if pd.isna(row['Discrepancy score']):
             discrepancy_that_are_nan += 1
             continue
