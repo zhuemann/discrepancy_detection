@@ -178,10 +178,12 @@ def train_discrepancy_detection(config):
             #outputs = model(ids, mask, token_type_ids)
             outputs = model(ids1, mask1, ids2, mask2)
             outputs = torch.squeeze(outputs, dim=1)
-
+            print(f"raw outputs: {outputs}")
             #sigmoid = torch.sigmoid(outputs)
             #outputs = torch.round(sigmoid)
             outputs = torch.round(outputs)
+            print(f"predictions: {outputs}")
+            print(f"targets: {targets}")
             #print(outputs)
             # calculates the accuracy and adds it to the list
             for i in range(0, len(outputs)):
@@ -191,6 +193,7 @@ def train_discrepancy_detection(config):
                     test_accuracy.append(0)
 
         avg_test_acc = np.average(test_accuracy)
+        print(f"final test accuary: {test_accuracy}")
         print(f"Epoch {str(epoch)}, Average Test Accuracy = {avg_test_acc}")
 
         return avg_test_acc, valid_log
