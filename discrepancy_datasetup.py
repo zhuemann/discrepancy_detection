@@ -59,7 +59,7 @@ def discrepancy_datasetup(config):
             if pd.isna(row['Discrepancy score']):
 
                 label = str(row['Discrepancy score'])
-                label = label[-1]
+                label = int(label[-1])
             #print(label)
             #print(type(label))
             #label = label[0]
