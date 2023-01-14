@@ -43,7 +43,7 @@ def discrepancy_datasetup(config):
         if pd.isna(row['Discrepancy score']):
             discrepancy_that_are_nan += 1
             continue
-
+        print(row)
         if prelim_accession == final_accession:
             label = str(row['Discrepancy score'])
             label = label[-1]
