@@ -56,12 +56,17 @@ def discrepancy_datasetup(config):
         #print(row)
         if str(prelim_accession) == str(final_accession):
 
-            label = str(row['Discrepancy score'])
-            label = label[-1]
+            if pd.isna(row['Discrepancy score']):
+
+                label = str(row['Discrepancy score'])
+                label = label[-1]
             #print(label)
             #print(type(label))
             #label = label[0]
-            data_with_labels.loc[label_idx] = [prelim_accession, prelim_impression, final_impression, label]
+                data_with_labels.loc[label_idx] = [prelim_accession, prelim_impression, final_impression, label]
+            else:
+                label = 0
+                data_with_labels.loc[label_idx] = [prelim_accession, prelim_impression, final_impression, label]
             label_idx += 1
         else:
             non_matching += 1
