@@ -50,9 +50,9 @@ def discrepancy_datasetup(config):
         #print(row['Discrepancy score'])
         #if pd.isna(row['Accession Number']):
         #    continue
-        #if pd.isna(row['Discrepancy score']):
-        #    discrepancy_that_are_nan += 1
-        #    continue
+        if pd.isna(row['Discrepancy score']):
+            discrepancy_that_are_nan += 1
+            continue
         #print(row)
         if str(prelim_accession) == str(final_accession):
 
