@@ -30,7 +30,7 @@ def train_discrepancy_detection(config):
     #df.set_index("id", inplace=True)
 
     #balanced_df = balance_dataset(df)
-    print(balanced_df)
+    #print(balanced_df)
     #print(df)
     #t5_path = os.path.join(dir_base, 'Zach_Analysis/models/t5_large/')
     #tokenizer = T5Tokenizer.from_pretrained(t5_path)
