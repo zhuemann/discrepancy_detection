@@ -50,14 +50,14 @@ def train_discrepancy_detection(config):
     for param in language_model2.parameters():
         param.requires_grad = True
     #model = T5Classifier(language_model, n_class=1)
-    model = RobertaClassifier(language_model1, language_model2, n_class=1)
+    model = RobertaClassifier(language_model1, language_model2, n_class=5)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
 
     #criterion = nn.BCEWithLogitsLoss()
-    criterion = nn.MSELoss()
-
+    #criterion = nn.MSELoss()
+    criterion = nn.CrossEntropyLoss()
     LR = config["LR"]
     N_EPOCHS = config["epochs"]
     # defines which optimizer is being used
@@ -88,7 +88,10 @@ def train_discrepancy_detection(config):
             ids2 = data['ids2'].to(device, dtype=torch.long)
             mask2 = data['mask2'].to(device, dtype=torch.long)
             token_type_ids2 = data['token_type_ids2'].to(device, dtype=torch.long)
-            targets = data['targets'].to(device, dtype=torch.float)
+            #targets = data['targets'].to(device, dtype=torch.float)
+            targets = nn.functional.one_hot(data['targets']).to(device, dtype=torch.float)
+
+            #targets = nn.functional.one_hot(targets)
 
             outputs = model(ids1, mask1, ids2, mask2, token_type_ids1, token_type_ids2)
             #outputs = model(ids1, mask1, ids2, mask2)
