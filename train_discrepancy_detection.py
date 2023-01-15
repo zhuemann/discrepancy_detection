@@ -11,7 +11,7 @@ from discrepancy_datasetup import discrepancy_datasetup
 from dataloader import setup_dataloader
 from t5_classifier import T5Classifier
 from roberta_classifier import RobertaClassifier
-#from discrepancy_datasetup import balance_dataset
+from discrepancy_datasetup import balance_dataset
 
 def train_discrepancy_detection(config):
     nltk.download('punkt')
@@ -30,7 +30,7 @@ def train_discrepancy_detection(config):
     #df.set_index("id", inplace=True)
 
     #balanced_df = balance_dataset(df)
-    #print(balanced_df)
+    print(balanced_df)
     #print(df)
     #t5_path = os.path.join(dir_base, 'Zach_Analysis/models/t5_large/')
     #tokenizer = T5Tokenizer.from_pretrained(t5_path)
