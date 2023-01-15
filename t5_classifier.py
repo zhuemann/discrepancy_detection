@@ -5,7 +5,9 @@ class T5Classifier(torch.nn.Module):
     def __init__(self, model, n_class = 1):
         super(T5Classifier, self).__init__()
         self.lang_encoder = model
-        self.classifier = torch.nn.Linear(2048, n_class)
+        #self.classifier = torch.nn.Linear(2048, n_class)
+        self.classifier = torch.nn.Linear(1536, n_class)
+
 
     def forward(self, ids1, mask1, ids2, mask2): #, token_type_ids):
 
