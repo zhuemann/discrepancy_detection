@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-from transformers import T5Model, T5Tokenizer, RobertaModel, RobertaTokenizer
+from transformers import T5Model, T5Tokenizer, RobertaModel, RobertaTokenizer, AutoTokenizer
 import nltk
 import torch
 import torch.nn as nn
@@ -35,7 +35,7 @@ def train_discrepancy_detection(config):
     #tokenizer = T5Tokenizer.from_pretrained(t5_path)
     #language_model = T5Model.from_pretrained(t5_path)
     t5_path = os.path.join(dir_base, 'Zach_Analysis/roberta/')
-    tokenizer = RobertaTokenizer.from_pretrained(t5_path)
+    tokenizer = AutoTokenizer.from_pretrained(t5_path)
     language_model = RobertaModel.from_pretrained(t5_path)
 
     training_loader, valid_loader, test_loader = setup_dataloader(df, config, tokenizer)
