@@ -16,7 +16,7 @@ from roberta_classifier import RobertaClassifier
 def train_discrepancy_detection(config):
     nltk.download('punkt')
     dir_base = config["dir_base"]
-    need_setup = True
+    need_setup = False
     if need_setup:
         df = discrepancy_datasetup(config)
         save_path = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/all_scored_df.xlsx')
@@ -103,8 +103,8 @@ def train_discrepancy_detection(config):
             optimizer.zero_grad()
 
             #print(f"output size: {outputs.size()}")
-            print(outputs)
-            print(f"targets: {targets}")
+            #print(outputs)
+            #print(f"targets: {targets}")
             loss = criterion(outputs, targets)
 
             if _ % 400 == 0:
@@ -146,7 +146,8 @@ def train_discrepancy_detection(config):
                 ids2 = data['ids2'].to(device, dtype=torch.long)
                 mask2 = data['mask2'].to(device, dtype=torch.long)
                 #token_type_ids = data['token_type_ids'].to(device, dtype=torch.long)
-                targets = data['targets'].to(device, dtype=torch.float)
+                #targets = data['targets'].to(device, dtype=torch.float)
+                targets = data['targets'].to(device, dtype=torch.long)
 
                 #outputs = model(ids, mask, token_type_ids)
                 #outputs = model(ids1, mask1, ids2, mask2)
@@ -160,7 +161,7 @@ def train_discrepancy_detection(config):
                 print(outputs)
                 # calculates the accuracy and adds it to the list
                 for i in range(0, len(outputs)):
-                    if outputs[i] == targets[i]:
+                    if torch.argmax(outputs[i]) == targets[i]:
                         valid_accuracy.append(1)
                     else:
                         valid_accuracy.append(0)
@@ -190,7 +191,8 @@ def train_discrepancy_detection(config):
             #ids = data['ids'].to(device, dtype=torch.long)
             #mask = data['mask'].to(device, dtype=torch.long)
             #token_type_ids = data['token_type_ids'].to(device, dtype=torch.long)
-            targets = data['targets'].to(device, dtype=torch.float)
+            #targets = data['targets'].to(device, dtype=torch.float)
+            targets = data['targets'].to(device, dtype=torch.long)
 
             #outputs = model(ids, mask, token_type_ids)
             #outputs = model(ids1, mask1, ids2, mask2)
@@ -205,7 +207,7 @@ def train_discrepancy_detection(config):
             #print(outputs)
             # calculates the accuracy and adds it to the list
             for i in range(0, len(outputs)):
-                if outputs[i] == targets[i]:
+                if torch.argmax(outputs[i]) == targets[i]:
                     test_accuracy.append(1)
                 else:
                     test_accuracy.append(0)
