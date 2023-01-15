@@ -29,7 +29,7 @@ class RobertaClassifier(torch.nn.Module):
         #lang_rep_avg2 = torch.mean(pooled_sentence2, 1)
         #print(lang_rep_avg2.size())
         both_lang_rep = torch.cat((lang_rep_avg1, lang_rep_avg2), dim=1)
-        print(both_lang_rep.size())
+        #print(both_lang_rep.size())
         #print(both_lang_rep.size())
         output = self.classifier(both_lang_rep)
 
