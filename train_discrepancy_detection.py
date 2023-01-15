@@ -51,8 +51,8 @@ def train_discrepancy_detection(config):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
 
-    #criterion = nn.BCEWithLogitsLoss()
-    criterion = nn.MSELoss()
+    criterion = nn.BCEWithLogitsLoss()
+    #criterion = nn.MSELoss()
 
     LR = config["LR"]
     N_EPOCHS = config["epochs"]
