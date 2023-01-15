@@ -89,7 +89,7 @@ def train_discrepancy_detection(config):
             mask2 = data['mask2'].to(device, dtype=torch.long)
             token_type_ids2 = data['token_type_ids2'].to(device, dtype=torch.long)
             #targets = data['targets'].to(device, dtype=torch.float)
-            targets = nn.functional.one_hot(data['targets']).to(device, dtype=torch.float)
+            targets = nn.functional.one_hot((data['targets'].to(device, dtype=torch.float))
 
             #targets = nn.functional.one_hot(targets)
 
