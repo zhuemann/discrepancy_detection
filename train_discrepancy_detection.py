@@ -122,7 +122,7 @@ def train_discrepancy_detection(config):
             for i in range(0, len(outputs)):
             #    dice = dice_coeff(outputs[i], targets[i])
             #    dice = dice.item()
-                if outputs[i] == targets[i]:
+                if torch.argmax(outputs[i]) == targets[i]:
                     training_accuracy.append(1)
                 else:
                     training_accuracy.append(0)
