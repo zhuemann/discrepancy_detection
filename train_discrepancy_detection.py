@@ -10,12 +10,13 @@ from tqdm import tqdm
 from discrepancy_datasetup import discrepancy_datasetup
 from dataloader import setup_dataloader
 from t5_classifier import T5Classifier
+from roberta_classifier import RobertaClassifier
 #from discrepancy_datasetup import balance_dataset
 
 def train_discrepancy_detection(config):
     nltk.download('punkt')
     dir_base = config["dir_base"]
-    need_setup = True
+    need_setup = False
     if need_setup:
         df = discrepancy_datasetup(config)
         save_path = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/all_scored_df.xlsx')
@@ -44,7 +45,8 @@ def train_discrepancy_detection(config):
     for param in language_model.parameters():
         param.requires_grad = True
 
-    model = T5Classifier(language_model, n_class=1)
+    #model = T5Classifier(language_model, n_class=1)
+    model = RobertaClassifier(language_model, n_class=1)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
@@ -77,13 +79,15 @@ def train_discrepancy_detection(config):
 
             ids1 = data['ids1'].to(device, dtype=torch.long)
             mask1 = data['mask1'].to(device, dtype=torch.long)
+            token_type_ids1 = data['token_type_ids1'].to(device, dtype=torch.long)
+
             ids2 = data['ids2'].to(device, dtype=torch.long)
             mask2 = data['mask2'].to(device, dtype=torch.long)
-            #token_type_ids = data['token_type_ids'].to(device, dtype=torch.long)
+            token_type_ids2 = data['token_type_ids2'].to(device, dtype=torch.long)
             targets = data['targets'].to(device, dtype=torch.float)
 
-            #outputs = model(ids1, mask1, ids2, mask2, token_type_ids)
-            outputs = model(ids1, mask1, ids2, mask2)
+            outputs = model(ids1, mask1, ids2, mask2, token_type_ids1, token_type_ids2)
+            #outputs = model(ids1, mask1, ids2, mask2)
             # outputs = test_obj(images)
             # outputs = model_obj(images)
             outputs = torch.squeeze(outputs, dim=1)
@@ -136,7 +140,8 @@ def train_discrepancy_detection(config):
                 targets = data['targets'].to(device, dtype=torch.float)
 
                 #outputs = model(ids, mask, token_type_ids)
-                outputs = model(ids1, mask1, ids2, mask2)
+                #outputs = model(ids1, mask1, ids2, mask2)
+                outputs = model(ids1, mask1, ids2, mask2, token_type_ids1, token_type_ids2)
                 outputs = torch.squeeze(outputs, dim=1)
 
                 # put output between 0 and 1 and rounds to nearest integer ie 0 or 1 labels
@@ -179,7 +184,8 @@ def train_discrepancy_detection(config):
             targets = data['targets'].to(device, dtype=torch.float)
 
             #outputs = model(ids, mask, token_type_ids)
-            outputs = model(ids1, mask1, ids2, mask2)
+            #outputs = model(ids1, mask1, ids2, mask2)
+            outputs = model(ids1, mask1, ids2, mask2, token_type_ids1, token_type_ids2)
             outputs = torch.squeeze(outputs, dim=1)
             print(f"raw outputs: {outputs}")
             #sigmoid = torch.sigmoid(outputs)
