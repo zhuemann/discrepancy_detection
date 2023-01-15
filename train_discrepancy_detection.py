@@ -104,6 +104,7 @@ def train_discrepancy_detection(config):
 
             #print(f"output size: {outputs.size()}")
             print(outputs)
+            print(f"targets: {targets}")
             loss = criterion(outputs, targets)
 
             if _ % 400 == 0:
