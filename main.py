@@ -27,7 +27,7 @@ if __name__ == '__main__':
     else:
         directory_base = "/UserData/"
 
-    config = {"seed": 1, "batch_size": 4, "dir_base": directory_base, "epochs": 20, "n_classes": 2, "LR": 1e-4,
+    config = {"seed": 1, "batch_size": 16, "dir_base": directory_base, "epochs": 20, "n_classes": 2, "LR": 1e-4,
                   "train_samples": .8, "test_samples": .5, "data_path": "D:/candid_ptx/"}
 
     #inference_on_all_data(config)
