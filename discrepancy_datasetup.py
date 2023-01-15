@@ -61,7 +61,7 @@ def discrepancy_datasetup(config):
                 data_with_labels.loc[label_idx] = [prelim_accession, prelim_impression, final_impression, label]
             else:
                 label = str(row['Discrepancy score'])
-                label = int(label[-1])
+                label = int(label[0])
 
                 data_with_labels.loc[label_idx] = [prelim_accession, prelim_impression, final_impression, label]
             label_idx += 1

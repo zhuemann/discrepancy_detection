@@ -16,7 +16,7 @@ from roberta_classifier import RobertaClassifier
 def train_discrepancy_detection(config):
     nltk.download('punkt')
     dir_base = config["dir_base"]
-    need_setup = False
+    need_setup = True
     if need_setup:
         df = discrepancy_datasetup(config)
         save_path = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/all_scored_df.xlsx')
