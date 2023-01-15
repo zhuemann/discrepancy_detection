@@ -37,16 +37,20 @@ def train_discrepancy_detection(config):
     #language_model = T5Model.from_pretrained(t5_path)
     t5_path = os.path.join(dir_base, 'Zach_Analysis/roberta/')
     tokenizer = AutoTokenizer.from_pretrained(t5_path)
-    language_model = RobertaModel.from_pretrained(t5_path)
+    language_model1 = RobertaModel.from_pretrained(t5_path)
+    language_model2 = RobertaModel.from_pretrained(t5_path)
+
 
     training_loader, valid_loader, test_loader = setup_dataloader(df, config, tokenizer)
     print("after all is loaded")
 
-    for param in language_model.parameters():
+    for param in language_model1.parameters():
         param.requires_grad = True
 
+    for param in language_model2.parameters():
+        param.requires_grad = True
     #model = T5Classifier(language_model, n_class=1)
-    model = RobertaClassifier(language_model, n_class=1)
+    model = RobertaClassifier(language_model1, language_model2, n_class=1)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
