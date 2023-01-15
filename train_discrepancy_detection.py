@@ -103,7 +103,7 @@ def train_discrepancy_detection(config):
             optimizer.zero_grad()
 
             #print(f"output size: {outputs.size()}")
-            #print(outputs)
+            print(outputs)
             loss = criterion(outputs, targets)
 
             if _ % 400 == 0:
