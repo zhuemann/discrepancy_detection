@@ -121,7 +121,7 @@ def balance_dataset(df, config):
     frac1 = neg_cases/pos_cases
     frac2 = pos_cases/neg_cases
     aug_factor = int(np.round(np.maximum((neg_cases/pos_cases) - 1, (pos_cases/neg_cases) - 1)))
-    aug_factor = 8
+    aug_factor = 5
     print(f"aug factor: {aug_factor}")
 
     balanced_idx = 0
