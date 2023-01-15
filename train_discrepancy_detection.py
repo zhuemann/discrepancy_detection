@@ -45,7 +45,7 @@ def train_discrepancy_detection(config):
     print("after all is loaded")
 
     for param in language_model1.parameters():
-        param.requires_grad = True
+        param.requires_grad = False
 
     for param in language_model2.parameters():
         param.requires_grad = True
