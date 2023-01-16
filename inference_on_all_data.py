@@ -61,11 +61,16 @@ def inference_on_all_data(config):
         impression2 = row
 
         if impression1['Accession Number'] == impression2['Accession Number']:
+
+            # only include the points with a discrepancy score
+            if pd.isna(row['Discrepancy']):
+                continue
+
             accession = impression2['Accession Number']
             report1 = impression1['Impression']
-            # print(report1)
             report2 = impression2['Impression']
             label = impression2['Discrepancy']
+
             #if label == 1:
             data_with_labels.loc[label_idx] = [accession, report1, report2, label]
             label_idx += 1
@@ -88,7 +93,7 @@ def inference_on_all_data(config):
 
     test_params = {'batch_size': config["batch_size"],
                    'shuffle': True,
-                   'num_workers': 4
+                   'num_workers': 16
                    }
 
     test_loader = DataLoader(test_set, **test_params)
