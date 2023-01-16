@@ -183,11 +183,10 @@ def train_discrepancy_detection(config):
                 save_path = os.path.join(config["save_location"], "best_model_seed" + str(config["seed"]))
                 torch.save(model.state_dict(), save_path)
 
-    model.eval()
 
     saved_path = os.path.join(config["save_location"], "best_model_seed" + str(config["seed"]))
     model.load_state_dict(torch.load(saved_path))
-
+    model.eval()
     with torch.no_grad():
         test_accuracy = []
         for _, data in tqdm(enumerate(test_loader, 0)):
