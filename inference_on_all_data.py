@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-from transformers import T5Model, T5Tokenizer, AutoTokenizer
+from transformers import T5Model, T5Tokenizer, AutoTokenizer, RobertaModel
 import nltk
 import torch
 import torch.nn as nn
@@ -10,6 +10,7 @@ from tqdm import tqdm
 from dataloader import TextDataset
 from torch.utils.data import DataLoader
 from t5_classifier import T5Classifier
+from roberta_classifier import RobertaClassifier
 import gc
 
 #HF_DATASETS_OFFLINE = "1"
@@ -24,10 +25,17 @@ def inference_on_all_data(config):
 
     dir_base = config["dir_base"]
 
-    t5_path = os.path.join(dir_base, 'Zach_Analysis/models/t5_large/')
+    #t5_path = os.path.join(dir_base, 'Zach_Analysis/models/t5_large/')
     #tokenizer = AutoTokenizer.from_pretrained(t5_path)
-    tokenizer = T5Tokenizer.from_pretrained(t5_path)
-    language_model = T5Model.from_pretrained(t5_path)
+    #tokenizer = T5Tokenizer.from_pretrained(t5_path)
+    #language_model = T5Model.from_pretrained(t5_path)
+
+    t5_path = os.path.join(dir_base, 'Zach_Analysis/roberta/')
+    tokenizer = AutoTokenizer.from_pretrained(t5_path)
+    language_model1 = RobertaModel.from_pretrained(t5_path)
+    language_model2 = RobertaModel.from_pretrained(t5_path)
+
+    model = RobertaClassifier(language_model1, language_model2, n_class=1)
 
     dir_base = config["dir_base"]
     dataframe_location = os.path.join(dir_base,
@@ -85,14 +93,15 @@ def inference_on_all_data(config):
 
     test_loader = DataLoader(test_set, **test_params)
 
-    for param in language_model.parameters():
-        param.requires_grad = False
+    #for param in language_model.parameters():
+    #    param.requires_grad = False
 
-    model = T5Classifier(language_model, n_class=1)
+    #model = T5Classifier(language_model, n_class=1)
 
-    save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/initial_testing_augmented_data_unbalanced_v6/seed98"
+    #save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/initial_testing_augmented_data_unbalanced_v6/seed98"
+    save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/second_dataset_unfrozenv2/seed117"
     save_location = os.path.join(config["dir_base"], save_string)
-    saved_path = os.path.join(save_location, "best_model_seed" + str(98))
+    saved_path = os.path.join(save_location, "best_model_seed" + str(117))
     model.load_state_dict(torch.load(saved_path))
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -116,14 +125,18 @@ def inference_on_all_data(config):
 
             ids1 = data['ids1'].to(device, dtype=torch.long)
             mask1 = data['mask1'].to(device, dtype=torch.long)
+            token_type_ids1 = data['token_type_ids1'].to(device, dtype=torch.long)
+
             ids2 = data['ids2'].to(device, dtype=torch.long)
             mask2 = data['mask2'].to(device, dtype=torch.long)
+            token_type_ids2 = data['token_type_ids2'].to(device, dtype=torch.long)
             #token_type_ids = data['token_type_ids'].to(device, dtype=torch.long)
             targets = data['targets'].to(device, dtype=torch.float)
             row_id = data['row_ids']
 
             #outputs = model(ids1, mask1, ids2, mask2, token_type_ids)
-            outputs = model(ids1, mask1, ids2, mask2)
+            #outputs = model(ids1, mask1, ids2, mask2)
+            outputs = model(ids1, mask1, ids2, mask2, token_type_ids1, token_type_ids2)
             # outputs = test_obj(images)
             # outputs = model_obj(images)
             outputs = torch.squeeze(outputs, dim=1)
@@ -162,7 +175,7 @@ def inference_on_all_data(config):
         avg_training_accuracy = np.average(training_accuracy)
         print(f"Epoch {str(epoch)}, Average Score of All Pairs = {avg_training_accuracy}")
 
-    save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/initial_testing_augmented_data_unbalanced_v6/seed98/"
+    save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/second_dataset_unfrozenv2/seed117/"
     save_location = os.path.join(config["dir_base"], save_string)
     filepath = os.path.join(save_location, "inference" + '.xlsx')
     predictions.to_excel(filepath, index=False)
