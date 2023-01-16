@@ -46,10 +46,10 @@ def train_discrepancy_detection(config):
     print("after all is loaded")
 
     for param in language_model1.parameters():
-        param.requires_grad = True
+        param.requires_grad = False
 
     for param in language_model2.parameters():
-        param.requires_grad = True
+        param.requires_grad = False
     #model = T5Classifier(language_model, n_class=1)
     model = RobertaClassifier(language_model1, language_model2, n_class=1)
 
