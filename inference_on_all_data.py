@@ -30,10 +30,10 @@ def inference_on_all_data(config):
     #tokenizer = T5Tokenizer.from_pretrained(t5_path)
     #language_model = T5Model.from_pretrained(t5_path)
 
-    t5_path = os.path.join(dir_base, 'Zach_Analysis/roberta/')
-    tokenizer = AutoTokenizer.from_pretrained(t5_path)
-    language_model1 = RobertaModel.from_pretrained(t5_path)
-    language_model2 = RobertaModel.from_pretrained(t5_path)
+    roberta_path = os.path.join(dir_base, 'Zach_Analysis/roberta/')
+    tokenizer = AutoTokenizer.from_pretrained(roberta_path)
+    language_model1 = RobertaModel.from_pretrained(roberta_path)
+    language_model2 = RobertaModel.from_pretrained(roberta_path)
 
     model = RobertaClassifier(language_model1, language_model2, n_class=1)
 
@@ -180,7 +180,7 @@ def inference_on_all_data(config):
         avg_training_accuracy = np.average(training_accuracy)
         print(f"Epoch {str(epoch)}, Average Score of All Pairs = {avg_training_accuracy}")
 
-    save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/second_dataset_unfrozenv2/seed117/"
+    save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/second_dataset_unfrozenv3/seed117/"
     save_location = os.path.join(config["dir_base"], save_string)
     filepath = os.path.join(save_location, "inference" + '.xlsx')
     predictions.to_excel(filepath, index=False)

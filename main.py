@@ -38,7 +38,7 @@ if __name__ == '__main__':
     for seed in seeds:
 
         folder_name = "seed" + str(seed) + "/"
-        save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/second_dataset_unfrozenv2/" + folder_name
+        save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/second_dataset_unfrozenv3/" + folder_name
         save_location = os.path.join(directory_base, save_string)
 
         config["seed"] = seed
@@ -51,3 +51,5 @@ if __name__ == '__main__':
 
         filepath = os.path.join(config["save_location"], "valid_150ep_seed" + str(seed) + '.xlsx')
         df.to_excel(filepath, index=False)
+
+    inference_on_all_data(config)
