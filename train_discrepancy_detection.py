@@ -116,15 +116,16 @@ def train_discrepancy_detection(config):
             optimizer.step()
 
             # put output between 0 and 1 and rounds to nearest integer ie 0 or 1 labels
-            #sigmoid = torch.sigmoid(outputs)
-            #outputs = torch.round(sigmoid)
+            sigmoid = torch.sigmoid(outputs)
+            outputs = torch.round(sigmoid)
             #outputs = torch.round(outputs)
 
             # calculates the dice coefficent for each image and adds it to the list
             for i in range(0, len(outputs)):
             #    dice = dice_coeff(outputs[i], targets[i])
             #    dice = dice.item()
-                if torch.argmax(outputs[i]) == targets[i]:
+                #if torch.argmax(outputs[i]) == targets[i]:
+                if outputs[i] == targets[i]:
                     training_accuracy.append(1)
                 else:
                     training_accuracy.append(0)
@@ -160,13 +161,14 @@ def train_discrepancy_detection(config):
                 outputs = torch.squeeze(outputs, dim=1)
 
                 # put output between 0 and 1 and rounds to nearest integer ie 0 or 1 labels
-                #sigmoid = torch.sigmoid(outputs)
-                #outputs = torch.round(sigmoid)
-                outputs = torch.round(outputs)
+                sigmoid = torch.sigmoid(outputs)
+                outputs = torch.round(sigmoid)
+                #outputs = torch.round(outputs)
                 #print(outputs)
                 # calculates the accuracy and adds it to the list
                 for i in range(0, len(outputs)):
-                    if torch.argmax(outputs[i]) == targets[i]:
+                    #if torch.argmax(outputs[i]) == targets[i]:
+                    if outputs[i] == targets[i]:
                         valid_accuracy.append(1)
                     else:
                         valid_accuracy.append(0)
@@ -207,15 +209,16 @@ def train_discrepancy_detection(config):
             outputs = model(ids1, mask1, ids2, mask2, token_type_ids1, token_type_ids2)
             outputs = torch.squeeze(outputs, dim=1)
             print(f"raw outputs: {outputs}")
-            #sigmoid = torch.sigmoid(outputs)
-            #outputs = torch.round(sigmoid)
-            outputs = torch.round(outputs)
+            sigmoid = torch.sigmoid(outputs)
+            outputs = torch.round(sigmoid)
+            #outputs = torch.round(outputs)
             print(f"predictions: {outputs}")
             print(f"targets: {targets}")
             #print(outputs)
             # calculates the accuracy and adds it to the list
             for i in range(0, len(outputs)):
-                if torch.argmax(outputs[i]) == targets[i]:
+                #if torch.argmax(outputs[i]) == targets[i]:
+                if outputs[i] == targets[i]:
                     test_accuracy.append(1)
                 else:
                     test_accuracy.append(0)
