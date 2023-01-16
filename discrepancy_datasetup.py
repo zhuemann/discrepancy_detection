@@ -168,8 +168,8 @@ def balance_dataset(df, config):
                 text2 = synonymsReplacement(wordDict, text2)
 
                 id = row["id"] + "aug"
-                #balanced_df.loc[balanced_idx] = [id, text1, text2, row["label"]]
-                balanced_df.loc[balanced_idx] = row
+                balanced_df.loc[balanced_idx] = [id, text1, text2, row["label"]]
+                #balanced_df.loc[balanced_idx] = row
                 balanced_idx += 1
 
     pos_cases = 0
