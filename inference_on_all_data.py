@@ -65,8 +65,8 @@ def inference_on_all_data(config):
         if impression1['Accession Number'] == impression2['Accession Number']:
 
             # only include the points with a discrepancy score
-            if pd.isna(row['Discrepancy']):
-                continue
+            #if pd.isna(row['Discrepancy']):
+            #    continue
 
             accession = impression2['Accession Number']
             report1 = impression1['Impression']
