@@ -27,10 +27,13 @@ class TextDataset(Dataset):
     def __getitem__(self, index):
         # text extraction
         #global img, image
+
         text1 = str(self.text1[index])
+        text1 += str(self.text2[index])
         text1 = " ".join(text1.split())
         text2 = str(self.text2[index])
         text2 = " ".join(text2.split())
+
 
         #print(text)
         #text = ""

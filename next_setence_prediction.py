@@ -11,7 +11,6 @@ from discrepancy_datasetup import discrepancy_datasetup
 from dataloader import setup_dataloader
 from t5_classifier import T5Classifier
 from roberta_classifier import RobertaClassifier
-from single_model_classifier import RobertaSingleClassifier
 from discrepancy_datasetup import balance_dataset
 
 def train_discrepancy_detection(config):
@@ -41,6 +40,8 @@ def train_discrepancy_detection(config):
     tokenizer = AutoTokenizer.from_pretrained(t5_path)
     language_model1 = RobertaModel.from_pretrained(t5_path)
     language_model2 = RobertaModel.from_pretrained(t5_path)
+    #bert_path = ""
+    #model = BertForNextSentencePrediction.from_pretrained(bert_path)
 
 
     training_loader, valid_loader, test_loader = setup_dataloader(df, config, tokenizer)
@@ -53,7 +54,6 @@ def train_discrepancy_detection(config):
         param.requires_grad = False
     #model = T5Classifier(language_model, n_class=1)
     model = RobertaClassifier(language_model1, language_model2, n_class=1)
-    model = RobertaSingleClassifier(language_model1, n_class=1)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
