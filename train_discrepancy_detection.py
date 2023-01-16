@@ -16,7 +16,7 @@ from discrepancy_datasetup import balance_dataset
 def train_discrepancy_detection(config):
     nltk.download('punkt')
     dir_base = config["dir_base"]
-    need_setup = True
+    need_setup = False
     if need_setup:
         df = discrepancy_datasetup(config)
         save_path = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/second_set_binary_discrepancy_df.xlsx')
@@ -56,8 +56,8 @@ def train_discrepancy_detection(config):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
 
-    #criterion = nn.BCEWithLogitsLoss()
-    criterion = nn.MSELoss()
+    criterion = nn.BCEWithLogitsLoss()
+    #criterion = nn.MSELoss()
     #criterion = nn.CrossEntropyLoss()
     LR = config["LR"]
     N_EPOCHS = config["epochs"]
@@ -89,8 +89,8 @@ def train_discrepancy_detection(config):
             ids2 = data['ids2'].to(device, dtype=torch.long)
             mask2 = data['mask2'].to(device, dtype=torch.long)
             token_type_ids2 = data['token_type_ids2'].to(device, dtype=torch.long)
-            targets = data['targets'].to(device, dtype=torch.float)
-            #targets = data['targets'].to(device, dtype=torch.long)
+            #targets = data['targets'].to(device, dtype=torch.float)
+            targets = data['targets'].to(device, dtype=torch.long)
             #targets = nn.functional.one_hot(targets)
 
             #targets = nn.functional.one_hot(targets)
