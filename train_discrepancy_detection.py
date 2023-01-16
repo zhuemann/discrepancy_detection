@@ -24,8 +24,8 @@ def train_discrepancy_detection(config):
 
     #print(df)
     #dir_base = config["dir_base"]
-    #dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/all_scored_df.xlsx')
-    dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/all_data_undersampled_df.xlsx')
+    dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/all_scored_df.xlsx')
+    #dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/all_data_undersampled_df.xlsx')
 
     df = pd.read_excel(dataframe_location, engine='openpyxl')
     #df.set_index("id", inplace=True)

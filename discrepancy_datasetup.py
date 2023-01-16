@@ -9,8 +9,9 @@ import random
 def discrepancy_datasetup(config):
 
     dir_base = config["dir_base"]
-    dataframe_location = os.path.join(dir_base,
-                                      'Zach_Analysis/discrepancy_data/second_labeled_batch.xlsx')
+    #dataframe_location = os.path.join(dir_base,
+    #                                  'Zach_Analysis/discrepancy_data/second_labeled_batch.xlsx')
+    dataframe_location = os.path.join(dir_base,'Zach_Analysis/discrepancy_data/first_labeled_batch.xlsx')
 
     df = pd.concat(pd.read_excel(dataframe_location, sheet_name=None, engine='openpyxl'), ignore_index=True)
     #df = pd.read_excel(dataframe_location, engine='openpyxl')
@@ -121,7 +122,7 @@ def balance_dataset(df, config):
     frac1 = neg_cases/pos_cases
     frac2 = pos_cases/neg_cases
     aug_factor = int(np.round(np.maximum((neg_cases/pos_cases) - 1, (pos_cases/neg_cases) - 1)))
-    aug_factor = 5
+    aug_factor = 3
     print(f"aug factor: {aug_factor}")
 
     balanced_idx = 0
@@ -168,7 +169,8 @@ def balance_dataset(df, config):
                 text2 = synonymsReplacement(wordDict, text2)
 
                 id = row["id"] + "aug"
-                balanced_df.loc[balanced_idx] = [id, text1, text2, row["label"]]
+                #balanced_df.loc[balanced_idx] = [id, text1, text2, row["label"]]
+                balanced_df.loc[balanced_idx] = row
                 balanced_idx += 1
 
     pos_cases = 0
