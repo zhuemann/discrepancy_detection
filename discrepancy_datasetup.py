@@ -60,7 +60,7 @@ def discrepancy_datasetup(config):
             #if pd.isna(row['Discrepancy']):
             if row['Discrepancy'] == 0:
                 label = 0
-                if num_neg < 200:
+                if num_neg < 400:
                     data_with_labels.loc[label_idx] = [prelim_accession, prelim_impression, final_impression, label]
                     num_neg += 1
             else:
@@ -98,7 +98,7 @@ def discrepancy_datasetup(config):
     print(f"discrepancies delcared: {label_idx}")
     return data_with_labels
 
-def balance_dataset(df, config):
+def balance_dataset(df, config, aug_factor):
 
     # synonym replacement setup
     wordReplacementPath = os.path.join(config["dir_base"], 'Zach_Analysis/lymphoma_data/words_and_their_synonyms.xlsx')
@@ -124,8 +124,8 @@ def balance_dataset(df, config):
 
     frac1 = neg_cases/pos_cases
     frac2 = pos_cases/neg_cases
-    aug_factor = int(np.round(np.maximum((neg_cases/pos_cases) - 1, (pos_cases/neg_cases) - 1)))
-    aug_factor = 5
+    #aug_factor = int(np.round(np.maximum((neg_cases/pos_cases) - 1, (pos_cases/neg_cases) - 1)))
+    #aug_factor = 5
     print(f"aug factor: {aug_factor}")
 
     balanced_idx = 0
