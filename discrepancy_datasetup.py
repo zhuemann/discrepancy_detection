@@ -60,7 +60,7 @@ def discrepancy_datasetup(config):
             #if pd.isna(row['Discrepancy']):
             if row['Discrepancy'] == 0:
                 label = 0
-                if num_neg > 200:
+                if num_neg < 200:
                     data_with_labels.loc[label_idx] = [prelim_accession, prelim_impression, final_impression, label]
                     num_neg += 1
             else:
