@@ -27,8 +27,8 @@ if __name__ == '__main__':
     else:
         directory_base = "/UserData/"
 
-    config = {"seed": 1, "batch_size": 16, "dir_base": directory_base, "epochs": 30, "n_classes": 2, "LR": 5e-5,
-                  "train_samples": .8, "test_samples": .5, "data_path": "D:/candid_ptx/"}
+    config = {"seed": 1, "batch_size": 16, "dir_base": directory_base, "epochs": 20, "n_classes": 2, "LR": 5e-5,
+                  "train_samples": .6, "test_samples": .75, "data_path": "D:/candid_ptx/"} #was .8 .5
 
     #inference_on_all_data(config)
     #print(fail)
@@ -38,7 +38,7 @@ if __name__ == '__main__':
     for seed in seeds:
 
         folder_name = "seed" + str(seed) + "/"
-        save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/second_dataset_unfrozenv3/" + folder_name
+        save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/second_dataset_bce_loss_less_train_datav5/" + folder_name
         save_location = os.path.join(directory_base, save_string)
 
         config["seed"] = seed
