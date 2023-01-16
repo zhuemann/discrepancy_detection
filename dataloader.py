@@ -105,7 +105,7 @@ def setup_dataloader(df, config, tokenizer):
         # stratify=test_valid_df.label.values
     )
 
-    train_df = balance_dataset(df, config)
+    #train_df = balance_dataset(df, config)
     train_df.set_index("id", inplace=True)
     valid_df.set_index("id", inplace=True)
     test_df.set_index("id", inplace=True)

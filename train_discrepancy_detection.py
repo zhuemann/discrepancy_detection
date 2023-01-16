@@ -24,7 +24,8 @@ def train_discrepancy_detection(config):
 
     #print(df)
     #dir_base = config["dir_base"]
-    dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/all_scored_df.xlsx')
+    #dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/all_scored_df.xlsx')
+    dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/all_data_undersampled.xlsx')
 
     df = pd.read_excel(dataframe_location, engine='openpyxl')
     #df.set_index("id", inplace=True)
@@ -50,14 +51,14 @@ def train_discrepancy_detection(config):
     for param in language_model2.parameters():
         param.requires_grad = True
     #model = T5Classifier(language_model, n_class=1)
-    model = RobertaClassifier(language_model1, language_model2, n_class=5)
+    model = RobertaClassifier(language_model1, language_model2, n_class=1)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
 
     #criterion = nn.BCEWithLogitsLoss()
-    #criterion = nn.MSELoss()
-    criterion = nn.CrossEntropyLoss()
+    criterion = nn.MSELoss()
+    #criterion = nn.CrossEntropyLoss()
     LR = config["LR"]
     N_EPOCHS = config["epochs"]
     # defines which optimizer is being used
