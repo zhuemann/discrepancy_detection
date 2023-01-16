@@ -28,7 +28,7 @@ if __name__ == '__main__':
         directory_base = "/UserData/"
 
     config = {"seed": 1, "batch_size": 16, "dir_base": directory_base, "epochs": 20, "n_classes": 2, "LR": 5e-5,
-                  "train_samples": .6, "test_samples": .75, "data_path": "D:/candid_ptx/"} #was .8 .5
+                  "train_samples": .6, "test_samples": .25, "data_path": "D:/candid_ptx/"} #was .8 .5
 
     #inference_on_all_data(config)
     #print(fail)
