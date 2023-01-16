@@ -180,7 +180,7 @@ def inference_on_all_data(config):
         avg_training_accuracy = np.average(training_accuracy)
         print(f"Epoch {str(epoch)}, Average Score of All Pairs = {avg_training_accuracy}")
 
-    save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/second_dataset_unfrozenv3/seed117/"
+    #save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/second_dataset_bce_loss_less_train_datav5/seed117/"
     save_location = os.path.join(config["dir_base"], save_string)
     filepath = os.path.join(save_location, "inference" + '.xlsx')
     predictions.to_excel(filepath, index=False)
