@@ -8,7 +8,7 @@ from discrepancy_datasetup import balance_dataset
 from discrepancy_datasetup import synonymsReplacement, shuffledTextAugmentation
 class TextDataset(Dataset):
 
-    def __init__(self, dataframe, tokenizer, dir_base):
+    def __init__(self, dataframe, tokenizer, dir_base, wordDict = None):
         self.tokenizer = tokenizer
         self.data = dataframe
         self.text1 = dataframe.impression1
@@ -16,6 +16,7 @@ class TextDataset(Dataset):
         self.targets = self.data.label
         self.row_ids = self.data.index
         self.max_len = 512
+        self.wordDict = wordDict
 
         #self.df_data = dataframe.values
         self.data_path = os.path.join(dir_base, "public_datasets/candid_ptx/dataset1/dataset/")
@@ -122,7 +123,7 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
     valid_df.set_index("id", inplace=True)
     test_df.set_index("id", inplace=True)
 
-    training_set = TextDataset(train_df, tokenizer, dir_base=dir_base)
+    training_set = TextDataset(train_df, tokenizer, dir_base=dir_base, wordDict= wordDict)
     valid_set = TextDataset(valid_df, tokenizer, dir_base=dir_base)
     test_set = TextDataset(test_df, tokenizer, dir_base=dir_base)
 
@@ -136,7 +137,7 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
                    'num_workers': 4
                    }
 
-    training_loader = DataLoader(training_set, wordDict, **train_params)
+    training_loader = DataLoader(training_set, **train_params)
     valid_loader = DataLoader(valid_set, **test_params)
     test_loader = DataLoader(test_set, **test_params)
 
