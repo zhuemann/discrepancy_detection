@@ -52,4 +52,4 @@ if __name__ == '__main__':
         filepath = os.path.join(config["save_location"], "valid_150ep_seed" + str(seed) + '.xlsx')
         df.to_excel(filepath, index=False)
 
-    #inference_on_all_data(config)
+    inference_on_all_data(config)

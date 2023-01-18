@@ -106,7 +106,7 @@ def inference_on_all_data(config):
     #model = T5Classifier(language_model, n_class=1)
 
     #save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/initial_testing_augmented_data_unbalanced_v6/seed98"
-    save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/second_dataset_bce_loss_all_train_single_modelv9/seed117"
+    save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/second_dataset_bce_loss_all_train_single_modelv10/seed117"
     save_location = os.path.join(config["dir_base"], save_string)
     saved_path = os.path.join(save_location, "best_model_seed" + str(117))
     model.load_state_dict(torch.load(saved_path))
