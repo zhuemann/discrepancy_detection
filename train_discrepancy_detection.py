@@ -77,6 +77,8 @@ def train_discrepancy_detection(config):
     N_EPOCHS = config["epochs"]
     # defines which optimizer is being used
     optimizer = torch.optim.AdamW(params=model.parameters(), lr=LR)
+    scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, steps)
+    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, eta_min=0, last_epoch=- 1)
 
     print("about to start training loop")
     lowest_loss = 100
@@ -93,7 +95,7 @@ def train_discrepancy_detection(config):
         torch.cuda.empty_cache()
 
         loss_list = []
-
+        print(scheduler.get_lr())
         for _, data in tqdm(enumerate(training_loader, 0)):
 
             ids1 = data['ids1'].to(device, dtype=torch.long)
@@ -128,6 +130,8 @@ def train_discrepancy_detection(config):
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
+            scheduler.step()
+
 
             # put output between 0 and 1 and rounds to nearest integer ie 0 or 1 labels
             sigmoid = torch.sigmoid(outputs)
