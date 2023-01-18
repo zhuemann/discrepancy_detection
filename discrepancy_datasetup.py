@@ -194,9 +194,6 @@ def shuffledTextAugmentation(text):
 
 
 def synonymsReplacement(wordDict, text):
-    #wordDict = wordDict
-    print("synonom replacement print")
-    print(wordDict)
     newText = text
     for word in list(wordDict["synonyms"].keys()):
         if word in text:
