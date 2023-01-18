@@ -5,6 +5,7 @@ import os
 import torch
 
 from discrepancy_datasetup import balance_dataset
+from discrepancy_datasetup import synonymsReplacement, shuffledTextAugmentation
 class TextDataset(Dataset):
 
     def __init__(self, dataframe, tokenizer, dir_base):
@@ -29,10 +30,17 @@ class TextDataset(Dataset):
         #global img, image
 
         text1 = str(self.text1[index])
-        text1 += str(self.text2[index])
+        text2 = str(self.text2[index])
+        if self.wordDict != None:
+            text1 = synonymsReplacement(self, text1)
+            text1 = shuffledTextAugmentation(text1)
+            text2 = synonymsReplacement(self, text2)
+            text2 = shuffledTextAugmentation(text2)
+        text1 += text2
         text1 = " ".join(text1.split())
         text2 = str(self.text2[index])
         text2 = " ".join(text2.split())
+
 
 
         #print(text)
@@ -93,7 +101,7 @@ class TextDataset(Dataset):
         }
 
 
-def setup_dataloader(df, config, tokenizer):
+def setup_dataloader(df, config, tokenizer, wordDict=None):
 
     seed = config["seed"]
     dir_base = config["dir_base"]
@@ -109,7 +117,7 @@ def setup_dataloader(df, config, tokenizer):
     )
 
     #train_df = balance_dataset(df, config)
-    train_df = balance_dataset(train_df, config, aug_factor=1)
+    #train_df = balance_dataset(train_df, config, aug_factor=1)
     train_df.set_index("id", inplace=True)
     valid_df.set_index("id", inplace=True)
     test_df.set_index("id", inplace=True)
@@ -128,7 +136,7 @@ def setup_dataloader(df, config, tokenizer):
                    'num_workers': 4
                    }
 
-    training_loader = DataLoader(training_set, **train_params)
+    training_loader = DataLoader(training_set, wordDict, **train_params)
     valid_loader = DataLoader(valid_set, **test_params)
     test_loader = DataLoader(test_set, **test_params)
 

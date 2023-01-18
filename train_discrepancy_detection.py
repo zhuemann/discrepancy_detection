@@ -42,8 +42,20 @@ def train_discrepancy_detection(config):
     language_model1 = RobertaModel.from_pretrained(t5_path)
     #language_model2 = RobertaModel.from_pretrained(t5_path)
 
+    # synonym replacement setup
+    wordReplacementPath = os.path.join(config["dir_base"], 'Zach_Analysis/discrepancy_data/full_synonym_list.xlsx')
 
-    training_loader, valid_loader, test_loader = setup_dataloader(df, config, tokenizer)
+    dfWord = pd.read_excel(wordReplacementPath, engine='openpyxl')
+    dfWord.set_index("word", inplace=True)
+
+    wordDict = dfWord.to_dict()
+    for key in list(wordDict["synonyms"].keys()):
+        string = wordDict["synonyms"][key][2:-2]
+        wordList = string.split("', '")
+        wordDict["synonyms"][key] = wordList
+
+
+    training_loader, valid_loader, test_loader = setup_dataloader(df, config, tokenizer, wordDict)
     print("after all is loaded")
 
     for param in language_model1.parameters():
