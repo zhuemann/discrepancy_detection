@@ -101,7 +101,7 @@ def discrepancy_datasetup(config):
 def balance_dataset(df, config, aug_factor):
 
     # synonym replacement setup
-    wordReplacementPath = os.path.join(config["dir_base"], 'Zach_Analysis/lymphoma_data/words_and_their_synonyms.xlsx')
+    wordReplacementPath = os.path.join(config["dir_base"], 'Zach_Analysis/discrepancy_data/full_synonym_list.xlsx')
 
     dfWord = pd.read_excel(wordReplacementPath, engine='openpyxl')
     dfWord.set_index("word", inplace=True)
@@ -125,7 +125,7 @@ def balance_dataset(df, config, aug_factor):
     frac1 = neg_cases/pos_cases
     frac2 = pos_cases/neg_cases
     #aug_factor = int(np.round(np.maximum((neg_cases/pos_cases) - 1, (pos_cases/neg_cases) - 1)))
-    #aug_factor = 5
+    #aug_factor = 1
     print(f"aug factor: {aug_factor}")
 
     balanced_idx = 0
