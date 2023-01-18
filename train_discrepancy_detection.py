@@ -77,7 +77,7 @@ def train_discrepancy_detection(config):
     N_EPOCHS = config["epochs"]
     # defines which optimizer is being used
     optimizer = torch.optim.AdamW(params=model.parameters(), lr=LR)
-    scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, steps)
+    #scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, steps)
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, eta_min=0, last_epoch=- 1)
 
     print("about to start training loop")
