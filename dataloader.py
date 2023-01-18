@@ -33,9 +33,9 @@ class TextDataset(Dataset):
         text1 = str(self.text1[index])
         text2 = str(self.text2[index])
         if self.wordDict != None:
-            text1 = synonymsReplacement(self, text1)
+            text1 = synonymsReplacement(self.wordDict, text1)
             text1 = shuffledTextAugmentation(text1)
-            text2 = synonymsReplacement(self, text2)
+            text2 = synonymsReplacement(self.wordDict, text2)
             text2 = shuffledTextAugmentation(text2)
         text1 += text2
         text1 = " ".join(text1.split())
