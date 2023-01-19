@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-from transformers import T5Model, T5Tokenizer, RobertaModel, RobertaTokenizer, AutoTokenizer
+from transformers import T5Model, T5Tokenizer, RobertaModel, RobertaTokenizer, AutoTokenizer, BertModel
 import nltk
 import torch
 import torch.nn as nn
@@ -37,9 +37,11 @@ def train_discrepancy_detection(config):
     #t5_path = os.path.join(dir_base, 'Zach_Analysis/models/t5_large/')
     #tokenizer = T5Tokenizer.from_pretrained(t5_path)
     #language_model = T5Model.from_pretrained(t5_path)
-    t5_path = os.path.join(dir_base, 'Zach_Analysis/roberta/')
+    #t5_path = os.path.join(dir_base, 'Zach_Analysis/roberta/')
+    t5_path = os.path.join(dir_base, 'Zach_Analysis/models/rad_bert/')
     tokenizer = AutoTokenizer.from_pretrained(t5_path)
-    language_model1 = RobertaModel.from_pretrained(t5_path)
+    #language_model1 = RobertaModel.from_pretrained(t5_path)
+    language_model1 = BertModel.from_pretrained(t5_path)
     #language_model2 = RobertaModel.from_pretrained(t5_path)
 
     # synonym replacement setup
