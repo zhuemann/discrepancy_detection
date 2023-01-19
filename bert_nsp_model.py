@@ -21,7 +21,7 @@ class BertNSPClassifier(torch.nn.Module):
         #print(f"token size: {both_lang_rep}")
 
         #gets just the representation from the cls toekn
-        both_lang_rep = word_rep1[:, 0, :]
+        #both_lang_rep = word_rep1[:, 0, :]
         # feed text through t5 then average across encoding dimension and then do two class classification
         #encoder_output1 = self.lang_encoder.encoder(input_ids=ids1, attention_mask=mask1, return_dict=True)
         #pooled_sentence1 = encoder_output1.last_hidden_state
