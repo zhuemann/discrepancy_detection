@@ -61,7 +61,7 @@ def inference_on_all_data(config):
 
         impression1 = df.iloc[index - 1]
         impression2 = row
-
+        num_same_string = 0
         if impression1['Accession Number'] == impression2['Accession Number']:
 
             # only include the points with a discrepancy score
@@ -72,6 +72,9 @@ def inference_on_all_data(config):
             report1 = impression1['Impression']
             report2 = impression2['Impression']
             label = impression2['Discrepancy']
+            if report1 == report2:
+                num_same_string += 1
+                continue
 
             #if label == 1:
             data_with_labels.loc[label_idx] = [accession, report1, report2, label]
@@ -84,6 +87,7 @@ def inference_on_all_data(config):
 
     #print(df)
     #print(data_with_labels)
+    print(f"number of same strings: {num_same_string}")
 
     del df
 
@@ -106,7 +110,7 @@ def inference_on_all_data(config):
     #model = T5Classifier(language_model, n_class=1)
 
     #save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/initial_testing_augmented_data_unbalanced_v6/seed98"
-    save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/second_dataset_bce_loss_single_model_unbalancedv12/seed117"
+    save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/second_dataset_bce_loss_single_model_unbalancedv12/seed98"
     save_location = os.path.join(config["dir_base"], save_string)
     saved_path = os.path.join(save_location, "best_model_seed" + str(117))
     model.load_state_dict(torch.load(saved_path))
