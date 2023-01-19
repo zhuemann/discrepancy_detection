@@ -40,10 +40,10 @@ def train_discrepancy_detection(config):
     #t5_path = os.path.join(dir_base, 'Zach_Analysis/roberta/')
     t5_path = os.path.join(dir_base, 'Zach_Analysis/models/rad_bert/')
     tokenizer = AutoTokenizer.from_pretrained(t5_path)
-    #language_model1 = RobertaModel.from_pretrained(t5_path)
+    language_model1 = RobertaModel.from_pretrained(t5_path)
     #language_model1 = BertModel.from_pretrained(t5_path)
-    print("after model")
-    language_model2 = RobertaModel.from_pretrained(t5_path)
+    #print("after model")
+    #language_model2 = RobertaModel.from_pretrained(t5_path)
 
     # synonym replacement setup
     wordReplacementPath = os.path.join(config["dir_base"], 'Zach_Analysis/discrepancy_data/full_synonym_list.xlsx')
