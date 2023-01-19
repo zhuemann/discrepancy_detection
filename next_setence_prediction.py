@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-from transformers import T5Model, T5Tokenizer, RobertaModel, RobertaTokenizer, AutoTokenizer, BertModel
+from transformers import T5Model, T5Tokenizer, RobertaModel, RobertaTokenizer, AutoTokenizer, BertModel, BertTokenizer
 import nltk
 import torch
 import torch.nn as nn
@@ -40,7 +40,8 @@ def train_discrepancy_detection_nsp(config):
     #language_model = T5Model.from_pretrained(t5_path)
     #t5_path = os.path.join(dir_base, 'Zach_Analysis/roberta/')
     t5_path = os.path.join(dir_base, 'Zach_Analysis/bert/')
-    tokenizer = AutoTokenizer.from_pretrained(t5_path)
+    #tokenizer = AutoTokenizer.from_pretrained(t5_path)
+    tokenizer = BertTokenizer.from_pretrained(t5_path)
     language_model1 = BertModel.from_pretrained(t5_path)
     #bert_path = ""
     #model = BertForNextSentencePrediction.from_pretrained(bert_path)
