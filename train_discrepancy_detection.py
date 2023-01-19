@@ -42,6 +42,7 @@ def train_discrepancy_detection(config):
     tokenizer = AutoTokenizer.from_pretrained(t5_path)
     #language_model1 = RobertaModel.from_pretrained(t5_path)
     language_model1 = BertModel.from_pretrained(t5_path)
+    print("after model")
     #language_model2 = RobertaModel.from_pretrained(t5_path)
 
     # synonym replacement setup
