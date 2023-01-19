@@ -33,8 +33,8 @@ if __name__ == '__main__':
     #config["seed"] = 456
     #inference_on_all_data(config)
     #print(fail)
-    #seeds = [117, 295, 98, 456, 915, 1367, 712]
-    seeds = [117, 295]
+    seeds = [117, 295, 98, 456, 915, 1367, 712]
+    #seeds = [117, 295]
     #seeds = [915, 1367, 712]
 
     for seed in seeds:
