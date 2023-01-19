@@ -64,6 +64,7 @@ def train_discrepancy_detection_nsp(config):
     N_EPOCHS = config["epochs"]
     # defines which optimizer is being used
     optimizer = torch.optim.AdamW(params=model.parameters(), lr=LR)
+    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=2100, eta_min=1e-7, last_epoch=-1,verbose=False)
 
     print("about to start training loop")
     lowest_loss = 100
@@ -115,6 +116,7 @@ def train_discrepancy_detection_nsp(config):
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
+            scheduler.step()
 
             # put output between 0 and 1 and rounds to nearest integer ie 0 or 1 labels
             sigmoid = torch.sigmoid(outputs)
