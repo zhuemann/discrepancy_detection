@@ -30,11 +30,11 @@ if __name__ == '__main__':
     config = {"seed": 1, "batch_size": 16, "dir_base": directory_base, "epochs": 20, "n_classes": 2, "LR": 5e-6,
                   "train_samples": .8, "test_samples": .5, "data_path": "D:/candid_ptx/"} #was .8 .5 lr was 1e-5 5e-6
 
-    inference_on_all_data(config)
-    print(fail)
+    #inference_on_all_data(config)
+    #print(fail)
     #seeds = [117, 295, 98, 456, 915, 1367, 712]
-    #seeds = [117]
-    seeds = [98, 295]
+    seeds = [117]
+    #seeds = [98, 295]
 
     for seed in seeds:
 
