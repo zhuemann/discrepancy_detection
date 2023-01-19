@@ -112,7 +112,7 @@ def inference_on_all_data(config):
     #save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/initial_testing_augmented_data_unbalanced_v6/seed98"
     save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/second_dataset_bce_loss_single_model_unbalancedv12/seed98"
     save_location = os.path.join(config["dir_base"], save_string)
-    saved_path = os.path.join(save_location, "best_model_seed" + str(117))
+    saved_path = os.path.join(save_location, "best_model_seed" + str(98))
     model.load_state_dict(torch.load(saved_path))
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
