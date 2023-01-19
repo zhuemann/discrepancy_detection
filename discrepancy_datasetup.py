@@ -32,6 +32,7 @@ def discrepancy_datasetup(config):
     final_accession = "id2"
     prelim_num = 0
     final_num = 0
+    num_same_string = 0
 
 
     for _, row in df.iterrows():
@@ -55,6 +56,9 @@ def discrepancy_datasetup(config):
             continue
         #print(row)
         if str(prelim_accession) == str(final_accession):
+
+            if prelim_impression == final_impression:
+                num_same_string += 1
 
             #if pd.isna(row['Discrepancy score']):
             #if pd.isna(row['Discrepancy']):
@@ -96,6 +100,7 @@ def discrepancy_datasetup(config):
     print(f"times prelim is defined: {prelim_num}")
     print(f"times final is defined: {final_num}")
     print(f"discrepancies delcared: {label_idx}")
+    print(f"number of same strings: {num_same_string}")
     return data_with_labels
 
 def balance_dataset(df, config, aug_factor):
