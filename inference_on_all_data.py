@@ -51,6 +51,7 @@ def inference_on_all_data(config):
     data_with_labels = pd.DataFrame(columns=['id', 'impression1', 'impression2', 'label'])
     index = -1
     num_neg = 0
+    num_same_string = 0
     for _, row in df.iterrows():
 
         index += 1
@@ -61,7 +62,6 @@ def inference_on_all_data(config):
 
         impression1 = df.iloc[index - 1]
         impression2 = row
-        num_same_string = 0
         if impression1['Accession Number'] == impression2['Accession Number']:
 
             # only include the points with a discrepancy score
