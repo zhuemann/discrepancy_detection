@@ -41,7 +41,7 @@ def train_discrepancy_detection_nsp(config):
     #t5_path = os.path.join(dir_base, 'Zach_Analysis/roberta/')
     t5_path = os.path.join(dir_base, 'Zach_Analysis/bert/')
     tokenizer = AutoTokenizer.from_pretrained(t5_path)
-    language_model1 = RobertaModel.from_pretrained(t5_path)
+    language_model1 = BertModel.from_pretrained(t5_path)
     #bert_path = ""
     #model = BertForNextSentencePrediction.from_pretrained(bert_path)
 
