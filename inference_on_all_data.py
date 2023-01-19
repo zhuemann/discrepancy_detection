@@ -40,8 +40,7 @@ def inference_on_all_data(config):
     model = RobertaSingleClassifier(language_model1, n_class=1)
 
     dir_base = config["dir_base"]
-    dataframe_location = os.path.join(dir_base,
-                                      'Zach_Analysis/discrepancy_data/first_labeled_batch.xlsx')
+    dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/first_labeled_batch.xlsx')
 
     df = pd.concat(pd.read_excel(dataframe_location, sheet_name=None, engine='openpyxl'), ignore_index=True)
     # df = pd.read_excel(dataframe_location, engine='openpyxl')
@@ -88,6 +87,8 @@ def inference_on_all_data(config):
     #print(df)
     #print(data_with_labels)
     print(f"number of same strings: {num_same_string}")
+    save_path = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/inference_matches_removed_df.xlsx')
+    df.to_excel(save_path, index=False)
 
     del df
 
