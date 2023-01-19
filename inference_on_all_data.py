@@ -92,6 +92,7 @@ def inference_on_all_data(config):
     del df
 
     data_df = data_with_labels
+    print(data_df)
     data_df.set_index("id", inplace=True)
 
     test_set = TextDataset(data_df, tokenizer, dir_base=dir_base)
