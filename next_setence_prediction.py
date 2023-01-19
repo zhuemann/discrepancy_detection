@@ -39,7 +39,7 @@ def train_discrepancy_detection_nsp(config):
     #tokenizer = T5Tokenizer.from_pretrained(t5_path)
     #language_model = T5Model.from_pretrained(t5_path)
     #t5_path = os.path.join(dir_base, 'Zach_Analysis/roberta/')
-    t5_path = os.path.join(dir_base, 'Zach_Analysis/bert/')
+    t5_path = os.path.join(dir_base, 'Zach_Analysis/models/bert/')
     #tokenizer = AutoTokenizer.from_pretrained(t5_path)
     tokenizer = BertTokenizer.from_pretrained(t5_path)
     language_model1 = BertModel.from_pretrained(t5_path)
