@@ -3,6 +3,7 @@ import os
 
 import pandas as pd
 from train_discrepancy_detection import train_discrepancy_detection
+from next_setence_prediction import train_discrepancy_detection_nsp
 from inference_on_all_data import inference_on_all_data
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
@@ -21,7 +22,7 @@ if __name__ == '__main__':
     args = create_parser()
     # local = args.local
 
-    local = False
+    local = True
     if local:
         directory_base = "Z:/"
     else:
@@ -40,13 +41,14 @@ if __name__ == '__main__':
     for seed in seeds:
 
         folder_name = "seed" + str(seed) + "/"
-        save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/second_dataset_bce_loss_single_model_unbalanced_no_text_aug_frozenv14/" + folder_name
+        save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/second_dataset_bce_unbalanced_no_text_aug_nspv15/" + folder_name
         save_location = os.path.join(directory_base, save_string)
 
         config["seed"] = seed
         config["save_location"] = save_location
 
-        acc, valid_log = train_discrepancy_detection(config)
+        acc, valid_log = train_discrepancy_detection_nsp(config)
+        #acc, valid_log = train_discrepancy_detection(config)
 
         df = pd.DataFrame(valid_log)
         df["test_accuracy"] = acc

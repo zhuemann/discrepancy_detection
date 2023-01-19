@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-from transformers import T5Model, T5Tokenizer, RobertaModel, RobertaTokenizer, AutoTokenizer
+from transformers import T5Model, T5Tokenizer, RobertaModel, RobertaTokenizer, AutoTokenizer, BertModel
 import nltk
 import torch
 import torch.nn as nn
@@ -8,12 +8,14 @@ import numpy as np
 from tqdm import tqdm
 
 from discrepancy_datasetup import discrepancy_datasetup
-from dataloader import setup_dataloader
+from nsp_dataloader import setup_nspdataloader
 from t5_classifier import T5Classifier
 from roberta_classifier import RobertaClassifier
 from discrepancy_datasetup import balance_dataset
+from single_model_classifier import RobertaSingleClassifier
+from bert_nsp_model import BertNSPClassifier
 
-def train_discrepancy_detection(config):
+def train_discrepancy_detection_nsp(config):
     nltk.download('punkt')
     dir_base = config["dir_base"]
     need_setup = False
@@ -39,21 +41,19 @@ def train_discrepancy_detection(config):
     t5_path = os.path.join(dir_base, 'Zach_Analysis/roberta/')
     tokenizer = AutoTokenizer.from_pretrained(t5_path)
     language_model1 = RobertaModel.from_pretrained(t5_path)
-    language_model2 = RobertaModel.from_pretrained(t5_path)
     #bert_path = ""
     #model = BertForNextSentencePrediction.from_pretrained(bert_path)
 
 
-    training_loader, valid_loader, test_loader = setup_dataloader(df, config, tokenizer)
+    training_loader, valid_loader, test_loader = setup_nspdataloader(df, config, tokenizer)
     print("after all is loaded")
 
     for param in language_model1.parameters():
         param.requires_grad = False
 
-    for param in language_model2.parameters():
-        param.requires_grad = False
+
     #model = T5Classifier(language_model, n_class=1)
-    model = RobertaClassifier(language_model1, language_model2, n_class=1)
+    model = BertNSPClassifier(language_model1, n_class=1)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
