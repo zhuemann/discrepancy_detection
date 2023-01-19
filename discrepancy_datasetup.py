@@ -59,6 +59,7 @@ def discrepancy_datasetup(config):
 
             if prelim_impression == final_impression:
                 num_same_string += 1
+                continue
 
             #if pd.isna(row['Discrepancy score']):
             #if pd.isna(row['Discrepancy']):
