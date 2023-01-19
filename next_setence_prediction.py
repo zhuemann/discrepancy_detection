@@ -49,8 +49,7 @@ def train_discrepancy_detection_nsp(config):
     print("after all is loaded")
 
     for param in language_model1.parameters():
-        param.requires_grad = False
-
+        param.requires_grad = True
 
     #model = T5Classifier(language_model, n_class=1)
     model = BertNSPClassifier(language_model1, n_class=1)
