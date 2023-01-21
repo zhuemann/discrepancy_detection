@@ -7,6 +7,7 @@ from next_setence_prediction import train_discrepancy_detection_nsp
 from inference_on_all_data import inference_on_all_data
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+from discrepancy_datasetup import discrepancy_datasetup
 
 def create_parser():
     parser = argparse.ArgumentParser(description="The main file to run multimodal setup. Consists of pre-training joint representation, masked language modeling and report generation.")
@@ -22,7 +23,7 @@ if __name__ == '__main__':
     args = create_parser()
     # local = args.local
 
-    local = False
+    local = True
     if local:
         directory_base = "Z:/"
     else:
@@ -34,6 +35,7 @@ if __name__ == '__main__':
     #config["seed"] = 456
     #inference_on_all_data(config)
     #print(fail)
+    discrepancy_datasetup(config)
     seeds = [117, 295, 98, 456, 915, 1367, 712]
     #seeds = [117, 295]
     #seeds = [915, 1367, 712]

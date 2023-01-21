@@ -102,7 +102,35 @@ def discrepancy_datasetup(config):
     print(f"times final is defined: {final_num}")
     print(f"discrepancies delcared: {label_idx}")
     print(f"number of same strings: {num_same_string}")
+    remove_duplicate_strings(data_with_labels)
     return data_with_labels
+
+def remove_duplicate_strings(df):
+
+    df.set_index("id")
+    string_dic = {}
+    dups = 0
+    # loop through the dataframe putting each ID in a dictionary with string as key if string already in dictionary add it
+    for _, row in df.iterrows():
+        #print(row)
+        string_imp = row["impression1"]
+        string_final = row["impression2"]
+        string_key = string_imp + string_final
+        if string_key in string_dic.keys():
+
+            string_dic[string_key].append(row["id"])
+            #df.drop(row["id"])
+            dups += 1
+            print(f"label of dup: {row['label']}")
+        else:
+            string_dic[string_key] = [row["id"]]
+        # check all other
+
+
+    #print(string_dic)
+    print(f"duplicates: {dups}")
+    return string_dic
+    #return clean_df
 
 def balance_dataset(df, config, aug_factor):
 
