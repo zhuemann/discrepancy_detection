@@ -67,13 +67,13 @@ def discrepancy_datasetup(config):
             string_key = prelim_impression + final_impression
             if string_key in string_dic.keys():
 
-                string_dic[string_key].append(row["id"])
+                string_dic[string_key].append(prelim_accession)
                 # df.drop(row["id"])
                 dups += 1
                 print(f"label of dup: {row['label']}")
                 continue
             else:
-                string_dic[string_key] = [row["id"]]
+                string_dic[string_key] = [prelim_accession]
 
             #if pd.isna(row['Discrepancy score']):
             #if pd.isna(row['Discrepancy']):
