@@ -35,7 +35,7 @@ if __name__ == '__main__':
     #config["seed"] = 456
     #inference_on_all_data(config)
     #print(fail)
-    discrepancy_datasetup(config)
+    #discrepancy_datasetup(config)
     seeds = [117, 295, 98, 456, 915, 1367, 712]
     #seeds = [117, 295]
     #seeds = [915, 1367, 712]
@@ -43,17 +43,18 @@ if __name__ == '__main__':
     for seed in seeds:
 
         folder_name = "seed" + str(seed) + "/"
-        save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/second_dataset_bce_unbalanced_no_text_aug_nspv16/" + folder_name
+        save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/second_dataset_bce_unbalanced_dups_removedv17/" + folder_name
         save_location = os.path.join(directory_base, save_string)
 
         config["seed"] = seed
         config["save_location"] = save_location
 
-        acc, valid_log = train_discrepancy_detection_nsp(config)
-        #acc, valid_log = train_discrepancy_detection(config)
+        #acc, valid_log = train_discrepancy_detection_nsp(config)
+        acc, valid_log = train_discrepancy_detection(config)
 
         df = pd.DataFrame(valid_log)
         df["test_accuracy"] = acc
+
 
         filepath = os.path.join(config["save_location"], "valid_150ep_seed" + str(seed) + '.xlsx')
         df.to_excel(filepath, index=False)

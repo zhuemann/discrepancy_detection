@@ -20,6 +20,9 @@ def discrepancy_datasetup(config):
 
     pd.set_option('display.max_columns', None)
 
+    string_dic = {}
+    dups = 0
+
     label_idx = 0
     data_with_labels = pd.DataFrame(columns=['id', 'impression1', 'impression2', 'label'])
     index = -1
@@ -60,6 +63,17 @@ def discrepancy_datasetup(config):
             if prelim_impression == final_impression:
                 num_same_string += 1
                 continue
+
+            string_key = prelim_impression + final_impression
+            if string_key in string_dic.keys():
+
+                string_dic[string_key].append(row["id"])
+                # df.drop(row["id"])
+                dups += 1
+                print(f"label of dup: {row['label']}")
+                continue
+            else:
+                string_dic[string_key] = [row["id"]]
 
             #if pd.isna(row['Discrepancy score']):
             #if pd.isna(row['Discrepancy']):
