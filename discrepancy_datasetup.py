@@ -70,7 +70,7 @@ def discrepancy_datasetup(config):
                 string_dic[string_key].append(prelim_accession)
                 # df.drop(row["id"])
                 dups += 1
-                print(f"label of dup: {row['label']}")
+                #print(f"label of dup: {label}")
                 continue
             else:
                 string_dic[string_key] = [prelim_accession]
@@ -116,6 +116,8 @@ def discrepancy_datasetup(config):
     print(f"times final is defined: {final_num}")
     print(f"discrepancies delcared: {label_idx}")
     print(f"number of same strings: {num_same_string}")
+    print(f"duplicates: {dups}")
+
     remove_duplicate_strings(data_with_labels)
     return data_with_labels
 
