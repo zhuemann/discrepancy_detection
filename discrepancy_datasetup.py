@@ -118,7 +118,7 @@ def discrepancy_datasetup(config):
     print(f"number of same strings: {num_same_string}")
     print(f"duplicates: {dups}")
 
-    remove_duplicate_strings(data_with_labels)
+    #remove_duplicate_strings(data_with_labels)
     return data_with_labels
 
 def remove_duplicate_strings(df):
