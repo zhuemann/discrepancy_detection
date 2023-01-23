@@ -1,5 +1,6 @@
 import argparse
 import os
+import numpy as np
 
 import pandas as pd
 from train_discrepancy_detection import train_discrepancy_detection
@@ -39,6 +40,7 @@ if __name__ == '__main__':
     seeds = [117, 295, 98, 456, 915, 1367, 712]
     #seeds = [117, 295]
     #seeds = [915, 1367, 712]
+    accur_list = []
 
     for seed in seeds:
 
@@ -54,9 +56,11 @@ if __name__ == '__main__':
 
         df = pd.DataFrame(valid_log)
         df["test_accuracy"] = acc
-
+        accur_list.append(acc)
 
         filepath = os.path.join(config["save_location"], "valid_150ep_seed" + str(seed) + '.xlsx')
         df.to_excel(filepath, index=False)
 
         #inference_on_all_data(config)
+
+    print(np.mean(accur_list))
