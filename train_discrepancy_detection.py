@@ -143,9 +143,9 @@ def train_discrepancy_detection(config):
             #outputs = torch.round(outputs)
 
             for i in range(0, len(outputs)):
-                actual = targets[i].detach().cpu().data.numpy()
+                actual = int(targets[i].detach().cpu().data.numpy())
                 # predicted = outputs.argmax(dim=1)[i].detach().cpu().data.numpy()
-                predicted = outputs[i].detach().cpu().data.numpy()
+                predicted = int(outputs[i].detach().cpu().data.numpy())
                 print(predicted)
                 print(type(predicted))
                 print(actual)
