@@ -29,8 +29,9 @@ class TextDataset(Dataset):
     def __getitem__(self, index):
         # text extraction
         #global img, image
-
+        print("with numbers")
         text1 = str(self.text1[index])
+        print("without numbers")
         text2 = str(self.text2[index])
         #if self.wordDict != None:
         #    text1 = synonymsReplacement(self.wordDict, text1)
