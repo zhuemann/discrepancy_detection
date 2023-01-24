@@ -96,6 +96,7 @@ def train_discrepancy_detection(config):
         training_accuracy = []
         #gc.collect()
         torch.cuda.empty_cache()
+        confusion_matrix = [[0, 0], [0, 0]]
 
         loss_list = []
         print(scheduler.get_lr())
@@ -140,6 +141,16 @@ def train_discrepancy_detection(config):
             sigmoid = torch.sigmoid(outputs)
             outputs = torch.round(sigmoid)
             #outputs = torch.round(outputs)
+
+            for i in range(0, len(outputs)):
+                actual = targets[i].detach().cpu().data.numpy()
+                # predicted = outputs.argmax(dim=1)[i].detach().cpu().data.numpy()
+                predicted = outputs[i].detach().cpu().data.numpy()
+                print(predicted)
+                print(type(predicted))
+                print(actual)
+                print(type(actual))
+                confusion_matrix[predicted][actual] += 1
 
             # calculates the dice coefficent for each image and adds it to the list
             for i in range(0, len(outputs)):
@@ -241,6 +252,8 @@ def train_discrepancy_detection(config):
                 actual = targets[i].detach().cpu().data.numpy()
                 #predicted = outputs.argmax(dim=1)[i].detach().cpu().data.numpy()
                 predicted = outputs[i].detach().cpu().data.numpy()
+                print(predicted)
+                print(actual)
                 confusion_matrix[predicted][actual] += 1
 
             # calculates the accuracy and adds it to the list
