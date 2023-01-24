@@ -275,7 +275,7 @@ def train_discrepancy_detection(config):
         avg_test_acc = np.average(test_accuracy)
         print(f"final test accuary: {test_accuracy}")
         print(f"Epoch {str(epoch)}, Average Test Accuracy = {avg_test_acc}")
-        matrix_path = os.path.join(config["save_location"], "confusion_matrix" + str(config["seed"]))
+        matrix_path = os.path.join(config["save_location"], "confusion_matrix" + str(config["seed"]) + '.xlsx')
         df_matrix = pd.DataFrame(confusion_matrix)
         df_matrix.to_excel(matrix_path, index=False)
         print(f"Test Confusion matrix: {confusion_matrix}")
