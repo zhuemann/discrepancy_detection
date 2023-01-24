@@ -206,6 +206,7 @@ def train_discrepancy_detection(config):
 
 
     saved_path = os.path.join(config["save_location"], "best_model_seed" + str(config["seed"]))
+    confusion_matrix = [[0,0], [0,0]]
     model.load_state_dict(torch.load(saved_path))
     model.eval()
     with torch.no_grad():
@@ -228,13 +229,19 @@ def train_discrepancy_detection(config):
             #outputs = model(ids1, mask1, ids2, mask2)
             outputs = model(ids1, mask1, ids2, mask2, token_type_ids1, token_type_ids2)
             outputs = torch.squeeze(outputs, dim=1)
-            print(f"raw outputs: {outputs}")
+            #print(f"raw outputs: {outputs}")
             sigmoid = torch.sigmoid(outputs)
             outputs = torch.round(sigmoid)
             #outputs = torch.round(outputs)
-            print(f"predictions: {outputs}")
-            print(f"targets    : {targets}")
+            #print(f"predictions: {outputs}")
+            #print(f"targets    : {targets}")
             #print(outputs)
+
+            for i in range(0,outputs.shape[0]):
+                actual = targets[i].detach().cpu().data.numpy()
+                predicted = outputs.argmax(dim=1)[i].detach().cpu().data.numpy()
+                confusion_matrix[predicted][actual] += 1
+
             # calculates the accuracy and adds it to the list
             for i in range(0, len(outputs)):
                 #if torch.argmax(outputs[i]) == targets[i]:
@@ -246,5 +253,8 @@ def train_discrepancy_detection(config):
         avg_test_acc = np.average(test_accuracy)
         print(f"final test accuary: {test_accuracy}")
         print(f"Epoch {str(epoch)}, Average Test Accuracy = {avg_test_acc}")
+        matrix_path = os.path.join(config["save_location"], "confusion_matrix" + str(config["seed"]))
+        df_matrix = pd.DataFrame(confusion_matrix)
+        df_matrix.to_excel(matrix_path, index=False)
 
         return avg_test_acc, valid_log
