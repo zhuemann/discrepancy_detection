@@ -240,7 +240,7 @@ def train_discrepancy_detection(config):
             for i in range(0,len(outputs)):
                 actual = targets[i].detach().cpu().data.numpy()
                 #predicted = outputs.argmax(dim=1)[i].detach().cpu().data.numpy()
-                predicted = outputs[i]
+                predicted = outputs[i].detach().cpu().data.numpy()
                 confusion_matrix[predicted][actual] += 1
 
             # calculates the accuracy and adds it to the list
