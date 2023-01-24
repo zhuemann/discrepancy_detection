@@ -146,10 +146,6 @@ def train_discrepancy_detection(config):
                 actual = int(targets[i].detach().cpu().data.numpy())
                 # predicted = outputs.argmax(dim=1)[i].detach().cpu().data.numpy()
                 predicted = int(outputs[i].detach().cpu().data.numpy())
-                print(predicted)
-                print(type(predicted))
-                print(actual)
-                print(type(actual))
                 confusion_matrix[predicted][actual] += 1
 
             # calculates the dice coefficent for each image and adds it to the list
@@ -165,6 +161,7 @@ def train_discrepancy_detection(config):
 
         avg_training_accuracy = np.average(training_accuracy)
         print(f"Epoch {str(epoch)}, Average Training Accuracy = {avg_training_accuracy}")
+        print(f"Confusion matrix: {confusion_matrix}")
 
         # each epoch, look at validation data
         with torch.no_grad():
@@ -249,11 +246,8 @@ def train_discrepancy_detection(config):
             #print(outputs)
 
             for i in range(0,len(outputs)):
-                actual = targets[i].detach().cpu().data.numpy()
-                #predicted = outputs.argmax(dim=1)[i].detach().cpu().data.numpy()
-                predicted = outputs[i].detach().cpu().data.numpy()
-                print(predicted)
-                print(actual)
+                actual = int(targets[i].detach().cpu().data.numpy())
+                predicted = int(outputs[i].detach().cpu().data.numpy())
                 confusion_matrix[predicted][actual] += 1
 
             # calculates the accuracy and adds it to the list
@@ -270,5 +264,6 @@ def train_discrepancy_detection(config):
         matrix_path = os.path.join(config["save_location"], "confusion_matrix" + str(config["seed"]))
         df_matrix = pd.DataFrame(confusion_matrix)
         df_matrix.to_excel(matrix_path, index=False)
+        print(f"Confusion matrix: {confusion_matrix}")
 
         return avg_test_acc, valid_log
