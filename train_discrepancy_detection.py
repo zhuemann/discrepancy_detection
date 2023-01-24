@@ -229,17 +229,18 @@ def train_discrepancy_detection(config):
             #outputs = model(ids1, mask1, ids2, mask2)
             outputs = model(ids1, mask1, ids2, mask2, token_type_ids1, token_type_ids2)
             outputs = torch.squeeze(outputs, dim=1)
-            #print(f"raw outputs: {outputs}")
+            print(f"raw outputs: {outputs}")
             sigmoid = torch.sigmoid(outputs)
             outputs = torch.round(sigmoid)
             #outputs = torch.round(outputs)
-            #print(f"predictions: {outputs}")
-            #print(f"targets    : {targets}")
+            print(f"predictions: {outputs}")
+            print(f"targets    : {targets}")
             #print(outputs)
 
-            for i in range(0,outputs.shape[0]):
+            for i in range(0,len(outputs)):
                 actual = targets[i].detach().cpu().data.numpy()
-                predicted = outputs.argmax(dim=1)[i].detach().cpu().data.numpy()
+                #predicted = outputs.argmax(dim=1)[i].detach().cpu().data.numpy()
+                predicted = outputs[i]
                 confusion_matrix[predicted][actual] += 1
 
             # calculates the accuracy and adds it to the list

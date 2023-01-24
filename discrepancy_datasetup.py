@@ -14,9 +14,9 @@ def discrepancy_datasetup(config):
 
     df = pd.concat(pd.read_excel(dataframe_location, sheet_name=None, engine='openpyxl'), ignore_index=True)
     #df = pd.read_excel(dataframe_location, engine='openpyxl')
-    print(df)
+    #print(df)
     df = df.dropna(axis=0, how='all')
-    print(df)
+    #print(df)
 
     pd.set_option('display.max_columns', None)
 
