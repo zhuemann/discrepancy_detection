@@ -108,12 +108,12 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
     BATCH_SIZE = config["batch_size"]
     # Splits the data into 80% train and 20% valid and test sets
     train_df, test_valid_df = model_selection.train_test_split(
-        df, train_size=config["train_samples"], random_state=seed, shuffle=True  # stratify=df.label.values
+        df, train_size=config["train_samples"], random_state=seed, shuffle=True,   stratify=df.label.values
     )
     # Splits the test and valid sets in half so they are both 10% of total data
     test_df, valid_df = model_selection.train_test_split(
-        test_valid_df, test_size=config["test_samples"], random_state=seed, shuffle=True
-        # stratify=test_valid_df.label.values
+        test_valid_df, test_size=config["test_samples"], random_state=seed, shuffle=True,
+         stratify=test_valid_df.label.values
     )
 
     #train_df = balance_dataset(df, config)
