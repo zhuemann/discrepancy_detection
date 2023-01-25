@@ -45,7 +45,7 @@ if __name__ == '__main__':
     for seed in seeds:
 
         folder_name = "seed" + str(seed) + "/"
-        save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/second_dataset_bce_unbalanced_dups_removed_matrixv21/" + folder_name
+        save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/roberta_unbalanced_dups_removed_matrixv22/" + folder_name
         save_location = os.path.join(directory_base, save_string)
 
         config["seed"] = seed
