@@ -62,7 +62,7 @@ def train_discrepancy_detection(config):
     training_loader, valid_loader, test_loader = setup_dataloader(df, config, tokenizer, wordDict)
     print("after all is loaded")
 
-    for param in language_model1.parameters():
+    for param in language_model.parameters():
         param.requires_grad = True
 
     #for param in language_model2.parameters():
