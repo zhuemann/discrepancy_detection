@@ -116,8 +116,8 @@ def train_discrepancy_detection(config):
 
             #targets = nn.functional.one_hot(targets)
 
-            outputs = model(ids1, mask1, ids2, mask2, token_type_ids1, token_type_ids2)
-            #outputs = model(ids1, mask1, ids2, mask2)
+            #outputs = model(ids1, mask1, ids2, mask2, token_type_ids1, token_type_ids2)
+            outputs = model(ids1, mask1, ids2, mask2)
             # outputs = test_obj(images)
             # outputs = model_obj(images)
             outputs = torch.squeeze(outputs, dim=1)
