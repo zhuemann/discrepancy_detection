@@ -44,7 +44,7 @@ def train_discrepancy_detection(config):
     language_model1 = RobertaModel.from_pretrained(t5_path)
     #language_model1 = BertModel.from_pretrained(t5_path)
     #print("after model")
-    #language_model2 = RobertaModel.from_pretrained(t5_path)
+    language_model2 = RobertaModel.from_pretrained(t5_path)
 
     # synonym replacement setup
     wordReplacementPath = os.path.join(config["dir_base"], 'Zach_Analysis/discrepancy_data/full_synonym_list.xlsx')
@@ -65,11 +65,11 @@ def train_discrepancy_detection(config):
     for param in language_model1.parameters():
         param.requires_grad = True
 
-    #for param in language_model2.parameters():
-    #    param.requires_grad = False
+    for param in language_model2.parameters():
+        param.requires_grad = False
     #model = T5Classifier(language_model, n_class=1)
-    #model = RobertaClassifier(language_model1, language_model2, n_class=1)
-    model = RobertaSingleClassifier(language_model1, n_class=1)
+    model = RobertaClassifier(language_model1, language_model2, n_class=1)
+    #model = RobertaSingleClassifier(language_model1, n_class=1)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
