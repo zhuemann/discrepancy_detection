@@ -20,6 +20,8 @@ class RobertaClassifier(torch.nn.Module):
         word_rep2 = lang_output2[0]
         report_rep2 = lang_output2[1]
         lang_rep_avg2 = report_rep2
+        print(lang_rep_avg1.size())
+        print(lang_rep_avg2.size())
         # feed text through t5 then average across encoding dimension and then do two class classification
         #encoder_output1 = self.lang_encoder.encoder(input_ids=ids1, attention_mask=mask1, return_dict=True)
         #pooled_sentence1 = encoder_output1.last_hidden_state
