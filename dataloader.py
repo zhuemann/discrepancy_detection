@@ -122,6 +122,10 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
     valid_df.set_index("id", inplace=True)
     test_df.set_index("id", inplace=True)
 
+    print(train_df)
+    print(valid_df)
+    print(test_df)
+
     training_set = TextDataset(train_df, tokenizer, dir_base=dir_base, wordDict= wordDict)
     valid_set = TextDataset(valid_df, tokenizer, dir_base=dir_base)
     test_set = TextDataset(test_df, tokenizer, dir_base=dir_base)
