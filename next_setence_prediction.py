@@ -79,6 +79,7 @@ def train_discrepancy_detection_nsp(config):
         # model_obj.train()
         model.train()
         training_accuracy = []
+        confusion_matrix = [[0, 0], [0, 0]]
         #gc.collect()
         torch.cuda.empty_cache()
 
@@ -125,6 +126,11 @@ def train_discrepancy_detection_nsp(config):
             outputs = torch.round(sigmoid)
             #outputs = torch.round(outputs)
 
+            for i in range(0, len(outputs)):
+                actual = int(targets[i].detach().cpu().data.numpy())
+                # predicted = outputs.argmax(dim=1)[i].detach().cpu().data.numpy()
+                predicted = int(outputs[i].detach().cpu().data.numpy())
+                confusion_matrix[predicted][actual] += 1
             # calculates the dice coefficent for each image and adds it to the list
             for i in range(0, len(outputs)):
             #    dice = dice_coeff(outputs[i], targets[i])
@@ -170,6 +176,11 @@ def train_discrepancy_detection_nsp(config):
                 outputs = torch.round(sigmoid)
                 #outputs = torch.round(outputs)
                 #print(outputs)
+                for i in range(0, len(outputs)):
+                    actual = int(targets[i].detach().cpu().data.numpy())
+                    # predicted = outputs.argmax(dim=1)[i].detach().cpu().data.numpy()
+                    predicted = int(outputs[i].detach().cpu().data.numpy())
+                    confusion_matrix[predicted][actual] += 1
                 # calculates the accuracy and adds it to the list
                 for i in range(0, len(outputs)):
                     #if torch.argmax(outputs[i]) == targets[i]:
@@ -219,6 +230,11 @@ def train_discrepancy_detection_nsp(config):
             print(f"predictions: {outputs}")
             print(f"targets: {targets}")
             #print(outputs)
+            for i in range(0, len(outputs)):
+                actual = int(targets[i].detach().cpu().data.numpy())
+                # predicted = outputs.argmax(dim=1)[i].detach().cpu().data.numpy()
+                predicted = int(outputs[i].detach().cpu().data.numpy())
+                confusion_matrix[predicted][actual] += 1
             # calculates the accuracy and adds it to the list
             for i in range(0, len(outputs)):
                 #if torch.argmax(outputs[i]) == targets[i]:
@@ -230,5 +246,9 @@ def train_discrepancy_detection_nsp(config):
         avg_test_acc = np.average(test_accuracy)
         print(f"final test accuary: {test_accuracy}")
         print(f"Epoch {str(epoch)}, Average Test Accuracy = {avg_test_acc}")
+        matrix_path = os.path.join(config["save_location"], "confusion_matrix" + str(config["seed"]) + '.xlsx')
+        df_matrix = pd.DataFrame(confusion_matrix)
+        df_matrix.to_excel(matrix_path, index=False)
+        print(f"Test Confusion matrix: {confusion_matrix}")
 
         return avg_test_acc, valid_log
