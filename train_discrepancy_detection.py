@@ -117,8 +117,8 @@ def train_discrepancy_detection(config):
 
             #targets = nn.functional.one_hot(targets)
 
-            #outputs = model(ids1, mask1, ids2, mask2, token_type_ids1, token_type_ids2)
-            outputs = model(ids1, mask1, ids2, mask2)
+            outputs = model(ids1, mask1, ids2, mask2, token_type_ids1, token_type_ids2)
+            #outputs = model(ids1, mask1, ids2, mask2)
             # outputs = test_obj(images)
             # outputs = model_obj(images)
             outputs = torch.squeeze(outputs, dim=1)
@@ -188,8 +188,8 @@ def train_discrepancy_detection(config):
                 #targets = data['targets'].to(device, dtype=torch.long)
 
                 #outputs = model(ids, mask, token_type_ids)
-                outputs = model(ids1, mask1, ids2, mask2)
-                #outputs = model(ids1, mask1, ids2, mask2, token_type_ids1, token_type_ids2)
+                #outputs = model(ids1, mask1, ids2, mask2)
+                outputs = model(ids1, mask1, ids2, mask2, token_type_ids1, token_type_ids2)
                 outputs = torch.squeeze(outputs, dim=1)
 
                 # put output between 0 and 1 and rounds to nearest integer ie 0 or 1 labels
@@ -246,8 +246,8 @@ def train_discrepancy_detection(config):
             targets = data['targets'].to(device, dtype=torch.long)
 
             #outputs = model(ids, mask, token_type_ids)
-            outputs = model(ids1, mask1, ids2, mask2)
-            #outputs = model(ids1, mask1, ids2, mask2, token_type_ids1, token_type_ids2)
+            #outputs = model(ids1, mask1, ids2, mask2)
+            outputs = model(ids1, mask1, ids2, mask2, token_type_ids1, token_type_ids2)
             outputs = torch.squeeze(outputs, dim=1)
             print(f"raw outputs: {outputs}")
             sigmoid = torch.sigmoid(outputs)
