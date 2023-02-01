@@ -59,6 +59,7 @@ def train_discrepancy_detection(config):
         wordDict["synonyms"][key] = wordList
 
 
+    #training_loader, valid_loader, test_loader = setup_dataloader(df, config, tokenizer, wordDict)
     training_loader, valid_loader, test_loader = setup_dataloader(df, config, tokenizer, wordDict)
     print("after all is loaded")
 

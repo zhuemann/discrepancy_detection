@@ -36,7 +36,7 @@ class TextDataset(Dataset):
         #    text1 = shuffledTextAugmentation(text1)
         #    text2 = synonymsReplacement(self.wordDict, text2)
         #    text2 = shuffledTextAugmentation(text2)
-        text1 += text2
+        #text1 += text2
         text1 = " ".join(text1.split())
         text2 = str(self.text2[index])
         text2 = " ".join(text2.split())
