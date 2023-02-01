@@ -45,14 +45,14 @@ if __name__ == '__main__':
     for seed in seeds:
 
         folder_name = "seed" + str(seed) + "/"
-        save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/bert_cls_v33/" + folder_name
+        save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/radbert_double_v2_v34/" + folder_name
         save_location = os.path.join(directory_base, save_string)
 
         config["seed"] = seed
         config["save_location"] = save_location
 
-        acc, valid_log = train_discrepancy_detection_nsp(config)
-        #acc, valid_log = train_discrepancy_detection(config)
+        #acc, valid_log = train_discrepancy_detection_nsp(config)
+        acc, valid_log = train_discrepancy_detection(config)
 
         df = pd.DataFrame(valid_log)
         df["test_accuracy"] = acc

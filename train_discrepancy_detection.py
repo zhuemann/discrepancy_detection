@@ -34,17 +34,17 @@ def train_discrepancy_detection(config):
     #balanced_df = balance_dataset(df)
     #print(balanced_df)
     #print(df)
-    t5_path = os.path.join(dir_base, 'Zach_Analysis/models/t5_large/')
-    tokenizer = T5Tokenizer.from_pretrained(t5_path)
-    language_model1 = T5Model.from_pretrained(t5_path)
+    #t5_path = os.path.join(dir_base, 'Zach_Analysis/models/t5_large/')
+    #tokenizer = T5Tokenizer.from_pretrained(t5_path)
+    #language_model1 = T5Model.from_pretrained(t5_path)
     #t5_path = os.path.join(dir_base, 'Zach_Analysis/roberta/')
     #t5_path = os.path.join(dir_base, 'Zach_Analysis/roberta_large/')
-    #t5_path = os.path.join(dir_base, 'Zach_Analysis/models/rad_bert/')
-    #tokenizer = AutoTokenizer.from_pretrained(t5_path)
-    #language_model1 = RobertaModel.from_pretrained(t5_path)
+    t5_path = os.path.join(dir_base, 'Zach_Analysis/models/rad_bert/')
+    tokenizer = AutoTokenizer.from_pretrained(t5_path)
+    language_model1 = RobertaModel.from_pretrained(t5_path)
     #language_model1 = BertModel.from_pretrained(t5_path)
     #print("after model")
-    #language_model2 = RobertaModel.from_pretrained(t5_path)
+    language_model2 = RobertaModel.from_pretrained(t5_path)
 
     # synonym replacement setup
     wordReplacementPath = os.path.join(config["dir_base"], 'Zach_Analysis/discrepancy_data/full_synonym_list.xlsx')
@@ -66,10 +66,10 @@ def train_discrepancy_detection(config):
     for param in language_model1.parameters():
         param.requires_grad = True
 
-    #for param in language_model2.parameters():
-    #    param.requires_grad = False
-    model = T5Classifier(language_model1, n_class=1)
-    #model = RobertaClassifier(language_model1, language_model2, n_class=1)
+    for param in language_model2.parameters():
+        param.requires_grad = True
+    #model = T5Classifier(language_model1, n_class=1)
+    model = RobertaClassifier(language_model1, language_model2, n_class=1)
     #model = RobertaSingleClassifier(language_model1, n_class=1)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -83,7 +83,7 @@ def train_discrepancy_detection(config):
     # defines which optimizer is being used
     optimizer = torch.optim.AdamW(params=model.parameters(), lr=LR)
     #scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, steps)
-    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer,T_max=1250, eta_min=1e-7, last_epoch=-1, verbose=False)
+    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer,T_max=1650, eta_min=1e-7, last_epoch=-1, verbose=False) #15 epochs 1250
 
     print("about to start training loop")
     lowest_loss = 100
