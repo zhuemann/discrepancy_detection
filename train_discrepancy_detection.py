@@ -34,17 +34,17 @@ def train_discrepancy_detection(config):
     #balanced_df = balance_dataset(df)
     #print(balanced_df)
     #print(df)
-    #t5_path = os.path.join(dir_base, 'Zach_Analysis/models/t5_large/')
-    #tokenizer = T5Tokenizer.from_pretrained(t5_path)
-    #language_model = T5Model.from_pretrained(t5_path)
+    t5_path = os.path.join(dir_base, 'Zach_Analysis/models/t5_large/')
+    tokenizer = T5Tokenizer.from_pretrained(t5_path)
+    language_model1 = T5Model.from_pretrained(t5_path)
     #t5_path = os.path.join(dir_base, 'Zach_Analysis/roberta/')
-    t5_path = os.path.join(dir_base, 'Zach_Analysis/roberta_large/')
+    #t5_path = os.path.join(dir_base, 'Zach_Analysis/roberta_large/')
     #t5_path = os.path.join(dir_base, 'Zach_Analysis/models/rad_bert/')
-    tokenizer = AutoTokenizer.from_pretrained(t5_path)
-    language_model1 = RobertaModel.from_pretrained(t5_path)
+    #tokenizer = AutoTokenizer.from_pretrained(t5_path)
+    #language_model1 = RobertaModel.from_pretrained(t5_path)
     #language_model1 = BertModel.from_pretrained(t5_path)
     #print("after model")
-    language_model2 = RobertaModel.from_pretrained(t5_path)
+    #language_model2 = RobertaModel.from_pretrained(t5_path)
 
     # synonym replacement setup
     wordReplacementPath = os.path.join(config["dir_base"], 'Zach_Analysis/discrepancy_data/full_synonym_list.xlsx')
@@ -67,9 +67,9 @@ def train_discrepancy_detection(config):
 
     #for param in language_model2.parameters():
     #    param.requires_grad = False
-    #model = T5Classifier(language_model, n_class=1)
+    model = T5Classifier(language_model1, n_class=1)
     #model = RobertaClassifier(language_model1, language_model2, n_class=1)
-    model = RobertaSingleClassifier(language_model1, n_class=1)
+    #model = RobertaSingleClassifier(language_model1, n_class=1)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
@@ -116,8 +116,8 @@ def train_discrepancy_detection(config):
 
             #targets = nn.functional.one_hot(targets)
 
-            outputs = model(ids1, mask1, ids2, mask2, token_type_ids1, token_type_ids2)
-            #outputs = model(ids1, mask1, ids2, mask2)
+            #outputs = model(ids1, mask1, ids2, mask2, token_type_ids1, token_type_ids2)
+            outputs = model(ids1, mask1, ids2, mask2)
             # outputs = test_obj(images)
             # outputs = model_obj(images)
             outputs = torch.squeeze(outputs, dim=1)
@@ -187,8 +187,8 @@ def train_discrepancy_detection(config):
                 #targets = data['targets'].to(device, dtype=torch.long)
 
                 #outputs = model(ids, mask, token_type_ids)
-                #outputs = model(ids1, mask1, ids2, mask2)
-                outputs = model(ids1, mask1, ids2, mask2, token_type_ids1, token_type_ids2)
+                outputs = model(ids1, mask1, ids2, mask2)
+                #outputs = model(ids1, mask1, ids2, mask2, token_type_ids1, token_type_ids2)
                 outputs = torch.squeeze(outputs, dim=1)
 
                 # put output between 0 and 1 and rounds to nearest integer ie 0 or 1 labels
@@ -245,8 +245,8 @@ def train_discrepancy_detection(config):
             targets = data['targets'].to(device, dtype=torch.long)
 
             #outputs = model(ids, mask, token_type_ids)
-            #outputs = model(ids1, mask1, ids2, mask2)
-            outputs = model(ids1, mask1, ids2, mask2, token_type_ids1, token_type_ids2)
+            outputs = model(ids1, mask1, ids2, mask2)
+            #outputs = model(ids1, mask1, ids2, mask2, token_type_ids1, token_type_ids2)
             outputs = torch.squeeze(outputs, dim=1)
             print(f"raw outputs: {outputs}")
             sigmoid = torch.sigmoid(outputs)

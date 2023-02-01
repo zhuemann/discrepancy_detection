@@ -37,7 +37,7 @@ if __name__ == '__main__':
     #inference_on_all_data(config)
     #print(fail)
     #discrepancy_datasetup(config)
-    seeds = [295, 98, 456, 915, 1367, 712]
+    seeds = [117, 295, 98, 456, 915, 1367, 712]
     #seeds = [117, 295]
     #seeds = [915, 1367, 712]
     accur_list = []
@@ -45,7 +45,7 @@ if __name__ == '__main__':
     for seed in seeds:
 
         folder_name = "seed" + str(seed) + "/"
-        save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/roberta_single_v31/" + folder_name
+        save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/t5_single_v32/" + folder_name
         save_location = os.path.join(directory_base, save_string)
 
         config["seed"] = seed
