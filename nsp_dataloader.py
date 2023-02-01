@@ -100,7 +100,7 @@ def setup_nspdataloader(df, config, tokenizer, wordDict=None):
     )
     # Splits the test and valid sets in half so they are both 10% of total data
     test_df, valid_df = model_selection.train_test_split(
-        test_valid_df, test_size=config["test_samples"], random_state=seed, shuffle=True
+        test_valid_df, test_size=config["valid_samples"], random_state=seed, shuffle=True
         # stratify=test_valid_df.label.values
     )
 
