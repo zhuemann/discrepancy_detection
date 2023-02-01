@@ -144,7 +144,7 @@ def train_discrepancy_detection_nsp(config):
 
         avg_training_accuracy = np.average(training_accuracy)
         print(f"Epoch {str(epoch)}, Average Training Accuracy = {avg_training_accuracy}")
-
+        confusion_matrix = [[0, 0], [0, 0]]
         # each epoch, look at validation data
         with torch.no_grad():
 
@@ -199,7 +199,7 @@ def train_discrepancy_detection_nsp(config):
                 save_path = os.path.join(config["save_location"], "best_model_seed" + str(config["seed"]))
                 torch.save(model.state_dict(), save_path)
 
-
+    confusion_matrix = [[0, 0], [0, 0]]
     saved_path = os.path.join(config["save_location"], "best_model_seed" + str(config["seed"]))
     model.load_state_dict(torch.load(saved_path))
     model.eval()
