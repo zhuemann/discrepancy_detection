@@ -14,7 +14,7 @@ def discrepancy_datasetup(config):
 
     #df = pd.concat(pd.read_excel(dataframe_location, sheet_name=None, engine='openpyxl'), ignore_index=True)
     #df = pd.read_excel(dataframe_location, engine='openpyxl')
-    df = pd.read_excel(dataframe_location, sheet_name="HEAD CT", engine='openpyxl')
+    df = pd.read_excel(dataframe_location, sheet_name="Head CT", engine='openpyxl')
     #print(df)
     df = df.dropna(axis=0, how='all')
     #print(df)
