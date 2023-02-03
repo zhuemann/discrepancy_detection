@@ -40,7 +40,7 @@ def inference_on_all_data(config):
     model = RobertaSingleClassifier(language_model1, n_class=1)
 
     dir_base = config["dir_base"]
-    dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/first_labeled_batch.xlsx')
+    dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/second_labeled_batch.xlsx')
 
     df = pd.concat(pd.read_excel(dataframe_location, sheet_name=None, engine='openpyxl'), ignore_index=True)
     # df = pd.read_excel(dataframe_location, engine='openpyxl')
@@ -112,7 +112,7 @@ def inference_on_all_data(config):
     #model = T5Classifier(language_model, n_class=1)
 
     #save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/initial_testing_augmented_data_unbalanced_v6/seed98"
-    save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/second_dataset_bce_loss_single_model_unbalanced_no_text_augv13/seed" + str(config["seed"])
+    save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/radbert_single_v28/seed" + str(config["seed"])
     save_location = os.path.join(config["dir_base"], save_string)
     saved_path = os.path.join(save_location, "best_model_seed" + str(config["seed"]))
     model.load_state_dict(torch.load(saved_path))

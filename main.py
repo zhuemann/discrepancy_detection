@@ -9,6 +9,7 @@ from inference_on_all_data import inference_on_all_data
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 from discrepancy_datasetup import discrepancy_datasetup
+from data_cleaning import count_duplicates
 
 def create_parser():
     parser = argparse.ArgumentParser(description="The main file to run multimodal setup. Consists of pre-training joint representation, masked language modeling and report generation.")
@@ -33,10 +34,12 @@ if __name__ == '__main__':
     config = {"seed": 1, "batch_size": 16, "dir_base": directory_base, "epochs": 15, "n_classes": 2, "LR": 5e-6,
                   "train_samples": .75, "valid_samples": .4, "data_path": "D:/candid_ptx/"} #was .8 .5 lr was 1e-5 5e-6 5e-6 is best
 
-    #config["seed"] = 456
-    #inference_on_all_data(config)
+    config["seed"] = 295
+    inference_on_all_data(config)
     #print(fail)
     #discrepancy_datasetup(config)
+    #count_duplicates(config)
+    print(fail)
     seeds = [117, 295, 98, 456, 915, 1367, 712]
     #seeds = [117, 295]
     #seeds = [915, 1367, 712]
