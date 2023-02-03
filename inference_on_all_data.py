@@ -39,56 +39,58 @@ def inference_on_all_data(config):
     #model = RobertaClassifier(language_model1, language_model2, n_class=1)
     model = RobertaSingleClassifier(language_model1, n_class=1)
 
-    dir_base = config["dir_base"]
-    dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/second_labeled_batch.xlsx')
+    setup_df = True
+    if setup_df:
+        dir_base = config["dir_base"]
+        dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/second_labeled_batch.xlsx')
 
-    df = pd.concat(pd.read_excel(dataframe_location, sheet_name=None, engine='openpyxl'), ignore_index=True)
-    # df = pd.read_excel(dataframe_location, engine='openpyxl')
-    df = df.dropna(axis=0, how='all')
+        df = pd.concat(pd.read_excel(dataframe_location, sheet_name=None, engine='openpyxl'), ignore_index=True)
+        # df = pd.read_excel(dataframe_location, engine='openpyxl')
+        df = df.dropna(axis=0, how='all')
 
-    label_idx = 0
-    data_with_labels = pd.DataFrame(columns=['id', 'impression1', 'impression2', 'label'])
-    index = -1
-    num_neg = 0
-    num_same_string = 0
-    for _, row in df.iterrows():
+        label_idx = 0
+        data_with_labels = pd.DataFrame(columns=['id', 'impression1', 'impression2', 'label'])
+        index = -1
+        num_neg = 0
+        num_same_string = 0
+        for _, row in df.iterrows():
 
-        index += 1
-        if index == 0:
-            continue
+            index += 1
+            if index == 0:
+                continue
         #if pd.isna(row['Discrepancy']):
         #    continue
 
-        impression1 = df.iloc[index - 1]
-        impression2 = row
-        if impression1['Accession Number'] == impression2['Accession Number']:
+            impression1 = df.iloc[index - 1]
+            impression2 = row
+            if impression1['Accession Number'] == impression2['Accession Number']:
 
             # only include the points with a discrepancy score
             #if pd.isna(row['Discrepancy']):
             #    continue
 
-            accession = impression2['Accession Number']
-            report1 = impression1['Impression']
-            report2 = impression2['Impression']
-            label = impression2['Discrepancy']
-            if report1 == report2:
-                num_same_string += 1
-                continue
+                accession = impression2['Accession Number']
+                report1 = impression1['Impression']
+                report2 = impression2['Impression']
+                label = impression2['Discrepancy']
+                if report1 == report2:
+                    num_same_string += 1
+                    continue
 
-            #if label == 1:
-            data_with_labels.loc[label_idx] = [accession, report1, report2, label]
-            label_idx += 1
-            #else:
-            #    if num_neg < 20000:
-            #        data_with_labels.loc[label_idx] = [accession, report1, report2, label]
-            #        num_neg += 1
-            #        label_idx += 1
+                #if label == 1:
+                data_with_labels.loc[label_idx] = [accession, report1, report2, label]
+                label_idx += 1
+        print(f"number of same strings: {num_same_string}")
+        save_path = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/inference_matches_removed_df.xlsx')
+        df.to_excel(save_path, index=False)
+    else:
+        dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/inference_matches_removed_df.xlsx')
+        df_with_labels = pd.read_excel(dataframe_location, engine='openpyxl')
+
 
     #print(df)
     #print(data_with_labels)
-    print(f"number of same strings: {num_same_string}")
-    save_path = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/inference_matches_removed_df.xlsx')
-    df.to_excel(save_path, index=False)
+
 
     del df
 
