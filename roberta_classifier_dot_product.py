@@ -24,9 +24,10 @@ class RobertaClassifier(torch.nn.Module):
         print(f"report 2 size: {report_rep2.size()}")
 
         dot_prod = torch.tensordot(report_rep1, report_rep2, dims=([1],[1]))
-        print(f"report 1: {report_rep1}")
-        print(f"report 2: {report_rep2}")
-        print(f"dot: {dot_prod}")
+        print(f"report 1: {report_rep1[0][10]}")
+        print(f"report 2: {report_rep2[0][10]}")
+        print(f"dot: {dot_prod[0][10]}")
+        print(f"dot size: {dot_prod.size()}")
 
 
         both_lang_rep = torch.cat((lang_rep_avg1, lang_rep_avg2), dim=1)
