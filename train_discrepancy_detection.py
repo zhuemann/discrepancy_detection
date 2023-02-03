@@ -10,7 +10,7 @@ from tqdm import tqdm
 from discrepancy_datasetup import discrepancy_datasetup
 from dataloader import setup_dataloader
 from t5_classifier import T5Classifier
-from roberta_classifier import RobertaClassifier
+from roberta_classifier_dot_product import RobertaClassifier
 from single_model_classifier import RobertaSingleClassifier
 from discrepancy_datasetup import balance_dataset
 
