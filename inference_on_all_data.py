@@ -85,14 +85,8 @@ def inference_on_all_data(config):
         df.to_excel(save_path, index=False)
     else:
         dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/inference_matches_removed_df.xlsx')
-        df_with_labels = pd.read_excel(dataframe_location, engine='openpyxl')
+        data_with_labels = pd.read_excel(dataframe_location, engine='openpyxl')
 
-
-    #print(df)
-    #print(data_with_labels)
-
-
-    del df
 
     data_df = data_with_labels
     print(data_df)
