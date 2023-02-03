@@ -28,6 +28,7 @@ class RobertaClassifier(torch.nn.Module):
         print(f"report 2: {report_rep2}")
         print(f"dot: {dot_prod}")
 
+
         both_lang_rep = torch.cat((lang_rep_avg1, lang_rep_avg2), dim=1)
         #print(both_lang_rep.size())
         #print(both_lang_rep.size())
