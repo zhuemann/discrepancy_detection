@@ -17,7 +17,7 @@ from discrepancy_datasetup import balance_dataset
 def train_discrepancy_detection(config):
     nltk.download('punkt')
     dir_base = config["dir_base"]
-    need_setup = True
+    need_setup = False
     if need_setup:
         df = discrepancy_datasetup(config)
         save_path = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/second_set_single_modality_df.xlsx')
@@ -25,8 +25,8 @@ def train_discrepancy_detection(config):
 
     #print(df)
     #dir_base = config["dir_base"]
-    #dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/second_set_matches_removed_dups_removed_hand_cleaned_df.xlsx')
-    dataframe_location = os.path.join(dir_base,'Zach_Analysis/discrepancy_data/second_set_single_modality_df.xlsx')
+    dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/second_set_matches_removed_dups_removed_hand_cleaned_df.xlsx')
+    #dataframe_location = os.path.join(dir_base,'Zach_Analysis/discrepancy_data/second_set_single_modality_df.xlsx')
     #dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/second_set_binary_discrepancy_balanced_df.xlsx')
 
     df = pd.read_excel(dataframe_location, engine='openpyxl')
