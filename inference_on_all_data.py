@@ -39,7 +39,7 @@ def inference_on_all_data(config):
     #model = RobertaClassifier(language_model1, language_model2, n_class=1)
     model = RobertaSingleClassifier(language_model1, n_class=1)
 
-    setup_df = True
+    setup_df = False
     if setup_df:
         dir_base = config["dir_base"]
         dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/second_labeled_batch.xlsx')
