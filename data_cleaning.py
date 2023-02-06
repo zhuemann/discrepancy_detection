@@ -371,8 +371,9 @@ def get_dataframe_with_unique_unlabeled_samples(config):
                 index += 1
                 data_without_labels.loc[index] = row
                 index += 1
-                empty_row = pd.DataFrame(columns=["Accession Number", "Birth Date", "Study Date / Time", "Report Date / Time", "Procedure Description",
-                 "Diagnosis", "Review", "Discrepancy", "Discrepancy score", "Report Type", "Impression", "Report Body"])
+                #empty_row = pd.DataFrame(columns=["Accession Number", "Birth Date", "Study Date / Time", "Report Date / Time", "Procedure Description",
+                # "Diagnosis", "Review", "Discrepancy", "Discrepancy score", "Report Type", "Impression", "Report Body"])
+                empty_row = pd.Series([None, None, None,None, None, None,None, None, None,None, None, None])
                 data_without_labels.loc[index] = empty_row
         else:
             non_matching += 1
