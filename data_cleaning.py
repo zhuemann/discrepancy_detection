@@ -206,7 +206,11 @@ def count_duplicates(config):
 
 def pick_test_set(config):
 
+    dir_base = config["dir_base"]
+    save_path = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/unlabeled_examples.xlsx')
     df = get_dataframe_with_unique_unlabeled_samples(config)
+    df.to_excel(save_path, index=False)
+
     print(df)
 
 
@@ -282,6 +286,7 @@ def get_dataframe_with_unique_unlabeled_samples(config):
                 string_dic[string_key] = [prelim_accession]
 
             if pd.isna(row['Discrepancy']):
+                print("appending")
                 data_without_labels.append(prelim_row)
                 data_without_labels.append(row)
 
