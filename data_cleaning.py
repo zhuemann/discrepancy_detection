@@ -229,6 +229,8 @@ def extend_labeled_data(config):
 
     labeled_data_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/second_set_matches_removed_hand_cleaned_df.xlsx')
     df_labeled = pd.read_excel(labeled_data_location, sheet_name=None, engine='openpyxl')
+    print(df_labeled)
+    print(type(df_labeled))
 
     for _, row in df_labeled.itterrows():
         # gets the two impressions and uses it as a key to store the label of the report pairs
