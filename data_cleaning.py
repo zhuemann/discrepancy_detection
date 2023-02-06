@@ -206,6 +206,12 @@ def count_duplicates(config):
 
 def pick_test_set(config):
 
+    df = get_dataframe_with_unique_unlabeled_samples(config)
+    print(df)
+
+
+
+def get_dataframe_with_unique_unlabeled_samples(config)
     dir_base = config["dir_base"]
     dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/second_labeled_batch.xlsx')
     # dataframe_location = os.path.join(dir_base,'Zach_Analysis/discrepancy_data/first_labeled_batch.xlsx')
@@ -213,9 +219,9 @@ def pick_test_set(config):
     df = pd.concat(pd.read_excel(dataframe_location, sheet_name=None, engine='openpyxl'), ignore_index=True)
     # df = pd.read_excel(dataframe_location, engine='openpyxl')
     #df = pd.read_excel(dataframe_location, sheet_name="Head CT", engine='openpyxl')
-    print(df)
+    #print(df)
     df = df.dropna(axis=0, how='all')
-    print(df)
+    #print(df)
 
     pd.set_option('display.max_columns', None)
 
@@ -223,7 +229,8 @@ def pick_test_set(config):
     dups = 0
 
     label_idx = 0
-    data_with_labels = pd.DataFrame(columns=['id', 'impression1', 'impression2', 'label'])
+    #data_without_labels = pd.DataFrame(columns=['id', 'impression1', 'impression2', 'label'])
+    data_without_labels = pd.DataFrame(columns=["Accession Number", "Birth Date", "Study Date / Time", "Report Date / Time", "Procedure Description", "Diagnosis", "Review", "Discrepancy", "Discrepancy score", "Report Type", "Impression", "Report Body"])
     index = -1
     discrepancy_that_are_nan = 0
     non_matching = 0
@@ -235,6 +242,7 @@ def pick_test_set(config):
     final_num = 0
     num_same_string = 0
     num_report_pairs = 0
+    prelim_row = ""
 
     for _, row in df.iterrows():
 
@@ -243,12 +251,12 @@ def pick_test_set(config):
         if row["Report Type"] == "Preliminary":
             prelim_impression = row['Impression']
             prelim_accession = row['Accession Number']
+            prelim_row = row
             prelim_num += 1
         elif row["Report Type"] == "Final":
             final_impression = row['Impression']
             final_accession = row['Accession Number']
             final_num += 1
-        index += 1
 
         #if pd.isna(row['Discrepancy']):
         #    discrepancy_that_are_nan += 1
@@ -273,7 +281,10 @@ def pick_test_set(config):
             else:
                 string_dic[string_key] = [prelim_accession]
 
-            print(row)
+            if pd.isna(row['Discrepancy']):
+                data_without_labels.append(prelim_row)
+                data_without_labels.append(row)
+
             #if row['Discrepancy'] == 0:
             #    label = 0
             #    if num_neg < 2800:
@@ -309,4 +320,4 @@ def pick_test_set(config):
     # remove_duplicate_strings(data_with_labels)
     print(f"number of report pairs: {num_report_pairs}")
 
-    return data_with_labels
+    return data_without_labels
