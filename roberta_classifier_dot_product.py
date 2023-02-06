@@ -30,7 +30,7 @@ class RobertaClassifier(torch.nn.Module):
         #print(f"dot size: {dot_prod.size()}")
 
 
-        both_lang_rep = torch.cat((lang_rep_avg1, lang_rep_avg2, dot_prod), dim=1)
+        both_lang_rep = torch.cat((lang_rep_avg1, lang_rep_avg2), dim=1)
         #print(both_lang_rep.size())
         #print(both_lang_rep.size())
 
