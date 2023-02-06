@@ -207,9 +207,11 @@ def count_duplicates(config):
 def pick_test_set(config):
 
     dir_base = config["dir_base"]
-    save_path = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/unlabeled_examples.xlsx')
-    df = get_dataframe_with_unique_unlabeled_samples(config)
+    save_path = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/extended_labels_to_unlabled_examples.xlsx')
+    df = extend_labeled_data(config)
     df.to_excel(save_path, index=False)
+    #df = get_dataframe_with_unique_unlabeled_samples(config)
+    #df.to_excel(save_path, index=False)
 
     print(df)
 
@@ -225,7 +227,21 @@ def extend_labeled_data(config):
     string_dic = {}
     dups = 0
 
-    data_without_labels = pd.DataFrame(
+    labeled_data_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/second_set_matches_removed_hand_cleaned_df.xlsx')
+    df_labeled = pd.read_excel(labeled_data_location, sheet_name=None, engine='openpyxl')
+
+    for _, row in df_labeled.itterrows():
+        # gets the two impressions and uses it as a key to store the label of the report pairs
+        prelim_impression = row["impression1"]
+        final_impression = row["impression2"]
+        string_key = str(prelim_impression) + str(final_impression)
+        if string_key in string_dic.keys():
+            continue
+        else:
+            string_dic[string_key] = [row["label"]]
+
+
+    data_with_labels_extended = pd.DataFrame(
         columns=["Accession Number", "Birth Date", "Study Date / Time", "Report Date / Time", "Procedure Description",
                  "Diagnosis", "Review", "Discrepancy", "Discrepancy score", "Report Type", "Impression", "Report Body"])
 
@@ -259,34 +275,23 @@ def extend_labeled_data(config):
         if str(prelim_accession) == str(final_accession):
 
             num_report_pairs += 1
+            # labels the report non discrepant if their is no difference between reports
             if str(prelim_impression) == str(final_impression):
                 num_same_string += 1
                 row["Discrepancy"] = 0
-                continue
 
+            # extends a label if it already is labeled
             string_key = str(prelim_impression) + str(final_impression)
-
-            # skips the entry if it is already in the data
             if string_key in string_dic.keys():
-                string_dic[string_key].append(prelim_accession)
-                dups += 1
-                continue
-            else:
-                string_dic[string_key] = [prelim_accession]
+                row["Discrepancy"] = string_dic[string_key]
 
-            if pd.isna(row['Discrepancy']):
-                index += 1
-                data_without_labels.loc[index] = prelim_row
-                index += 1
-                data_without_labels.loc[index] = row
-                index += 1
-                empty_row = pd.DataFrame()
-                data_without_labels.loc[index] = empty_row
-                #data_without_labels = data_without_labels.append(prelim_row)
-                #data_without_labels = data_without_labels.append(row)
-                #empty_row = pd.DataFrame()
-                #data_without_labels = data_without_labels.append(empty_row)
-
+            index += 1
+            data_with_labels_extended.loc[index] = prelim_row
+            index += 1
+            data_with_labels_extended.loc[index] = row
+            index += 1
+            empty_row = pd.Series([None, None, None, None, None, None, None, None, None, None, None, None])
+            data_with_labels_extended.loc[index] = empty_row
         else:
             non_matching += 1
 
@@ -296,7 +301,7 @@ def extend_labeled_data(config):
     print(f"number of same strings: {num_same_string}")
     print(f"duplicates: {dups}")
 
-    return data_without_labels
+    return data_with_labels_extended
 
 
 def get_dataframe_with_unique_unlabeled_samples(config):
@@ -373,7 +378,7 @@ def get_dataframe_with_unique_unlabeled_samples(config):
                 index += 1
                 #empty_row = pd.DataFrame(columns=["Accession Number", "Birth Date", "Study Date / Time", "Report Date / Time", "Procedure Description",
                 # "Diagnosis", "Review", "Discrepancy", "Discrepancy score", "Report Type", "Impression", "Report Body"])
-                empty_row = pd.Series([None, None, None,None, None, None,None, None, None,None, None, None])
+                empty_row = pd.Series([None, None, None, None, None, None, None, None, None, None, None, None])
                 data_without_labels.loc[index] = empty_row
         else:
             non_matching += 1
