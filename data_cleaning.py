@@ -286,9 +286,9 @@ def get_dataframe_with_unique_unlabeled_samples(config):
                 string_dic[string_key] = [prelim_accession]
 
             if pd.isna(row['Discrepancy']):
-                print("appending")
-                data_without_labels.append(prelim_row)
-                data_without_labels.append(row)
+                print(f"appending: {dups}")
+                data_without_labels = data_without_labels.append(prelim_row)
+                data_without_labels = data_without_labels.append(row)
 
             #if row['Discrepancy'] == 0:
             #    label = 0
