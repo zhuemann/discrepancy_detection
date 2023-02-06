@@ -211,7 +211,7 @@ def pick_test_set(config):
 
 
 
-def get_dataframe_with_unique_unlabeled_samples(config)
+def get_dataframe_with_unique_unlabeled_samples(config):
     dir_base = config["dir_base"]
     dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/second_labeled_batch.xlsx')
     # dataframe_location = os.path.join(dir_base,'Zach_Analysis/discrepancy_data/first_labeled_batch.xlsx')
