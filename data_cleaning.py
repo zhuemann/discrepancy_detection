@@ -229,6 +229,7 @@ def extend_labeled_data(config):
 
     labeled_data_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/second_set_matches_removed_hand_cleaned_df.xlsx')
     df_labeled = pd.read_excel(labeled_data_location, sheet_name=None, engine='openpyxl')
+    df_labeled = pd.DataFrame.from_dict(df_labeled)
     print(df_labeled)
     print(type(df_labeled))
 
