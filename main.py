@@ -35,11 +35,11 @@ if __name__ == '__main__':
                   "train_samples": .75, "valid_samples": .4, "data_path": "D:/candid_ptx/"} #was .8 .5 lr was 1e-5 5e-6 5e-6 is best
 
     config["seed"] = 117
-    inference_on_all_data(config)
+    #inference_on_all_data(config)
     #print(fail)
     #discrepancy_datasetup(config)
     #count_duplicates(config)
-    print(fail)
+    #print(fail)
     seeds = [117, 295, 98, 456, 915, 1367, 712]
     #seeds = [117, 295]
     #seeds = [915, 1367, 712]

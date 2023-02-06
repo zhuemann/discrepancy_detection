@@ -123,6 +123,8 @@ def train_discrepancy_detection(config):
             # outputs = test_obj(images)
             # outputs = model_obj(images)
             outputs = torch.squeeze(outputs, dim=1)
+
+            outputs = torch.sigmoid(outputs)
             #targets = output_resize(targets)
             optimizer.zero_grad()
 
