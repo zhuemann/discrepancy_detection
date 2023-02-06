@@ -6,7 +6,8 @@ class RobertaClassifier(torch.nn.Module):
         super(RobertaClassifier, self).__init__()
         self.lang_encoder1 = lang_model1
         self.lang_encoder2 = lang_model2
-        self.classifier = torch.nn.Linear(2304, n_class)
+        #self.classifier = torch.nn.Linear(2304, n_class)
+        self.classifier = torch.nn.Linear(1536, n_class)
         #self.classifier = torch.nn.Linear(2048, n_class)
 
 
