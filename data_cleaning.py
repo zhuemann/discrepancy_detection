@@ -289,7 +289,8 @@ def get_dataframe_with_unique_unlabeled_samples(config):
                 #print(f"appending: {dups}")
                 data_without_labels = data_without_labels.append(prelim_row)
                 data_without_labels = data_without_labels.append(row)
-                print(data_without_labels)
+                empty_row = pd.DataFrame()
+                data_without_labels = data_without_labels.append(empty_row)
 
             #if row['Discrepancy'] == 0:
             #    label = 0
