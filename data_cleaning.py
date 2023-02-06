@@ -232,7 +232,7 @@ def extend_labeled_data(config):
     print(df_labeled)
     print(type(df_labeled))
 
-    for _, row in df_labeled.itterrows():
+    for _, row in df_labeled.iterrows():
         # gets the two impressions and uses it as a key to store the label of the report pairs
         prelim_impression = row["impression1"]
         final_impression = row["impression2"]
