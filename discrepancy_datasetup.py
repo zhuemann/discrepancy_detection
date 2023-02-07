@@ -82,8 +82,8 @@ def discrepancy_datasetup(config):
             #if pd.isna(row['Discrepancy']):
             #if len():
             #    continue
-            print(f"management score: {row['Discrepancy score']}")
-            print(f"discrepant: {row['Discrepancy']}")
+            #print(f"management score: {row['Discrepancy score']}")
+            #print(f"discrepant: {row['Discrepancy']}")
             if pd.isna(row['Discrepancy score']) and row['Discrepancy'] == 0:
                 row['Discrepancy score'] = 0
             if int(str(row['Discrepancy score'])[-1]) <= 3 or row['Discrepancy'] == 0: #was == 0
