@@ -84,7 +84,7 @@ def train_discrepancy_detection(config):
     # defines which optimizer is being used
     optimizer = torch.optim.AdamW(params=model.parameters(), lr=LR)
     #scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, steps)
-    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer,T_max=1250, eta_min=1e-7, last_epoch=-1, verbose=False) #15 epochs 1250
+    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=1250, eta_min=1e-7, last_epoch=-1, verbose=False) #15 epochs 1250
 
     print("about to start training loop")
     lowest_loss = 100
@@ -252,12 +252,12 @@ def train_discrepancy_detection(config):
             #outputs = model(ids1, mask1, ids2, mask2)
             outputs = model(ids1, mask1, ids2, mask2, token_type_ids1, token_type_ids2)
             outputs = torch.squeeze(outputs, dim=1)
-            print(f"raw outputs: {outputs}")
+            #print(f"raw outputs: {outputs}")
             sigmoid = torch.sigmoid(outputs)
             outputs = torch.round(sigmoid)
             #outputs = torch.round(outputs)
-            print(f"predictions: {outputs}")
-            print(f"targets    : {targets}")
+            #print(f"predictions: {outputs}")
+            #print(f"targets    : {targets}")
             #print(outputs)
 
             for i in range(0,len(outputs)):
