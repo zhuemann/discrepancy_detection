@@ -67,7 +67,7 @@ def discrepancy_datasetup(config):
                 num_same_string += 1
                 continue
 
-            string_key = str(prelim_impression) + str(final_impression)
+            string_key = prelim_impression + final_impression
             if string_key in string_dic.keys():
 
                 string_dic[string_key].append(prelim_accession)
