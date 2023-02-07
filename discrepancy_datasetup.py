@@ -9,8 +9,8 @@ import random
 def discrepancy_datasetup(config):
 
     dir_base = config["dir_base"]
-    #dataframe_location = os.path.join(dir_base,'Zach_Analysis/discrepancy_data/second_labeled_batch_hand_cleaned.xlsx')
-    dataframe_location = os.path.join(dir_base,'Zach_Analysis/discrepancy_data/second_labeled_batch.xlsx')
+    dataframe_location = os.path.join(dir_base,'Zach_Analysis/discrepancy_data/second_labeled_batch_hand_cleaned.xlsx')
+    #dataframe_location = os.path.join(dir_base,'Zach_Analysis/discrepancy_data/second_labeled_batch.xlsx')
 
     #dataframe_location = os.path.join(dir_base,'Zach_Analysis/discrepancy_data/first_labeled_batch.xlsx')
 
@@ -67,7 +67,7 @@ def discrepancy_datasetup(config):
                 num_same_string += 1
                 continue
 
-            string_key = prelim_impression + final_impression
+            string_key = str(prelim_impression) + str(final_impression)
             if string_key in string_dic.keys():
 
                 string_dic[string_key].append(prelim_accession)
