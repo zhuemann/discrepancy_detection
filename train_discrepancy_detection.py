@@ -17,15 +17,15 @@ from discrepancy_datasetup import balance_dataset
 def train_discrepancy_detection(config):
     nltk.download('punkt')
     dir_base = config["dir_base"]
-    need_setup = False
+    need_setup = True
     if need_setup:
         df = discrepancy_datasetup(config)
-        save_path = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/second_set_single_modality_df.xlsx')
+        save_path = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/second_set_hand_cleaned_df.xlsx')
         df.to_excel(save_path, index=False)
 
     #print(df)
     #dir_base = config["dir_base"]
-    dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/second_set_matches_removed_dups_removed_hand_cleaned_df.xlsx')
+    dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/second_set_hand_cleaned_df.xlsx')
     #dataframe_location = os.path.join(dir_base,'Zach_Analysis/discrepancy_data/second_set_single_modality_df.xlsx')
     #dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/second_set_binary_discrepancy_balanced_df.xlsx')
 
@@ -45,7 +45,7 @@ def train_discrepancy_detection(config):
     language_model1 = RobertaModel.from_pretrained(t5_path)
     #language_model1 = BertModel.from_pretrained(t5_path)
     #print("after model")
-    language_model2 = RobertaModel.from_pretrained(t5_path)
+    #language_model2 = RobertaModel.from_pretrained(t5_path)
 
     # synonym replacement setup
     wordReplacementPath = os.path.join(config["dir_base"], 'Zach_Analysis/discrepancy_data/full_synonym_list.xlsx')
@@ -67,11 +67,11 @@ def train_discrepancy_detection(config):
     for param in language_model1.parameters():
         param.requires_grad = True
 
-    for param in language_model2.parameters():
-        param.requires_grad = True
+    #for param in language_model2.parameters():
+    #    param.requires_grad = True
     #model = T5Classifier(language_model1, n_class=1)
-    model = RobertaClassifier(language_model1, language_model2, n_class=1)
-    #model = RobertaSingleClassifier(language_model1, n_class=1)
+    #model = RobertaClassifier(language_model1, language_model2, n_class=1)
+    model = RobertaSingleClassifier(language_model1, n_class=1)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)

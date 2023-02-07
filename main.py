@@ -39,8 +39,8 @@ if __name__ == '__main__':
     #print(fail)
     #discrepancy_datasetup(config)
     #count_duplicates(config)
-    pick_test_set(config)
-    print(fail)
+    #pick_test_set(config)
+    #print(fail)
     seeds = [117, 295, 98, 456, 915, 1367, 712]
     #seeds = [117, 295]
     #seeds = [915, 1367, 712]
@@ -49,7 +49,7 @@ if __name__ == '__main__':
     for seed in seeds:
 
         folder_name = "seed" + str(seed) + "/"
-        save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/radbert_double_baseline_v39/" + folder_name
+        save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/radbert_baseline_v40/" + folder_name
         save_location = os.path.join(directory_base, save_string)
 
         config["seed"] = seed
