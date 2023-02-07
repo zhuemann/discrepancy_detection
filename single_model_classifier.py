@@ -14,6 +14,7 @@ class RobertaSingleClassifier(torch.nn.Module):
         word_rep1 = lang_output1[0]
         report_rep1 = lang_output1[1]
         both_lang_rep = report_rep1
+        assert not torch.isnan(both_lang_rep).any()
         output = self.classifier(both_lang_rep)
 
         return output
