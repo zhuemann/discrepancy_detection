@@ -34,9 +34,9 @@ if __name__ == '__main__':
     config = {"seed": 1, "batch_size": 16, "dir_base": directory_base, "epochs": 20, "n_classes": 2, "LR": 5e-6,
                   "train_samples": .75, "valid_samples": .4, "data_path": "D:/candid_ptx/"} #was .8 .5 lr was 1e-5 5e-6 5e-6 is best
 
-    config["seed"] = 117
-    inference_on_all_data(config)
-    print(fail)
+    #config["seed"] = 117
+    #inference_on_all_data(config)
+    #print(fail)
     #discrepancy_datasetup(config)
     #count_duplicates(config)
     #pick_test_set(config)
@@ -49,7 +49,7 @@ if __name__ == '__main__':
     for seed in seeds:
 
         folder_name = "seed" + str(seed) + "/"
-        save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/radbert_baseline_v42/" + folder_name
+        save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/radbert_4_5_discrepant_v43/" + folder_name
         save_location = os.path.join(directory_base, save_string)
 
         config["seed"] = seed
