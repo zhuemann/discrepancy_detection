@@ -84,6 +84,8 @@ def discrepancy_datasetup(config):
             #    continue
             print(f"management score: {row['Discrepancy score']}")
             print(f"discrepant: {row['Discrepancy']}")
+            if pd.isna(row['Discrepancy score']):
+                row['Discrepancy score'] = 0
             if int(str(row['Discrepancy score'])[-1]) <= 3 or row['Discrepancy'] == 0: #was == 0
                 label = 0
                 if num_neg < 2800:
