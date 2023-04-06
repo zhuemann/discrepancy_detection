@@ -36,7 +36,7 @@ if __name__ == '__main__':
 
     #config["seed"] = 117
     inference_on_all_data(config)
-    #print(fail)
+    print(fail)
     #discrepancy_datasetup(config)
     #count_duplicates(config)
     #pick_test_set(config)
