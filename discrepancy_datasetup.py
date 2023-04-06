@@ -305,6 +305,7 @@ def discrepancy_datasetup_second_set(config):
     num_same_string = 0
     num_exclude = 0
     prelim_with_values = 0
+    num_addendums = 0
 
 
     for _, row in df.iterrows():
@@ -312,6 +313,9 @@ def discrepancy_datasetup_second_set(config):
             num_exclude += 1
             continue
         if pd.isna(row['Accession Number']):
+            continue
+        if row["Report Type"] == "Addendum":
+            num_addendums += 1
             continue
         if row["Report Type"] == "Preliminary":
             if not pd.isna(row["Discrepancy"]):
@@ -384,5 +388,6 @@ def discrepancy_datasetup_second_set(config):
     print(f"duplicates: {dups}")
     print(f"number of reports exluded: {num_exclude}")
     print(f"prelim with values: {prelim_with_values}")
+    print(f"number of addendums: {num_addendums}")
 
     return data_with_labels
