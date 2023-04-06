@@ -321,9 +321,9 @@ def discrepancy_datasetup_second_set(config):
             if not pd.isna(row["Discrepancy"]):
                 prelim_with_values += 1
                 # The prelim exam has a score so we need to get the final report and using the assession number
-                print(f"prelim accession number: {row['Accession Number']}")
+                #print(f"prelim accession number: {row['Accession Number']}")
                 final_row = df.loc[(df['Accession Number'] == row["Accession Number"]) & (df['Report Type'] == 'Final')].iloc[0]
-                print(final_row)
+                #print(final_row)
                 final_impression = final_row["Impression"]
                 final_accession = final_row['Accession Number']
                 final_row["Discrepancy"] = row["Discrepancy"]
