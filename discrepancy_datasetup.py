@@ -341,9 +341,9 @@ def discrepancy_datasetup_second_set(config):
             if string_key in string_dic.keys():
 
                 string_dic[string_key].append(prelim_accession)
-                # df.drop(row["id"])
+                #df.drop(row["id"])
                 dups += 1
-                #print(f"label of dup: {label}")
+                print(f"label of dup: {label}")
                 continue
             else:
                 string_dic[string_key] = [prelim_accession]
