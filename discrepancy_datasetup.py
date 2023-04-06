@@ -84,9 +84,10 @@ def discrepancy_datasetup(config):
             #    continue
             #print(f"management score: {row['Discrepancy score']}")
             #print(f"discrepant: {row['Discrepancy']}")
-            if pd.isna(row['Discrepancy score']) and row['Discrepancy'] == 0:
-                row['Discrepancy score'] = 0
-            if int(str(row['Discrepancy score'])[-1]) <= 3 or row['Discrepancy'] == 0: #was == 0
+            #if pd.isna(row['Discrepancy score']) and row['Discrepancy'] == 0:
+            #    row['Discrepancy score'] = 0
+            #if int(str(row['Discrepancy score'])[-1]) <= 3 or row['Discrepancy'] == 0: #was == 0
+            if row['Discrepancy'] == 0:
                 label = 0
                 if num_neg < 2800:
                     data_with_labels.loc[label_idx] = [prelim_accession, prelim_impression, final_impression, label]

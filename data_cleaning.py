@@ -240,7 +240,7 @@ def extend_labeled_data(config):
         if string_key in string_dic.keys():
             continue
         else:
-            string_dic[string_key] = [row["label"]]
+            string_dic[string_key] = row["label"]
 
 
     data_with_labels_extended = pd.DataFrame(
