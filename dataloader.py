@@ -124,7 +124,7 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
     valid_df.set_index("id", inplace=True)
     test_df.set_index("id", inplace=True)
 
-    save_df = True
+    save_df = False
     if save_df:
         save_location = config["save_location"]
         train_dataframe_location = os.path.join(save_location, 'train_df_seed' + str(config["seed"]) + '.xlsx')

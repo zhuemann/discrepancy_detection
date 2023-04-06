@@ -30,8 +30,9 @@ def train_discrepancy_detection(config):
     #dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/second_set_hand_cleaned_4_5_df.xlsx')
     #dataframe_location = os.path.join(dir_base,'Zach_Analysis/discrepancy_data/second_set_single_modality_df.xlsx')
     #dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/second_set_binary_discrepancy_balanced_df.xlsx')
-    dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/second_set_hand_cleaned_df.xlsx')
 
+    # not relavent now that I load in data from dataloader
+    dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/second_set_hand_cleaned_df.xlsx')
     df = pd.read_excel(dataframe_location, engine='openpyxl')
     #df.set_index("id", inplace=True)
 
