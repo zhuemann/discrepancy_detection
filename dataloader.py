@@ -139,6 +139,7 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
         print(test_dataframe_location)
         test_df.to_excel(test_dataframe_location, index=True)
 
+    print(fail)
     load_df_from_preset_location = True
     if load_df_from_preset_location:
         train_loc = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/used_to_train_second_model/train_df_seed117.xlsx')
