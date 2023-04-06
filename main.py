@@ -45,7 +45,7 @@ if __name__ == '__main__':
     #seeds = [117, 295]
     #seeds = [915, 1367, 712]
     #seeds = [117]
-    seeds = [456, 915, 1367, 712]
+    seeds = [915, 1367, 712]
     accur_list = []
 
     for seed in seeds:
