@@ -40,10 +40,13 @@ def discrepancy_datasetup(config):
     prelim_num = 0
     final_num = 0
     num_same_string = 0
+    num_exclude = 0
 
 
     for _, row in df.iterrows():
-
+        if row["Discrepancy"] == "Exclude":
+            num_exclude += 1
+            continue
         if pd.isna(row['Accession Number']):
             continue
         if row["Report Type"] == "Preliminary":
@@ -128,6 +131,7 @@ def discrepancy_datasetup(config):
     print(f"discrepancies delcared: {label_idx}")
     print(f"number of same strings: {num_same_string}")
     print(f"duplicates: {dups}")
+    print(f"number of reports exluded: {num_exclude}")
 
     #remove_duplicate_strings(data_with_labels)
     return data_with_labels
