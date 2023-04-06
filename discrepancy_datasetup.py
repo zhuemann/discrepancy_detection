@@ -344,6 +344,8 @@ def discrepancy_datasetup_second_set(config):
                 #df.drop(row["id"])
                 dups += 1
                 print(f"assession of dup: {prelim_accession}")
+                print(f"string of dup: {string_key}")
+
                 continue
             else:
                 string_dic[string_key] = [prelim_accession]
