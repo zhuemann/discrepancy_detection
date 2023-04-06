@@ -89,8 +89,8 @@ def inference_on_all_data(config):
         data_with_labels = pd.read_excel(dataframe_location, engine='openpyxl')
 
     # just using the test frame to verify it was used
-    dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/used_to_train_first_model/test_df_seed117.xlsx')
-    data_with_labels = pd.read_excel(dataframe_location, engine='openpyxl')
+    # dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/used_to_train_first_model/test_df_seed117.xlsx')
+    # data_with_labels = pd.read_excel(dataframe_location, engine='openpyxl')
 
     data_df = data_with_labels
     print(data_df)
