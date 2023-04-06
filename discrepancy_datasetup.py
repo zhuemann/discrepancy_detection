@@ -268,3 +268,118 @@ def synonymsReplacement(wordDict, text):
                 newText = text.replace(word, wordDict["synonyms"][word][randomSample])
 
     return newText
+
+def discrepancy_datasetup_second_set(config):
+
+    dir_base = config["dir_base"]
+    #dataframe_location = os.path.join(dir_base,'Zach_Analysis/discrepancy_data/second_labeled_batch_hand_cleaned.xlsx')
+    dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/second_set_unique_training_data_labeled_initial.xlsx')
+    #dataframe_location = os.path.join(dir_base,'Zach_Analysis/discrepancy_data/second_labeled_batch.xlsx')
+
+    #dataframe_location = os.path.join(dir_base,'Zach_Analysis/discrepancy_data/first_labeled_batch.xlsx')
+
+    df = pd.concat(pd.read_excel(dataframe_location, sheet_name=None, engine='openpyxl'), ignore_index=True)
+    #df = pd.read_excel(dataframe_location, engine='openpyxl')
+    #df = pd.read_excel(dataframe_location, sheet_name="Head CT", engine='openpyxl')
+    #print(df)
+    df = df.dropna(axis=0, how='all')
+    #print(df)
+
+    pd.set_option('display.max_columns', None)
+
+    string_dic = {}
+    dups = 0
+
+    label_idx = 0
+    data_with_labels = pd.DataFrame(columns=['id', 'impression1', 'impression2', 'label'])
+    index = -1
+    num_neg = 0
+    discrepancy_that_are_nan = 0
+    non_matching = 0
+    prelim_impression = "string1"
+    prelim_accession = "id1"
+    final_impression = "string2"
+    final_accession = "id2"
+    prelim_num = 0
+    final_num = 0
+    num_same_string = 0
+    num_exclude = 0
+    prelim_with_values = 0
+
+
+    for _, row in df.iterrows():
+        if row["Discrepancy"] == "Exclude":
+            num_exclude += 1
+            continue
+        if pd.isna(row['Accession Number']):
+            continue
+        if row["Report Type"] == "Preliminary":
+            if not pd.isna(row["discrepancy"]):
+                prelim_with_values += 1
+            prelim_impression = row['Impression']
+            prelim_accession = row['Accession Number']
+            prelim_num += 1
+        elif row["Report Type"] == "Final":
+            final_impression = row['Impression']
+            final_accession = row['Accession Number']
+            final_num += 1
+        index += 1
+        #print(row['Discrepancy score'])
+        #if pd.isna(row['Accession Number']):
+        #    continue
+        if pd.isna(row['Discrepancy']):
+            discrepancy_that_are_nan += 1
+            continue
+        #print(row)
+        if str(prelim_accession) == str(final_accession):
+
+            if prelim_impression == final_impression:
+                num_same_string += 1
+                continue
+
+            string_key = str(prelim_impression) + str(final_impression)
+            if string_key in string_dic.keys():
+
+                string_dic[string_key].append(prelim_accession)
+                # df.drop(row["id"])
+                dups += 1
+                #print(f"label of dup: {label}")
+                continue
+            else:
+                string_dic[string_key] = [prelim_accession]
+
+            #if pd.isna(row['Discrepancy score']):
+            #if pd.isna(row['Discrepancy']):
+            #if len():
+            #    continue
+            #print(f"management score: {row['Discrepancy score']}")
+            #print(f"discrepant: {row['Discrepancy']}")
+            #if pd.isna(row['Discrepancy score']) and row['Discrepancy'] == 0:
+            #    row['Discrepancy score'] = 0
+            #if int(str(row['Discrepancy score'])[-1]) <= 3 or row['Discrepancy'] == 0: #was == 0
+            if row['Discrepancy'] == 0:
+                label = 0
+                if num_neg < 2800:
+                    data_with_labels.loc[label_idx] = [prelim_accession, prelim_impression, final_impression, label]
+                    num_neg += 1
+            else:
+                #label = str(row['Discrepancy score'])
+                #label = int(label[0])
+                label = 1
+                data_with_labels.loc[label_idx] = [prelim_accession, prelim_impression, final_impression, label]
+            label_idx += 1
+        else:
+            non_matching += 1
+
+
+    print(f"num unmatched: {non_matching}")
+    print(f"discrepancy nans: {discrepancy_that_are_nan}")
+    print(f"times prelim is defined: {prelim_num}")
+    print(f"times final is defined: {final_num}")
+    print(f"discrepancies delcared: {label_idx}")
+    print(f"number of same strings: {num_same_string}")
+    print(f"duplicates: {dups}")
+    print(f"number of reports exluded: {num_exclude}")
+    print(f"prelim with values: {prelim_with_values}")
+
+    return data_with_labels

@@ -7,7 +7,7 @@ import torch.nn as nn
 import numpy as np
 from tqdm import tqdm
 
-from discrepancy_datasetup import discrepancy_datasetup
+from discrepancy_datasetup import discrepancy_datasetup_second_set
 from dataloader import setup_dataloader
 from t5_classifier import T5Classifier
 from roberta_classifier_dot_product import RobertaClassifier
@@ -19,7 +19,8 @@ def train_discrepancy_detection(config):
     dir_base = config["dir_base"]
     need_setup = True
     if need_setup:
-        df = discrepancy_datasetup(config)
+        df = discrepancy_datasetup_second_set(config)
+        #df = discrepancy_datasetup(config)
         save_path = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/second_labeled_set_for_copying.xlsx')
         df.to_excel(save_path, index=False)
 
