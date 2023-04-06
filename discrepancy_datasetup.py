@@ -314,7 +314,7 @@ def discrepancy_datasetup_second_set(config):
         if pd.isna(row['Accession Number']):
             continue
         if row["Report Type"] == "Preliminary":
-            if not pd.isna(row["discrepancy"]):
+            if not pd.isna(row["Discrepancy"]):
                 prelim_with_values += 1
             prelim_impression = row['Impression']
             prelim_accession = row['Accession Number']
