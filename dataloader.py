@@ -124,7 +124,7 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
     valid_df.set_index("id", inplace=True)
     test_df.set_index("id", inplace=True)
 
-    save_df = True
+    save_df = False
     if save_df:
         save_location = config["save_location"]
         train_dataframe_location = os.path.join(save_location, 'train_df_seed' + str(config["seed"]) + '.xlsx')
@@ -139,14 +139,14 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
         print(test_dataframe_location)
         test_df.to_excel(test_dataframe_location, index=True)
 
-    print(fail)
+    #print(fail)
     load_df_from_preset_location = True
     if load_df_from_preset_location:
-        train_loc = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/used_to_train_second_model/train_df_seed117.xlsx')
+        train_loc = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/used_to_train_second_model/datafolder/seed' +str(config["seed"]) + '/train_df_seed' +str(config["seed"]) + '.xlsx')
         train_df = pd.read_excel(train_loc, engine='openpyxl')
-        valid_loc = os.path.join(dir_base,'Zach_Analysis/discrepancy_data/used_to_train_second_model/valid_df_seed117.xlsx')
+        valid_loc = os.path.join(dir_base,'Zach_Analysis/discrepancy_data/used_to_train_second_model/datafolder/seed' +str(config["seed"]) + '/valid_df_seed' +str(config["seed"]) + '.xlsx')
         valid_df = pd.read_excel(valid_loc, engine='openpyxl')
-        test_loc = os.path.join(dir_base,'Zach_Analysis/discrepancy_data/used_to_train_second_model/test_df_seed117.xlsx')
+        test_loc = os.path.join(dir_base,'Zach_Analysis/discrepancy_data/used_to_train_second_model/datafolder/seed' +str(config["seed"]) + '/test_df_seed' +str(config["seed"]) + '.xlsx')
         test_df = pd.read_excel(test_loc, engine='openpyxl')
 
     training_set = TextDataset(train_df, tokenizer, dir_base=dir_base, wordDict= wordDict)
