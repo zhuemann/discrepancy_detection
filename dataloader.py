@@ -3,6 +3,7 @@ from torch.utils.data import DataLoader
 from torch.utils.data import Dataset
 import os
 import torch
+import pandas as pd
 
 from discrepancy_datasetup import balance_dataset
 from discrepancy_datasetup import synonymsReplacement, shuffledTextAugmentation
@@ -116,7 +117,14 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
          stratify=test_valid_df.label.values
     )
 
-    save_df = False
+
+    #train_df = balance_dataset(df, config)
+    #train_df = balance_dataset(train_df, config, aug_factor=1)
+    train_df.set_index("id", inplace=True)
+    valid_df.set_index("id", inplace=True)
+    test_df.set_index("id", inplace=True)
+
+    save_df = True
     if save_df:
         save_location = config["save_location"]
         train_dataframe_location = os.path.join(save_location, 'train_df_seed' + str(config["seed"]) + '.xlsx')
@@ -131,11 +139,14 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
         print(test_dataframe_location)
         test_df.to_excel(test_dataframe_location, index=True)
 
-    #train_df = balance_dataset(df, config)
-    #train_df = balance_dataset(train_df, config, aug_factor=1)
-    train_df.set_index("id", inplace=True)
-    valid_df.set_index("id", inplace=True)
-    test_df.set_index("id", inplace=True)
+    load_df_from_preset_location = True
+    if load_df_from_preset_location:
+        train_loc = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/used_to_train_second_model/train_df_seed117.xlsx')
+        train_df = pd.read_excel(train_loc, engine='openpyxl')
+        valid_loc = os.path.join(dir_base,'Zach_Analysis/discrepancy_data/used_to_train_second_model/valid_df_seed117.xlsx')
+        valid_df = pd.read_excel(valid_loc, engine='openpyxl')
+        test_loc = os.path.join(dir_base,'Zach_Analysis/discrepancy_data/used_to_train_second_model/test_df_seed117.xlsx')
+        test_df = pd.read_excel(test_loc, engine='openpyxl')
 
     training_set = TextDataset(train_df, tokenizer, dir_base=dir_base, wordDict= wordDict)
     valid_set = TextDataset(valid_df, tokenizer, dir_base=dir_base)
