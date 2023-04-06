@@ -21,6 +21,7 @@ def train_discrepancy_detection(config):
     if need_setup:
         df = discrepancy_datasetup_second_set(config)
         #df = discrepancy_datasetup(config)
+        print(fail)
         save_path = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/second_labeled_set_for_copying.xlsx')
         df.to_excel(save_path, index=False)
 
