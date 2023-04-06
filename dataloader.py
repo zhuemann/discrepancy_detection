@@ -116,18 +116,20 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
          stratify=test_valid_df.label.values
     )
 
-    save_location = config["save_location"]
-    train_dataframe_location = os.path.join(save_location, 'train_df_seed' + str(config["seed"]) + '.xlsx')
-    print(train_dataframe_location)
-    train_df.to_excel(train_dataframe_location, index=True)
+    save_df = False
+    if save_df:
+        save_location = config["save_location"]
+        train_dataframe_location = os.path.join(save_location, 'train_df_seed' + str(config["seed"]) + '.xlsx')
+        print(train_dataframe_location)
+        train_df.to_excel(train_dataframe_location, index=True)
 
-    valid_dataframe_location = os.path.join(save_location, 'valid_df_seed' + str(config["seed"]) + '.xlsx')
-    print(valid_dataframe_location)
-    valid_df.to_excel(valid_dataframe_location, index=True)
+        valid_dataframe_location = os.path.join(save_location, 'valid_df_seed' + str(config["seed"]) + '.xlsx')
+        print(valid_dataframe_location)
+        valid_df.to_excel(valid_dataframe_location, index=True)
 
-    test_dataframe_location = os.path.join(save_location, 'test_df_seed' + str(config["seed"]) + '.xlsx')
-    print(test_dataframe_location)
-    test_df.to_excel(test_dataframe_location, index=True)
+        test_dataframe_location = os.path.join(save_location, 'test_df_seed' + str(config["seed"]) + '.xlsx')
+        print(test_dataframe_location)
+        test_df.to_excel(test_dataframe_location, index=True)
 
     #train_df = balance_dataset(df, config)
     #train_df = balance_dataset(train_df, config, aug_factor=1)
