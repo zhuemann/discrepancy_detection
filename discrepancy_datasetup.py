@@ -345,6 +345,7 @@ def discrepancy_datasetup_second_set(config):
                 dups += 1
                 print(f"assession of dup: {prelim_accession}")
                 print(f"string of dup: {string_key}")
+                print(f"dic key: {string_dic[string_key]}")
 
                 continue
             else:
