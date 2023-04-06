@@ -324,6 +324,10 @@ def discrepancy_datasetup_second_set(config):
                 print(f"prelim accession number: {row['Accession Number']}")
                 final_row = df.loc[(df['Accession Number'] == row["Accession Number"]) & (df['Report Type'] == 'Final')].iloc[0]
                 print(final_row)
+                final_impression = final_row["Impression"]
+                final_accession = final_row['Accession Number']
+                final_row["Discrepancy"] = row["Discrepancy"]
+                final_num += 1
             prelim_impression = row['Impression']
             prelim_accession = row['Accession Number']
             prelim_num += 1
