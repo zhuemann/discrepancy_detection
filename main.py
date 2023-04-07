@@ -41,7 +41,7 @@ if __name__ == '__main__':
     #count_duplicates(config)
     #pick_test_set(config)
     #print(fail)
-    seeds = [117, 295, 98, 456, 915, 1367, 712]
+    seeds = [98, 117, 295, 456, 712, 915, 1367]
     #seeds = [295, 98, 456, 915, 1367, 712]
 
     #seeds = [117, 295]
