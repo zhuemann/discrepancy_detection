@@ -124,7 +124,7 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
     valid_df.set_index("id", inplace=True)
     test_df.set_index("id", inplace=True)
 
-    save_df = False
+    save_df = True
     if save_df:
         save_location = config["save_location"]
         train_dataframe_location = os.path.join(save_location, 'train_df_seed' + str(config["seed"]) + '.xlsx')
@@ -140,7 +140,7 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
         test_df.to_excel(test_dataframe_location, index=True)
 
     #print(fail)
-    load_df_from_preset_location = True
+    load_df_from_preset_location = False
     if load_df_from_preset_location:
         train_loc = os.path.join(dir_base, 'Zach_Analysis/result_logs/discrepancy_detection/second_labeling_batch/data_folder/seed' +str(config["seed"]) + '/train_df_seed' +str(config["seed"]) + '.xlsx')
         train_df = pd.read_excel(train_loc, engine='openpyxl')
