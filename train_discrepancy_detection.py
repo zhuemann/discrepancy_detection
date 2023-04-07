@@ -80,6 +80,9 @@ def train_discrepancy_detection(config):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
 
+    for param in model.parameters():
+        param.requires_grad = True
+
     criterion = nn.BCEWithLogitsLoss()
     #criterion = nn.MSELoss()
     #criterion = nn.CrossEntropyLoss()
