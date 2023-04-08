@@ -187,7 +187,7 @@ def train_discrepancy_detection(config):
         avg_training_accuracy = np.average(training_accuracy)
         print(f"Epoch {str(epoch)}, Average Training Accuracy = {avg_training_accuracy}")
         print(f"Train Confusion matrix: {confusion_matrix}")
-
+        del training_loader
         # each epoch, look at validation data
         with torch.no_grad():
 
