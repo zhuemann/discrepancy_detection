@@ -142,7 +142,7 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
         test_df.to_excel(test_dataframe_location, index=True)
 
     #print(fail)
-    load_df_from_preset_location = False
+    load_df_from_preset_location = True
     if load_df_from_preset_location:
         train_loc = os.path.join(dir_base, 'Zach_Analysis/result_logs/discrepancy_detection/second_labeling_batch/data_folder/seed' +str(config["seed"]) + '/train_df_seed' +str(config["seed"]) + '.xlsx')
         train_df = pd.read_excel(train_loc, engine='openpyxl')
@@ -169,10 +169,10 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
     #y_train_indices = training_set.indices
     y_train_indices = range(0,len(train_df))
     y_train = [training_set.targets[i] for i in y_train_indices]
-    class_sample_count = np.array(
-        [len(np.where(y_train == t)[0]) for t in np.unique(y_train)])
-    print(type(class_sample_count))
-    print(f"class sample count: {class_sample_count}")
+    #class_sample_count = np.array(
+    #    [len(np.where(y_train == t)[0]) for t in np.unique(y_train)])
+    #print(type(class_sample_count))
+    #print(f"class sample count: {class_sample_count}")
 
     class_sample_count = np.array([1134, 94])
     print(f"class sample count: {class_sample_count}")
