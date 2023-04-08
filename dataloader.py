@@ -217,70 +217,11 @@ def setup_random_training_loader(df_negative, df_positive, config, tokenizer, wo
     seed = config["seed"]
     dir_base = config["dir_base"]
     BATCH_SIZE = config["batch_size"]
-    # Splits the data into 80% train and 20% valid and test sets
-
-
-
-    #train_df = balance_dataset(df, config)
-    #train_df = balance_dataset(train_df, config, aug_factor=1)
-
-
-    #print(fail)
-    load_df_from_preset_location = True
-    if load_df_from_preset_location:
-        train_loc = os.path.join(dir_base, 'Zach_Analysis/result_logs/discrepancy_detection/second_labeling_batch/data_folder/seed' +str(config["seed"]) + '/train_df_seed' +str(config["seed"]) + '.xlsx')
-        train_df = pd.read_excel(train_loc, engine='openpyxl')
-
-    #train_df_positive = train_df[train_df['label'] != 0]
-    #print(train_df_positive)
-    #train_df_negative = train_df[train_df['label'] != 1]
-    #print(train_df_negative)
 
     train_df_positive = df_positive.sample(n=105)
-    print(train_df_positive)
     train_df = pd.concat([train_df_positive, df_negative])
-
     training_set = TextDataset(train_df, tokenizer, dir_base=dir_base, wordDict= wordDict)
 
-    ## added to trying sampling from training data
-    #y_train_indices = training_set.indices
-    #y_train_indices = range(0,len(train_df))                        #gets a list of the index 0 to lenth of df
-    #y_train = [training_set.targets[i] for i in y_train_indices]    #get a list of all of the training labels
-    #print(f"y train: {y_train}")
-    #print(f"y train len: {len(y_train)}")
-    #class_sample_count = np.array(
-    #    [len(np.where(y_train == t)[0]) for t in np.unique(y_train)]) # counts the number of each training value
-    #print(type(class_sample_count))
-    #print(f"class sample count: {class_sample_count}")
-
-    #class_sample_count = np.array([1134, 94])                       #sets the counts to the values in the orginal set
-    #class_sample_count = np.array([1228, 1228])
-    #class_sample_count =  np.array([94, 1134])
-    #class_sample_count =  np.array([94, 1134])
-
-    #print(f"class sample count: {class_sample_count}")
-    #print(type(class_sample_count))
-
-    #class_sample_count =  [1134, 94]
-    #weight = 1. / class_sample_count                    # calculates the weight for each sample
-    #weight = np.array([1134/1758, 94/1758])
-    #weight = np.array([1271/1762, 105/1762])
-    #weight = np.array([100, 105/1762])
-
-
-    #print(f"weight values: {weight}")
-    #samples_weight = np.array([weight[t] for t in y_train])         # makes an array where each index is the weight to select it
-    #print(f"len of sample weights: {len(samples_weight)}")
-    #samples_weight = torch.from_numpy(samples_weight)
-    #print(f"samples weight: {samples_weight}")
-    #sampler = WeightedRandomSampler(samples_weight.type('torch.DoubleTensor'), 1368, replacement=False) # was 1228
-
-    #y = torch.from_numpy(np.array([0, 0, 1, 1, 0, 0, 1, 1]))
-    #y = torch.from_numpy(np.array(y_train))
-    #sampler = StratifiedSampler(class_vector=y, batch_size=16)
-
-    #training_loader = DataLoader(training_set, sampler=sampler, batch_size=BATCH_SIZE, num_workers=4)
-    ##
 
     train_params = {'batch_size': BATCH_SIZE,
                     'shuffle': False,
