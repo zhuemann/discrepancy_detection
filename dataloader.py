@@ -169,8 +169,9 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
     #y_train_indices = training_set.indices
     y_train_indices = range(0,len(train_df))
     y_train = [training_set.targets[i] for i in y_train_indices]
-    #class_sample_count = np.array(
-    #    [len(np.where(y_train == t)[0]) for t in np.unique(y_train)])
+    class_sample_count = np.array(
+        [len(np.where(y_train == t)[0]) for t in np.unique(y_train)])
+    print(type(class_sample_count))
     class_sample_count = [1134, 94]
     print(f"class sample count: {class_sample_count}")
     #class_sample_count =  [1134, 94]
