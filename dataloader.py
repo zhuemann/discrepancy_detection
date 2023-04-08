@@ -176,6 +176,8 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
 
     class_sample_count = [1134, 94]
     print(f"class sample count: {class_sample_count}")
+    print(type(class_sample_count))
+
     #class_sample_count =  [1134, 94]
     weight = 1. / class_sample_count
     samples_weight = np.array([weight[t] for t in y_train])
