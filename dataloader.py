@@ -195,6 +195,11 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
     samples_weight = torch.from_numpy(samples_weight)
     print(f"samples weight: {samples_weight}")
     sampler = WeightedRandomSampler(samples_weight.type('torch.DoubleTensor'), 1376, replacement=False) # was 1228
+
+    #y = torch.from_numpy(np.array([0, 0, 1, 1, 0, 0, 1, 1]))
+    y = y_train
+    sampler = StratifiedSampler(class_vector=y, batch_size=2)
+
     training_loader = DataLoader(training_set, sampler=sampler, batch_size=BATCH_SIZE, num_workers=4)
     ##
     #training_loader = DataLoader(training_set, **train_params)
@@ -204,3 +209,57 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
 
     return training_loader, valid_loader, test_loader
 
+
+class Sampler(object):
+    """Base class for all Samplers.
+    Every Sampler subclass has to provide an __iter__ method, providing a way
+    to iterate over indices of dataset elements, and a __len__ method that
+    returns the length of the returned iterators.
+    """
+
+    def __init__(self, data_source):
+        pass
+
+    def __iter__(self):
+        raise NotImplementedError
+
+    def __len__(self):
+        raise NotImplementedError
+
+class StratifiedSampler(Sampler):
+    """Stratified Sampling
+    Provides equal representation of target classes in each batch
+    """
+
+    def __init__(self, class_vector, batch_size):
+        """
+        Arguments
+        ---------
+        class_vector : torch tensor
+            a vector of class labels
+        batch_size : integer
+            batch_size
+        """
+        self.n_splits = int(class_vector.size(0) / batch_size)
+        self.class_vector = class_vector
+
+    def gen_sample_array(self):
+        try:
+            from sklearn.model_selection import StratifiedShuffleSplit
+        except:
+            print('Need scikit-learn for this functionality')
+        import numpy as np
+
+        s = StratifiedShuffleSplit(n_splits=self.n_splits, test_size=0.5)
+        X = torch.randn(self.class_vector.size(0), 2).numpy()
+        y = self.class_vector.numpy()
+        s.get_n_splits(X, y)
+
+        train_index, test_index = next(s.split(X, y))
+        return np.hstack([train_index, test_index])
+
+    def __iter__(self):
+        return iter(self.gen_sample_array())
+
+    def __len__(self):
+        return len(self.class_vector)
