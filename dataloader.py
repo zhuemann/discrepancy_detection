@@ -167,10 +167,10 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
 
     ## added to trying sampling from training data
     #y_train_indices = training_set.indices
-    y_train_indices = range(0,len(train_df))                        #gets a list of the index 0 to lenth of df
-    y_train = [training_set.targets[i] for i in y_train_indices]    #get a list of all of the training labels
+    #y_train_indices = range(0,len(train_df))                        #gets a list of the index 0 to lenth of df
+    #y_train = [training_set.targets[i] for i in y_train_indices]    #get a list of all of the training labels
     #print(f"y train: {y_train}")
-    print(f"y train len: {len(y_train)}")
+    #print(f"y train len: {len(y_train)}")
     #class_sample_count = np.array(
     #    [len(np.where(y_train == t)[0]) for t in np.unique(y_train)]) # counts the number of each training value
     #print(type(class_sample_count))
@@ -179,32 +179,32 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
     #class_sample_count = np.array([1134, 94])                       #sets the counts to the values in the orginal set
     #class_sample_count = np.array([1228, 1228])
     #class_sample_count =  np.array([94, 1134])
-    class_sample_count =  np.array([94, 1134])
+    #class_sample_count =  np.array([94, 1134])
 
-    print(f"class sample count: {class_sample_count}")
-    print(type(class_sample_count))
+    #print(f"class sample count: {class_sample_count}")
+    #print(type(class_sample_count))
 
     #class_sample_count =  [1134, 94]
     #weight = 1. / class_sample_count                    # calculates the weight for each sample
     #weight = np.array([1134/1758, 94/1758])
-    weight = np.array([1271/1762, 105/1762])
+    #weight = np.array([1271/1762, 105/1762])
     #weight = np.array([100, 105/1762])
 
 
-    print(f"weight values: {weight}")
-    samples_weight = np.array([weight[t] for t in y_train])         # makes an array where each index is the weight to select it
-    print(f"len of sample weights: {len(samples_weight)}")
-    samples_weight = torch.from_numpy(samples_weight)
-    print(f"samples weight: {samples_weight}")
-    sampler = WeightedRandomSampler(samples_weight.type('torch.DoubleTensor'), 1368, replacement=False) # was 1228
+    #print(f"weight values: {weight}")
+    #samples_weight = np.array([weight[t] for t in y_train])         # makes an array where each index is the weight to select it
+    #print(f"len of sample weights: {len(samples_weight)}")
+    #samples_weight = torch.from_numpy(samples_weight)
+    #print(f"samples weight: {samples_weight}")
+    #sampler = WeightedRandomSampler(samples_weight.type('torch.DoubleTensor'), 1368, replacement=False) # was 1228
 
     #y = torch.from_numpy(np.array([0, 0, 1, 1, 0, 0, 1, 1]))
     #y = torch.from_numpy(np.array(y_train))
     #sampler = StratifiedSampler(class_vector=y, batch_size=16)
 
-    training_loader = DataLoader(training_set, sampler=sampler, batch_size=BATCH_SIZE, num_workers=4)
+    #training_loader = DataLoader(training_set, sampler=sampler, batch_size=BATCH_SIZE, num_workers=4)
     ##
-    #training_loader = DataLoader(training_set, **train_params)
+    training_loader = DataLoader(training_set, **train_params)
 
     valid_loader = DataLoader(valid_set, **test_params)
     test_loader = DataLoader(test_set, **test_params)
@@ -212,56 +212,80 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
     return training_loader, valid_loader, test_loader
 
 
-class Sampler(object):
-    """Base class for all Samplers.
-    Every Sampler subclass has to provide an __iter__ method, providing a way
-    to iterate over indices of dataset elements, and a __len__ method that
-    returns the length of the returned iterators.
-    """
+def setup_random_training_loader(df_negative, df_positive, config, tokenizer, wordDict=None):
 
-    def __init__(self, data_source):
-        pass
+    seed = config["seed"]
+    dir_base = config["dir_base"]
+    BATCH_SIZE = config["batch_size"]
+    # Splits the data into 80% train and 20% valid and test sets
 
-    def __iter__(self):
-        raise NotImplementedError
 
-    def __len__(self):
-        raise NotImplementedError
 
-class StratifiedSampler(Sampler):
-    """Stratified Sampling
-    Provides equal representation of target classes in each batch
-    """
+    #train_df = balance_dataset(df, config)
+    #train_df = balance_dataset(train_df, config, aug_factor=1)
+    df_negative.set_index("id", inplace=True)
+    df_positive.set_index("id", inplace=True)
 
-    def __init__(self, class_vector, batch_size):
-        """
-        Arguments
-        ---------
-        class_vector : torch tensor
-            a vector of class labels
-        batch_size : integer
-            batch_size
-        """
-        self.n_splits = int(class_vector.size(0) / batch_size)
-        self.class_vector = class_vector
+    #print(fail)
+    load_df_from_preset_location = True
+    if load_df_from_preset_location:
+        train_loc = os.path.join(dir_base, 'Zach_Analysis/result_logs/discrepancy_detection/second_labeling_batch/data_folder/seed' +str(config["seed"]) + '/train_df_seed' +str(config["seed"]) + '.xlsx')
+        train_df = pd.read_excel(train_loc, engine='openpyxl')
 
-    def gen_sample_array(self):
-        try:
-            from sklearn.model_selection import StratifiedShuffleSplit
-        except:
-            print('Need scikit-learn for this functionality')
-        import numpy as np
+    train_df_positive = train_df[train_df['label'] != 0]
+    print(train_df_positive)
+    train_df_negative = train_df[train_df['label'] != 1]
+    print(train_df_negative)
 
-        s = StratifiedShuffleSplit(n_splits=self.n_splits, test_size=0.5)
-        X = torch.randn(self.class_vector.size(0), 2).numpy()
-        y = self.class_vector.numpy()
-        s.get_n_splits(X, y)
+    train_df = train_df_positive.sample(n=105)
 
-        train_index, test_index = next(s.split(X, y))
-        return np.hstack([train_index, test_index])
+    training_set = TextDataset(train_df, tokenizer, dir_base=dir_base, wordDict= wordDict)
 
-    def __iter__(self):
-        return iter(self.gen_sample_array())
+    ## added to trying sampling from training data
+    #y_train_indices = training_set.indices
+    #y_train_indices = range(0,len(train_df))                        #gets a list of the index 0 to lenth of df
+    #y_train = [training_set.targets[i] for i in y_train_indices]    #get a list of all of the training labels
+    #print(f"y train: {y_train}")
+    #print(f"y train len: {len(y_train)}")
+    #class_sample_count = np.array(
+    #    [len(np.where(y_train == t)[0]) for t in np.unique(y_train)]) # counts the number of each training value
+    #print(type(class_sample_count))
+    #print(f"class sample count: {class_sample_count}")
 
-    def __len__(self):
-        return len(self.class_vector)
+    #class_sample_count = np.array([1134, 94])                       #sets the counts to the values in the orginal set
+    #class_sample_count = np.array([1228, 1228])
+    #class_sample_count =  np.array([94, 1134])
+    #class_sample_count =  np.array([94, 1134])
+
+    #print(f"class sample count: {class_sample_count}")
+    #print(type(class_sample_count))
+
+    #class_sample_count =  [1134, 94]
+    #weight = 1. / class_sample_count                    # calculates the weight for each sample
+    #weight = np.array([1134/1758, 94/1758])
+    #weight = np.array([1271/1762, 105/1762])
+    #weight = np.array([100, 105/1762])
+
+
+    #print(f"weight values: {weight}")
+    #samples_weight = np.array([weight[t] for t in y_train])         # makes an array where each index is the weight to select it
+    #print(f"len of sample weights: {len(samples_weight)}")
+    #samples_weight = torch.from_numpy(samples_weight)
+    #print(f"samples weight: {samples_weight}")
+    #sampler = WeightedRandomSampler(samples_weight.type('torch.DoubleTensor'), 1368, replacement=False) # was 1228
+
+    #y = torch.from_numpy(np.array([0, 0, 1, 1, 0, 0, 1, 1]))
+    #y = torch.from_numpy(np.array(y_train))
+    #sampler = StratifiedSampler(class_vector=y, batch_size=16)
+
+    #training_loader = DataLoader(training_set, sampler=sampler, batch_size=BATCH_SIZE, num_workers=4)
+    ##
+
+    train_params = {'batch_size': BATCH_SIZE,
+                    'shuffle': True,
+                    'num_workers': 4
+                    }
+
+    training_loader = DataLoader(training_set, **train_params)
+
+    return training_loader

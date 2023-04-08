@@ -8,7 +8,7 @@ import numpy as np
 from tqdm import tqdm
 
 from discrepancy_datasetup import discrepancy_datasetup_second_set
-from dataloader import setup_dataloader
+from dataloader import setup_dataloader, setup_random_training_loader
 from t5_classifier import T5Classifier
 from roberta_classifier_dot_product import RobertaClassifier
 from single_model_classifier import RobertaSingleClassifier
@@ -67,18 +67,17 @@ def train_discrepancy_detection(config):
         wordList = string.split("', '")
         wordDict["synonyms"][key] = wordList
 
-    train_loc = os.path.join(dir_base,
-                             'Zach_Analysis/result_logs/discrepancy_detection/second_labeling_batch/data_folder/seed' + str(
-                                 config["seed"]) + '/train_df_seed' + str(config["seed"]) + '.xlsx')
-    train_df_all_data = pd.read_excel(train_loc, engine='openpyxl')
+    load_df_from_preset_location = True
+    if load_df_from_preset_location:
+        train_loc = os.path.join(dir_base, 'Zach_Analysis/result_logs/discrepancy_detection/second_labeling_batch/data_folder/seed' +str(config["seed"]) + '/train_df_seed' +str(config["seed"]) + '.xlsx')
+        train_df = pd.read_excel(train_loc, engine='openpyxl')
 
-    train_df_positive = train_df_all_data[train_df_all_data['label'] != 0]
+    train_df_positive = train_df[train_df['label'] != 0]
     print(train_df_positive)
-    train_df_negative = train_df_all_data[train_df_all_data['label'] != 1]
-
+    train_df_negative = train_df[train_df['label'] != 1]
     print(train_df_negative)
 
-    #training_loader, valid_loader, test_loader = setup_dataloader(df, config, tokenizer, wordDict)
+
     training_loader, valid_loader, test_loader = setup_dataloader(df, config, tokenizer, wordDict)
     print("after all is loaded")
 
@@ -121,7 +120,7 @@ def train_discrepancy_detection(config):
         #gc.collect()
         torch.cuda.empty_cache()
         confusion_matrix = [[0, 0], [0, 0]]
-
+        training_loader = setup_random_training_loader(df_negative=train_df_negative, df_positive=train_df_positive, config=config, tokenizer=tokenizer, wordDict=wordDict)
         loss_list = []
         print(scheduler.get_lr())
         for _, data in tqdm(enumerate(training_loader, 0)):
