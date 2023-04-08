@@ -232,12 +232,13 @@ def setup_random_training_loader(df_negative, df_positive, config, tokenizer, wo
         train_loc = os.path.join(dir_base, 'Zach_Analysis/result_logs/discrepancy_detection/second_labeling_batch/data_folder/seed' +str(config["seed"]) + '/train_df_seed' +str(config["seed"]) + '.xlsx')
         train_df = pd.read_excel(train_loc, engine='openpyxl')
 
-    train_df_positive = train_df[train_df['label'] != 0]
-    print(train_df_positive)
-    train_df_negative = train_df[train_df['label'] != 1]
-    print(train_df_negative)
+    #train_df_positive = train_df[train_df['label'] != 0]
+    #print(train_df_positive)
+    #train_df_negative = train_df[train_df['label'] != 1]
+    #print(train_df_negative)
 
-    train_df = train_df_positive.sample(n=105)
+    train_df_positive = df_positive.sample(n=105)
+    train_df = pd.concat([train_df_positive, df_negative])
 
     training_set = TextDataset(train_df, tokenizer, dir_base=dir_base, wordDict= wordDict)
 
