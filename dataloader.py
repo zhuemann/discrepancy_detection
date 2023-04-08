@@ -168,26 +168,26 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
     ## added to trying sampling from training data
     #y_train_indices = training_set.indices
     y_train_indices = range(0,len(train_df))                        #gets a list of the index 0 to lenth of df
-    y_train = [training_set.targets[i] for i in y_train_indices]    #get
+    y_train = [training_set.targets[i] for i in y_train_indices]    #get a list of all of the training labels
     print(f"y train: {y_train}")
     print(f"y train len: {len(y_train)}")
     #class_sample_count = np.array(
-    #    [len(np.where(y_train == t)[0]) for t in np.unique(y_train)])
+    #    [len(np.where(y_train == t)[0]) for t in np.unique(y_train)]) # counts the number of each training value
     #print(type(class_sample_count))
     #print(f"class sample count: {class_sample_count}")
 
-    class_sample_count = np.array([1134, 94])
+    class_sample_count = np.array([1134, 94])                       #sets the counts to the values in the orginal set
     print(f"class sample count: {class_sample_count}")
     print(type(class_sample_count))
 
     #class_sample_count =  [1134, 94]
-    weight = 1. / class_sample_count
+    weight = 1. / class_sample_count                                # calculates the weight for each sample
     print(f"weight values: {weight}")
-    samples_weight = np.array([weight[t] for t in y_train])
+    samples_weight = np.array([weight[t] for t in y_train])         # makes an array where each index is the weight to select it
     print(f"len of sample weights: {len(samples_weight)}")
     samples_weight = torch.from_numpy(samples_weight)
     print(f"samples weight: {samples_weight}")
-    sampler = WeightedRandomSampler(samples_weight.type('torch.DoubleTensor'), 1228, replacement=False)
+    sampler = WeightedRandomSampler(samples_weight.type('torch.DoubleTensor'), 1228, replacement=True)
     training_loader = DataLoader(training_set, sampler=sampler, batch_size=BATCH_SIZE, num_workers=4)
     ##
     #training_loader = DataLoader(training_set, **train_params)
