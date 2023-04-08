@@ -1,5 +1,6 @@
 from sklearn import model_selection
 from torch.utils.data import DataLoader
+from torch.utils.data.sampler import WeightedRandomSampler
 from torch.utils.data import Dataset
 import os
 import torch
@@ -164,16 +165,20 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
                    'num_workers': 4
                    }
 
+    ## added to trying sampling from training data
     y_train_indices = training_set.indices
-
     y_train = [training_set.targets[i] for i in y_train_indices]
-
     class_sample_count = np.array(
         [len(np.where(y_train == t)[0]) for t in np.unique(y_train)])
-
     print(f"class sample count: {class_sample_count}")
+    weight = 1. / class_sample_count
+    samples_weight = np.array([weight[t] for t in y_train])
+    samples_weight = torch.from_numpy(samples_weight)
+    sampler = WeightedRandomSampler(samples_weight.type('torch.DoubleTensor'), len(samples_weight), replacement=False)
+    training_loader = DataLoader(training_set, sampler=sampler, batch_size=BATCH_SIZE, num_workers=4)
+    ##
+    #training_loader = DataLoader(training_set, **train_params)
 
-    training_loader = DataLoader(training_set, **train_params)
     valid_loader = DataLoader(valid_set, **test_params)
     test_loader = DataLoader(test_set, **test_params)
 
