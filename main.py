@@ -4,6 +4,8 @@ import numpy as np
 
 import pandas as pd
 from train_discrepancy_detection import train_discrepancy_detection
+from train_discrepancy_detection_random_test_data import train_discrepancy_detection
+
 from next_setence_prediction import train_discrepancy_detection_nsp
 from inference_on_all_data import inference_on_all_data
 # Press Shift+F10 to execute it or replace it with your code.
