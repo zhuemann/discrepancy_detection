@@ -166,7 +166,8 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
                    }
 
     ## added to trying sampling from training data
-    y_train_indices = training_set.indices
+    #y_train_indices = training_set.indices
+    y_train_indices = range(0,1000)
     y_train = [training_set.targets[i] for i in y_train_indices]
     class_sample_count = np.array(
         [len(np.where(y_train == t)[0]) for t in np.unique(y_train)])
