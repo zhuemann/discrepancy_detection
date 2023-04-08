@@ -220,6 +220,8 @@ def setup_random_training_loader(df_negative, df_positive, config, tokenizer, wo
 
     train_df_positive = df_positive.sample(n=105)
     train_df = pd.concat([train_df_positive, df_negative])
+    print(train_df)
+    print(len(train_df))
     training_set = TextDataset(train_df, tokenizer, dir_base=dir_base, wordDict= wordDict)
 
 
