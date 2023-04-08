@@ -174,7 +174,7 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
     print(type(class_sample_count))
     print(f"class sample count: {class_sample_count}")
 
-    class_sample_count = [1134, 94]
+    class_sample_count = np.array([1134, 94])
     print(f"class sample count: {class_sample_count}")
     print(type(class_sample_count))
 
