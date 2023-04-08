@@ -169,6 +169,7 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
     #y_train_indices = training_set.indices
     y_train_indices = range(0,len(train_df))
     y_train = [training_set.targets[i] for i in y_train_indices]
+    print(f"y train len: {len(y_train)}")
     #class_sample_count = np.array(
     #    [len(np.where(y_train == t)[0]) for t in np.unique(y_train)])
     #print(type(class_sample_count))
@@ -181,6 +182,7 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
     #class_sample_count =  [1134, 94]
     weight = 1. / class_sample_count
     samples_weight = np.array([weight[t] for t in y_train])
+    print(f"len of sample weights: {len(samples_weight)}")
     samples_weight = torch.from_numpy(samples_weight)
     print(f"samples weight: {samples_weight}")
     sampler = WeightedRandomSampler(samples_weight.type('torch.DoubleTensor'), 1228, replacement=False)
