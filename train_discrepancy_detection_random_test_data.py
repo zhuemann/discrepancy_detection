@@ -74,8 +74,9 @@ def train_discrepancy_detection(config):
 
     train_df_positive = train_df_all_data[train_df_all_data['label'] != 0]
     print(train_df_positive)
+    train_df_negative = train_df_all_data[train_df_all_data['label'] != 1]
 
-    print(train_df_all_data)
+    print(train_df_negative)
 
     #training_loader, valid_loader, test_loader = setup_dataloader(df, config, tokenizer, wordDict)
     training_loader, valid_loader, test_loader = setup_dataloader(df, config, tokenizer, wordDict)
