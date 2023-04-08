@@ -187,14 +187,14 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
     #class_sample_count =  [1134, 94]
     #weight = 1. / class_sample_count                    # calculates the weight for each sample
     #weight = np.array([1134/1758, 94/1758])
-    weight = np.array([1267/1762, 104/1762])
+    weight = np.array([1271/1762, 105/1762])
 
     print(f"weight values: {weight}")
     samples_weight = np.array([weight[t] for t in y_train])         # makes an array where each index is the weight to select it
     print(f"len of sample weights: {len(samples_weight)}")
     samples_weight = torch.from_numpy(samples_weight)
     print(f"samples weight: {samples_weight}")
-    sampler = WeightedRandomSampler(samples_weight.type('torch.DoubleTensor'), 1371, replacement=False) # was 1228
+    sampler = WeightedRandomSampler(samples_weight.type('torch.DoubleTensor'), 1376, replacement=False) # was 1228
     training_loader = DataLoader(training_set, sampler=sampler, batch_size=BATCH_SIZE, num_workers=4)
     ##
     #training_loader = DataLoader(training_set, **train_params)
