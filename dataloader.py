@@ -178,13 +178,15 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
 
     #class_sample_count = np.array([1134, 94])                       #sets the counts to the values in the orginal set
     #class_sample_count = np.array([1228, 1228])
+    #class_sample_count =  np.array([94, 1134])
     class_sample_count =  np.array([94, 1134])
 
     print(f"class sample count: {class_sample_count}")
     print(type(class_sample_count))
 
     #class_sample_count =  [1134, 94]
-    weight = 1. / class_sample_count                                # calculates the weight for each sample
+    weight = 1. / class_sample_count                    # calculates the weight for each sample
+    weight = np.array([1134/1267, 94/397])
     print(f"weight values: {weight}")
     samples_weight = np.array([weight[t] for t in y_train])         # makes an array where each index is the weight to select it
     print(f"len of sample weights: {len(samples_weight)}")
