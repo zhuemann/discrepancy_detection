@@ -197,8 +197,8 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
     sampler = WeightedRandomSampler(samples_weight.type('torch.DoubleTensor'), 1376, replacement=False) # was 1228
 
     #y = torch.from_numpy(np.array([0, 0, 1, 1, 0, 0, 1, 1]))
-    y = torch.from_numpy(np.array(y_train))
-    sampler = StratifiedSampler(class_vector=y, batch_size=16)
+    #y = torch.from_numpy(np.array(y_train))
+    #sampler = StratifiedSampler(class_vector=y, batch_size=16)
 
     training_loader = DataLoader(training_set, sampler=sampler, batch_size=BATCH_SIZE, num_workers=4)
     ##
