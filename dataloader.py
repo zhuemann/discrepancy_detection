@@ -198,9 +198,9 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
 
     #y = torch.from_numpy(np.array([0, 0, 1, 1, 0, 0, 1, 1]))
     y = np.array(y_train)
-    sampler = StratifiedSampler(class_vector=y, batch_size=2)
+    sampler = StratifiedSampler(class_vector=y, batch_size=16)
 
-    training_loader = DataLoader(training_set, sampler=sampler, batch_size=BATCH_SIZE, num_workers=4)
+    training_loader = DataLoader(training_set, batch_sampler=sampler, batch_size=BATCH_SIZE, num_workers=4)
     ##
     #training_loader = DataLoader(training_set, **train_params)
 
