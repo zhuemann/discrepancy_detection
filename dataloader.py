@@ -223,8 +223,7 @@ def setup_random_training_loader(df_negative, df_positive, config, tokenizer, wo
 
     #train_df = balance_dataset(df, config)
     #train_df = balance_dataset(train_df, config, aug_factor=1)
-    df_negative.set_index("id", inplace=True)
-    df_positive.set_index("id", inplace=True)
+
 
     #print(fail)
     load_df_from_preset_location = True

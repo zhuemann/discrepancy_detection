@@ -77,6 +77,9 @@ def train_discrepancy_detection(config):
     train_df_negative = train_df[train_df['label'] != 1]
     print(train_df_negative)
 
+    train_df_negative.set_index("id", inplace=True)
+    train_df_positive.set_index("id", inplace=True)
+
 
     training_loader, valid_loader, test_loader = setup_dataloader(df, config, tokenizer, wordDict)
     print("after all is loaded")
