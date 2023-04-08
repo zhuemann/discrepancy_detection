@@ -4,6 +4,7 @@ from torch.utils.data import Dataset
 import os
 import torch
 import pandas as pd
+import numpy as np
 
 from discrepancy_datasetup import balance_dataset
 from discrepancy_datasetup import synonymsReplacement, shuffledTextAugmentation
@@ -162,6 +163,15 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
                    'shuffle': True,
                    'num_workers': 4
                    }
+
+    y_train_indices = training_set.indices
+
+    y_train = [training_set.targets[i] for i in y_train_indices]
+
+    class_sample_count = np.array(
+        [len(np.where(y_train == t)[0]) for t in np.unique(y_train)])
+
+    print(f"class sample count: {class_sample_count}")
 
     training_loader = DataLoader(training_set, **train_params)
     valid_loader = DataLoader(valid_set, **test_params)
