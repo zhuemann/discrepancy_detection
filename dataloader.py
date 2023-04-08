@@ -218,7 +218,7 @@ def setup_random_training_loader(df_negative, df_positive, config, tokenizer, wo
     dir_base = config["dir_base"]
     BATCH_SIZE = config["batch_size"]
 
-    train_df_positive = df_positive.sample(n=105)
+    train_df_positive = df_positive.sample(n=155)
     train_df = pd.concat([train_df_positive, df_negative])
     #print(train_df)
     #print(len(train_df))
