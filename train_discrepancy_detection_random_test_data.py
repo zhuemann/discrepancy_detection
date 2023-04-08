@@ -72,8 +72,10 @@ def train_discrepancy_detection(config):
                                  config["seed"]) + '/train_df_seed' + str(config["seed"]) + '.xlsx')
     train_df_all_data = pd.read_excel(train_loc, engine='openpyxl')
 
-    train_df_positive = train_df_all_data[train_df_all_data['label'] != 1]
+    train_df_positive = train_df_all_data[train_df_all_data['label'] != 0]
     print(train_df_positive)
+
+    print(train_df_all_data)
 
     #training_loader, valid_loader, test_loader = setup_dataloader(df, config, tokenizer, wordDict)
     training_loader, valid_loader, test_loader = setup_dataloader(df, config, tokenizer, wordDict)
