@@ -181,6 +181,7 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
 
     #class_sample_count =  [1134, 94]
     weight = 1. / class_sample_count
+    print(f"weight values: {weight}")
     samples_weight = np.array([weight[t] for t in y_train])
     print(f"len of sample weights: {len(samples_weight)}")
     samples_weight = torch.from_numpy(samples_weight)
