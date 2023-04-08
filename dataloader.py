@@ -175,6 +175,7 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
     weight = 1. / class_sample_count
     samples_weight = np.array([weight[t] for t in y_train])
     samples_weight = torch.from_numpy(samples_weight)
+    print(f"samples weight: {samples_weight}")
     sampler = WeightedRandomSampler(samples_weight.type('torch.DoubleTensor'), len(samples_weight), replacement=False)
     training_loader = DataLoader(training_set, sampler=sampler, batch_size=BATCH_SIZE, num_workers=4)
     ##
