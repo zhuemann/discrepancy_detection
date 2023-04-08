@@ -186,7 +186,7 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
 
     #class_sample_count =  [1134, 94]
     weight = 1. / class_sample_count                    # calculates the weight for each sample
-    weight = np.array([1134/1267, 94/397])
+    weight = np.array([1135/1758, 94/1758])
     print(f"weight values: {weight}")
     samples_weight = np.array([weight[t] for t in y_train])         # makes an array where each index is the weight to select it
     print(f"len of sample weights: {len(samples_weight)}")
