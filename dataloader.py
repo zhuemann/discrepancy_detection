@@ -188,7 +188,7 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
     #weight = 1. / class_sample_count                    # calculates the weight for each sample
     #weight = np.array([1134/1758, 94/1758])
     #weight = np.array([1271/1762, 105/1762])
-    weight = np.array([10000, 105/1762])
+    weight = np.array([100, 105/1762])
 
 
     print(f"weight values: {weight}")
