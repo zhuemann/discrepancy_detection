@@ -283,7 +283,7 @@ def setup_random_training_loader(df_negative, df_positive, config, tokenizer, wo
     ##
 
     train_params = {'batch_size': BATCH_SIZE,
-                    'shuffle': True,
+                    'shuffle': False,
                     'num_workers': 4
                     }
 
