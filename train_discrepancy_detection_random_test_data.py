@@ -32,8 +32,8 @@ def train_discrepancy_detection(config):
     #dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/second_set_binary_discrepancy_balanced_df.xlsx')
 
     # not relavent now that I load in data from dataloader
-    #dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/second_set_hand_cleaned_df.xlsx')
-    dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/used_to_train_second_model/second_set_hand_cleaned_df_with_second_labels_added.xlsx')
+    dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/second_set_hand_cleaned_df.xlsx')
+    #dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/used_to_train_second_model/second_set_hand_cleaned_df_with_second_labels_added.xlsx')
     #dataframe_location = os.path.join(dir_base,
     #                         'Zach_Analysis/result_logs/discrepancy_detection/second_labeling_batch/data_folder/seed' + str(
     #                             config["seed"]) + '/train_df_seed' + str(config["seed"]) + '.xlsx')

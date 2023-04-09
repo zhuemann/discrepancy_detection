@@ -142,7 +142,7 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
         test_df.to_excel(test_dataframe_location, index=True)
 
     #print(fail)
-    load_df_from_preset_location = True
+    load_df_from_preset_location = False
     if load_df_from_preset_location:
         train_loc = os.path.join(dir_base, 'Zach_Analysis/result_logs/discrepancy_detection/second_labeling_batch/data_folder/seed' +str(config["seed"]) + '/train_df_seed' +str(config["seed"]) + '.xlsx')
         train_df = pd.read_excel(train_loc, engine='openpyxl')
@@ -209,7 +209,7 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
     valid_loader = DataLoader(valid_set, **test_params)
     test_loader = DataLoader(test_set, **test_params)
 
-    return training_loader, valid_loader, test_loader
+    return training_loader, valid_loader, test_loader, train_df
 
 
 def setup_random_training_loader(df_negative, df_positive, config, tokenizer, wordDict=None):
@@ -218,7 +218,7 @@ def setup_random_training_loader(df_negative, df_positive, config, tokenizer, wo
     dir_base = config["dir_base"]
     BATCH_SIZE = config["batch_size"]
 
-    train_df_positive = df_positive.sample(n=105)
+    train_df_positive = df_positive.sample(n=11)
     train_df = pd.concat([train_df_positive, df_negative])
     #print(train_df)
     #print(len(train_df))
