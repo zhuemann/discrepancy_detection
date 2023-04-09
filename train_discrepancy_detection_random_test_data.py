@@ -98,6 +98,14 @@ def train_discrepancy_detection(config):
     #model = RobertaClassifier(language_model1, language_model2, n_class=1)
     model = RobertaSingleClassifier(language_model1, n_class=1)
 
+    # start the model from the pretrained model
+    saved_path = os.path.join(dir_base,
+                             'Zach_Analysis/result_logs/discrepancy_detection/second_labeling_batch/radbert_two_step_training_step1_data_v50/seed' + str(
+                                 config["seed"]) + '/best_model_seed' + str(config["seed"]))
+
+    model.load_state_dict(torch.load(saved_path))
+
+
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
 
