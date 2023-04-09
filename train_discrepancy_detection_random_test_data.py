@@ -71,9 +71,9 @@ def train_discrepancy_detection(config):
     if load_df_from_preset_location:
         train_loc = os.path.join(dir_base, 'Zach_Analysis/result_logs/discrepancy_detection/second_labeling_batch/data_folder/seed' +str(config["seed"]) + '/train_df_seed' +str(config["seed"]) + '.xlsx')
         train_df = pd.read_excel(train_loc, engine='openpyxl')
-        train_loc = os.path.join(dir_base, 'Zach_Analysis/result_logs/discrepancy_detection/second_labeling_batch/saving_original_dataframe/seed' +str(config["seed"]) + '/train_df_seed' +str(config["seed"]) + '.xlsx')
-
+        train_orig_loc = os.path.join(dir_base, 'Zach_Analysis/result_logs/discrepancy_detection/second_labeling_batch/saving_original_dataframe/seed' +str(config["seed"]) + '/train_df_seed' +str(config["seed"]) + '.xlsx')
         original_df = pd.read_excel(train_orig_loc, engine='openpyxl')
+
     train_df_positive = train_df[train_df['label'] != 0]
     print(train_df_positive)
     train_df_negative = train_df[train_df['label'] != 1]
