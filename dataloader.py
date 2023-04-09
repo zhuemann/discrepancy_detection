@@ -209,7 +209,7 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
     valid_loader = DataLoader(valid_set, **test_params)
     test_loader = DataLoader(test_set, **test_params)
 
-    return training_loader, valid_loader, test_loader, train_df
+    return training_loader, valid_loader, test_loader
 
 
 def setup_random_training_loader(df_negative, df_positive, config, tokenizer, wordDict=None):
