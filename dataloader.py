@@ -212,14 +212,16 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
     return training_loader, valid_loader, test_loader
 
 
-def setup_random_training_loader(df_negative, df_positive, config, tokenizer, wordDict=None):
+def setup_random_training_loader(df_negative, df_positive, base_pos, config, tokenizer, wordDict=None):
 
     seed = config["seed"]
     dir_base = config["dir_base"]
     BATCH_SIZE = config["batch_size"]
 
+
     train_df_positive = df_positive.sample(n=11)
     train_df = pd.concat([train_df_positive, df_negative])
+    train_df = pd.concat([ train_df, base_pos])
     #print(train_df)
     #print(len(train_df))
     training_set = TextDataset(train_df, tokenizer, dir_base=dir_base, wordDict= wordDict)
