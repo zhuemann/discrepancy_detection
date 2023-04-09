@@ -219,9 +219,12 @@ def setup_random_training_loader(df_negative, df_positive, base_pos, config, tok
     BATCH_SIZE = config["batch_size"]
 
 
-    train_df_positive = df_positive.sample(n=11)
-    train_df = pd.concat([train_df_positive, df_negative])
-    train_df = pd.concat([ train_df, base_pos])
+    #train_df_positive = df_positive.sample(n=11)
+    #train_df = pd.concat([train_df_positive, df_negative])
+    #train_df = pd.concat([ train_df, base_pos])
+
+    train_df = pd.concat([df_negative, df_positive])
+
     #print(train_df)
     #print(len(train_df))
     training_set = TextDataset(train_df, tokenizer, dir_base=dir_base, wordDict= wordDict)

@@ -74,14 +74,16 @@ def train_discrepancy_detection(config):
         train_orig_loc = os.path.join(dir_base, 'Zach_Analysis/result_logs/discrepancy_detection/second_labeling_batch/saving_original_dataframe/seed' +str(config["seed"]) + '/train_df_seed' +str(config["seed"]) + '.xlsx')
         original_df = pd.read_excel(train_orig_loc, engine='openpyxl')
 
-    train_df_positive = train_df[train_df['label'] != 0]
-    print(train_df_positive)
-    train_df_negative = train_df[train_df['label'] != 1]
-    print(train_df_negative)
+    #train_df_positive = train_df[train_df['label'] != 0]
+    #print(train_df_positive)
+    #train_df_negative = train_df[train_df['label'] != 1]
+    #print(train_df_negative)
 
-    train_df_negative.set_index("id", inplace=True)
-    train_df_positive.set_index("id", inplace=True)
+
+    #train_df_negative.set_index("id", inplace=True)
+    #train_df_positive.set_index("id", inplace=True)
     original_df.set_index("id", inplace=True)
+    original_negative_df = original_df[original_df['label'] != 1]
     original_positive_df = original_df[original_df['label'] != 0]
 
     training_loader, valid_loader, test_loader = setup_dataloader(df, config, tokenizer, wordDict)
@@ -126,7 +128,9 @@ def train_discrepancy_detection(config):
         #gc.collect()
         torch.cuda.empty_cache()
         confusion_matrix = [[0, 0], [0, 0]]
-        training_loader = setup_random_training_loader(df_negative=train_df_negative, df_positive=train_df_positive, base_pos = original_positive_df, config=config, tokenizer=tokenizer, wordDict=wordDict)
+        #training_loader = setup_random_training_loader(df_negative=train_df_negative, df_positive=train_df_positive, base_pos = original_positive_df, config=config, tokenizer=tokenizer, wordDict=wordDict)
+        training_loader = setup_random_training_loader(df_negative=original_negative_df, df_positive=original_positive_df, base_pos = original_positive_df, config=config, tokenizer=tokenizer, wordDict=wordDict)
+
         loss_list = []
         print(scheduler.get_lr())
         for _, data in tqdm(enumerate(training_loader, 0)):
