@@ -80,6 +80,8 @@ def train_discrepancy_detection(config):
     #model = T5Classifier(language_model1, n_class=1)
     #model = RobertaClassifier(language_model1, language_model2, n_class=1)
     model = RobertaSingleClassifier(language_model1, n_class=1)
+    for param in model.parameters():
+        param.requires_grad = True
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
