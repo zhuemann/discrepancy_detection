@@ -104,7 +104,8 @@ def train_discrepancy_detection(config):
                                  config["seed"]) + '/best_model_seed' + str(config["seed"]))
 
     model.load_state_dict(torch.load(saved_path))
-
+    for param in model.parameters():
+        param.requires_grad = True
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
