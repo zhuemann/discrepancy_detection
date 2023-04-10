@@ -73,12 +73,16 @@ def train_discrepancy_detection(config):
         train_df = pd.read_excel(train_loc, engine='openpyxl')
         train_orig_loc = os.path.join(dir_base, 'Zach_Analysis/result_logs/discrepancy_detection/second_labeling_batch/saving_original_dataframe/seed' +str(config["seed"]) + '/train_df_seed' +str(config["seed"]) + '.xlsx')
         original_df = pd.read_excel(train_orig_loc, engine='openpyxl')
+        new_labeled_data_loc = os.path.join(dir_base, 'Zach_Analysis/result_logs/discrepancy_detection/used_to_train_second_model/second_labeled_set_for_copying' + '.xlsx')
+        new_data_df = pd.read_excel(new_labeled_data_loc, engine='openpyxl')
 
     train_df_positive = train_df[train_df['label'] != 0]
     #print(train_df_positive)
     train_df_negative = train_df[train_df['label'] != 1]
     #print(train_df_negative)
 
+    new_labeled_positives = new_data_df[new_data_df['label'] != 0]
+    new_labeled_negatives = new_data_df[new_data_df['label'] != 1]
 
     train_df_negative.set_index("id", inplace=True)
     train_df_positive.set_index("id", inplace=True)
@@ -137,7 +141,7 @@ def train_discrepancy_detection(config):
         #gc.collect()
         torch.cuda.empty_cache()
         confusion_matrix = [[0, 0], [0, 0]]
-        training_loader = setup_random_training_loader(df_negative=train_df_negative, df_positive=train_df_positive, base_pos = original_positive_df, config=config, tokenizer=tokenizer, wordDict=wordDict)
+        training_loader = setup_random_training_loader(df_negative=train_df_negative, df_positive=train_df_positive, base_pos = original_positive_df, base_neg = original_negative_df, new_pos=new_labeled_positives, new_neg = new_labeled_negatives, config=config, tokenizer=tokenizer, wordDict=wordDict)
         #training_loader = setup_random_training_loader(df_negative=original_negative_df, df_positive=original_positive_df, base_pos = original_positive_df, config=config, tokenizer=tokenizer, wordDict=wordDict)
 
         loss_list = []

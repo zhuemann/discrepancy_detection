@@ -212,22 +212,24 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
     return training_loader, valid_loader, test_loader
 
 
-def setup_random_training_loader(df_negative, df_positive, base_pos, config, tokenizer, wordDict=None):
+def setup_random_training_loader(df_negative, df_positive, base_pos, base_neg, new_pos, new_neg,  config, tokenizer, wordDict=None):
 
     seed = config["seed"]
     dir_base = config["dir_base"]
     BATCH_SIZE = config["batch_size"]
 
-
-    train_df_positive = df_positive.sample(n=21)
-    train_df = pd.concat([train_df_positive, df_negative])
-    train_df = pd.concat([ train_df, base_pos])
+    #train_df_positive = df_positive.sample(n=21)
+    #train_df = pd.concat([train_df_positive, df_negative])
+    #train_df = pd.concat([ train_df, base_pos])
     #df_negative = df_negative.sample(n=1134)
     #df_positive = df_positive.sample(n=94)
-    train_df = pd.concat([df_negative, df_positive])
+    #train_df = pd.concat([df_negative, base_pos])
 
-    #print(train_df)
-    #print(len(train_df))
+    added_pos = new_pos.sample(11)                          #get n samples from positves cases
+    postive_df = pd.concat([base_pos, added_pos])           #add the n samples to the already postive cases
+    negative_df = pd.concat([base_neg, new_neg])            #add the new negative samples to the negative cases
+    train_df = pd.concat([postive_df, negative_df])         #create final training set
+
     training_set = TextDataset(train_df, tokenizer, dir_base=dir_base, wordDict= wordDict)
 
 
