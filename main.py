@@ -38,7 +38,7 @@ if __name__ == '__main__':
     # best results for far are with lr 5e-6 and 20 epochs
     config["seed"] = 456
     inference_on_all_data(config)
-    #print(fail)
+    print(fail)
     #discrepancy_datasetup(config)
     #count_duplicates(config)
     #pick_test_set(config)
