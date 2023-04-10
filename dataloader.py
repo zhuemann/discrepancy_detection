@@ -226,10 +226,12 @@ def setup_random_training_loader(df_negative, df_positive, base_pos, base_neg, n
     #df_positive = df_positive.sample(n=94)
     #train_df = pd.concat([df_negative, base_pos])
 
-    added_pos = new_pos.sample(11)                          #get n samples from positves cases
-    postive_df = pd.concat([base_pos, added_pos])           #add the n samples to the already postive cases
-    negative_df = pd.concat([base_neg, new_neg])            #add the new negative samples to the negative cases
-    train_df = pd.concat([postive_df, negative_df])         #create final training set
+    #added_pos = new_pos.sample(11)                          #get n samples from positves cases
+    #postive_df = pd.concat([base_pos, added_pos])           #add the n samples to the already postive cases
+    #negative_df = pd.concat([base_neg, new_neg])            #add the new negative samples to the negative cases
+    #train_df = pd.concat([postive_df, negative_df])         #create final training set
+
+    train_df = pd.concat([base_pos, base_neg])
 
     training_set = TextDataset(train_df, tokenizer, dir_base=dir_base, wordDict= wordDict)
 
