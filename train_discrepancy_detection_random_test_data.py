@@ -80,8 +80,8 @@ def train_discrepancy_detection(config):
     #print(train_df_negative)
 
 
-    #train_df_negative.set_index("id", inplace=True)
-    #train_df_positive.set_index("id", inplace=True)
+    train_df_negative.set_index("id", inplace=True)
+    train_df_positive.set_index("id", inplace=True)
     original_df.set_index("id", inplace=True)
     original_negative_df = original_df[original_df['label'] != 1]
     original_positive_df = original_df[original_df['label'] != 0]
