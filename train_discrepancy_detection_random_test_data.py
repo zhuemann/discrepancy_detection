@@ -77,6 +77,7 @@ def train_discrepancy_detection(config):
 
         new_data_df = pd.read_excel(new_labeled_data_loc, engine='openpyxl')
 
+    new_data_df.set_index("id", inplace=True)
     train_df_positive = train_df[train_df['label'] != 0]
     #print(train_df_positive)
     train_df_negative = train_df[train_df['label'] != 1]
