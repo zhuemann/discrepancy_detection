@@ -126,6 +126,16 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
     valid_df.set_index("id", inplace=True)
     test_df.set_index("id", inplace=True)
 
+    #print(fail)
+    load_df_from_preset_location = True
+    if load_df_from_preset_location:
+        train_loc = os.path.join(dir_base, 'Zach_Analysis/result_logs/discrepancy_detection/second_labeling_batch/data_folder/seed' +str(config["seed"]) + '/train_df_seed' +str(config["seed"]) + '.xlsx')
+        train_df = pd.read_excel(train_loc, engine='openpyxl')
+        valid_loc = os.path.join(dir_base,'Zach_Analysis/result_logs/discrepancy_detection/second_labeling_batch/data_folder/seed' +str(config["seed"]) + '/valid_df_seed' +str(config["seed"]) + '.xlsx')
+        valid_df = pd.read_excel(valid_loc, engine='openpyxl')
+        test_loc = os.path.join(dir_base,'Zach_Analysis/result_logs/discrepancy_detection/second_labeling_batch/data_folder/seed' +str(config["seed"]) + '/test_df_seed' +str(config["seed"]) + '.xlsx')
+        test_df = pd.read_excel(test_loc, engine='openpyxl')
+
     save_df = True
     if save_df:
         save_location = config["save_location"]
@@ -140,16 +150,6 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
         test_dataframe_location = os.path.join(save_location, 'test_df_seed' + str(config["seed"]) + '.xlsx')
         print(test_dataframe_location)
         test_df.to_excel(test_dataframe_location, index=True)
-
-    #print(fail)
-    load_df_from_preset_location = False
-    if load_df_from_preset_location:
-        train_loc = os.path.join(dir_base, 'Zach_Analysis/result_logs/discrepancy_detection/second_labeling_batch/data_folder/seed' +str(config["seed"]) + '/train_df_seed' +str(config["seed"]) + '.xlsx')
-        train_df = pd.read_excel(train_loc, engine='openpyxl')
-        valid_loc = os.path.join(dir_base,'Zach_Analysis/result_logs/discrepancy_detection/second_labeling_batch/data_folder/seed' +str(config["seed"]) + '/valid_df_seed' +str(config["seed"]) + '.xlsx')
-        valid_df = pd.read_excel(valid_loc, engine='openpyxl')
-        test_loc = os.path.join(dir_base,'Zach_Analysis/result_logs/discrepancy_detection/second_labeling_batch/data_folder/seed' +str(config["seed"]) + '/test_df_seed' +str(config["seed"]) + '.xlsx')
-        test_df = pd.read_excel(test_loc, engine='openpyxl')
 
     training_set = TextDataset(train_df, tokenizer, dir_base=dir_base, wordDict= wordDict)
     valid_set = TextDataset(valid_df, tokenizer, dir_base=dir_base)

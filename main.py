@@ -4,7 +4,7 @@ import numpy as np
 
 import pandas as pd
 from train_discrepancy_detection import train_discrepancy_detection
-from train_discrepancy_detection_random_test_data import train_discrepancy_detection
+#from train_discrepancy_detection_random_test_data import train_discrepancy_detection
 
 from next_setence_prediction import train_discrepancy_detection_nsp
 from inference_on_all_data import inference_on_all_data
@@ -33,7 +33,7 @@ if __name__ == '__main__':
     else:
         directory_base = "/UserData/"
 
-    config = {"seed": 1, "batch_size": 16, "dir_base": directory_base, "epochs": 10, "n_classes": 2, "LR": 1e-6,
+    config = {"seed": 1, "batch_size": 16, "dir_base": directory_base, "epochs": 20, "n_classes": 2, "LR": 5e-6,
                   "train_samples": .75, "valid_samples": .4, "data_path": "D:/candid_ptx/"} #was .8 .5 lr was 1e-5 5e-6 5e-6 is best
     # best results for far are with lr 5e-6 and 20 epochs
     #config["seed"] = 117
@@ -55,7 +55,7 @@ if __name__ == '__main__':
     for seed in seeds:
 
         folder_name = "seed" + str(seed) + "/"
-        save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/second_labeling_batch/radbert_fine_tuning_with_less_data_v60/" + folder_name
+        save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/second_labeling_batch/radbert_pooled_data_v61/" + folder_name
         save_location = os.path.join(directory_base, save_string)
 
         config["seed"] = seed
