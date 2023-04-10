@@ -114,7 +114,7 @@ def inference_on_all_data(config):
 
     #save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/initial_testing_augmented_data_unbalanced_v6/seed98"
     #save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/radbert_baseline_v41_best/seed" + str(config["seed"])
-    save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/second_labeling_batch/radbert_pool_data_v44/seed" + str(config["seed"])
+    save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/second_labeling_batch/radbert_fine_tunes_second_step_v63/seed" + str(config["seed"])
 
     save_location = os.path.join(config["dir_base"], save_string)
     saved_path = os.path.join(save_location, "best_model_seed" + str(config["seed"]))
