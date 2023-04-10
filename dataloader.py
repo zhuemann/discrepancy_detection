@@ -213,6 +213,7 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
 
 
 def setup_random_training_loader(df_negative, df_positive, base_pos, base_neg, new_pos, new_neg,  config, tokenizer, wordDict=None):
+    # base dataest is 1134 negatives for 94 postives
 
     seed = config["seed"]
     dir_base = config["dir_base"]
