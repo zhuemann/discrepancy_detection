@@ -33,7 +33,7 @@ if __name__ == '__main__':
     else:
         directory_base = "/UserData/"
 
-    config = {"seed": 1, "batch_size": 16, "dir_base": directory_base, "epochs": 10, "n_classes": 2, "LR": 5e-7,
+    config = {"seed": 1, "batch_size": 16, "dir_base": directory_base, "epochs": 20, "n_classes": 2, "LR": 1e-7,
                   "train_samples": .75, "valid_samples": .4, "data_path": "D:/candid_ptx/"} #was .8 .5 lr was 1e-5 5e-6 5e-6 is best
     # best results for far are with lr 5e-6 and 20 epochs
     #config["seed"] = 117
