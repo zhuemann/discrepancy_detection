@@ -17,7 +17,7 @@ from discrepancy_datasetup import balance_dataset
 def train_discrepancy_detection(config):
     nltk.download('punkt')
     dir_base = config["dir_base"]
-    need_setup = True
+    need_setup = False
     if need_setup:
         df = discrepancy_datasetup_second_set(config)
         #df = discrepancy_datasetup(config)
