@@ -111,7 +111,8 @@ def inference_on_all_data(config):
     #    param.requires_grad = False
 
     #model = T5Classifier(language_model, n_class=1)
-
+    print("check this is the right model")
+    print(fail)
     #save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/initial_testing_augmented_data_unbalanced_v6/seed98"
     #save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/radbert_baseline_v41_best/seed" + str(config["seed"])
     save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/second_labeling_batch/radbert_fine_tunes_second_step_v63/seed" + str(config["seed"])
