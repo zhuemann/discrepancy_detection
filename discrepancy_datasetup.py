@@ -286,6 +286,7 @@ def discrepancy_datasetup_second_set(config):
     df = df.dropna(axis=0, how='all')
     #print(df)
 
+
     pd.set_option('display.max_columns', None)
 
     string_dic = {}
