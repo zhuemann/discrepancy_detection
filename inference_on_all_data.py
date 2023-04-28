@@ -85,7 +85,7 @@ def inference_on_all_data(config):
         #df.to_excel(save_path, index=False)
         data_with_labels.to_excel(save_path, index=False)
     else:
-        dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/inference_matches_removed_df.xlsx')
+        dataframe_location = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/used_to_train_third_model/final_test_dataframe.xlsx')
         data_with_labels = pd.read_excel(dataframe_location, engine='openpyxl')
 
 
@@ -111,11 +111,11 @@ def inference_on_all_data(config):
     #    param.requires_grad = False
 
     #model = T5Classifier(language_model, n_class=1)
-    print("check this is the right model")
-    print(fail)
+    #print("check this is the right model")
+    #print(fail)
     #save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/initial_testing_augmented_data_unbalanced_v6/seed98"
     #save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/radbert_baseline_v41_best/seed" + str(config["seed"])
-    save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/second_labeling_batch/radbert_fine_tunes_second_step_v63/seed" + str(config["seed"])
+    save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/radbert_final_model_first_train_v80/seed" + str(config["seed"])
 
     save_location = os.path.join(config["dir_base"], save_string)
     saved_path = os.path.join(save_location, "best_model_seed" + str(config["seed"]))
