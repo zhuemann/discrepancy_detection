@@ -84,9 +84,9 @@ def train_discrepancy_detection(config):
         param.requires_grad = True
 
     # loading in the model we want to fine tune
-    #model_path = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/radbert_pool_data_v73/seed" + str(config["seed"])
-    #saved_path = os.path.join(model_path, "best_model_seed" + str(config["seed"]))
-    #model.load_state_dict(torch.load(saved_path))
+    model_path = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/radbert_pool_new_labels_v76/seed" + str(config["seed"])
+    saved_path = os.path.join(model_path, "best_model_seed" + str(config["seed"]))
+    model.load_state_dict(torch.load(saved_path))
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
