@@ -187,12 +187,12 @@ def inference_on_all_data(config):
                 else:
                     training_accuracy.append(0)
 
-                make_cf = True
-                if make_cf:
-                    for i in range(0, len(outputs)):
-                        actual = targets[i].detach().cpu().data.numpy()
-                        predicted = outputs[i].detach().cpu().data.numpy()
-                        confusion_matrix[int(predicted)][int(actual)] += 1
+            make_cf = True
+            if make_cf:
+                for i in range(0, len(outputs)):
+                    actual = targets[i].detach().cpu().data.numpy()
+                    predicted = outputs[i].detach().cpu().data.numpy()
+                    confusion_matrix[int(predicted)][int(actual)] += 1
 
             #    training_dice.append(dice)
             #if prediction_idx > 20:
