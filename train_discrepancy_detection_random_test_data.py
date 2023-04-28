@@ -106,7 +106,7 @@ def train_discrepancy_detection(config):
 
     # start the model from the pretrained model
     saved_path = os.path.join(dir_base,
-                             'Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/radbert_pool_new_labels_v76/seed' + str(
+                             'Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/radbert_pool_data_v71/seed' + str(
                                  config["seed"]) + '/best_model_seed' + str(config["seed"]))
 
     model.load_state_dict(torch.load(saved_path))
