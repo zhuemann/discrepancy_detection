@@ -21,7 +21,7 @@ def train_discrepancy_detection(config):
     if need_setup:
         df = discrepancy_datasetup_second_set(config)
         #df = discrepancy_datasetup(config)
-        save_path = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/used_to_train_third_model/AI_Discrep_test_set_updated Apr 2023_new scoring.xlsx')
+        save_path = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/used_to_train_third_model/final_test_dataframe.xlsx')
         df.to_excel(save_path, index=False)
         print(fail)
 
