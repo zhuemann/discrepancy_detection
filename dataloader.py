@@ -129,12 +129,12 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
     #print(fail)
     load_df_from_preset_location = True
     if load_df_from_preset_location:
-        train_loc = os.path.join(dir_base, 'Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/data_folder_finetuning/seed' +str(config["seed"]) + '/train_df_seed' +str(config["seed"]) + '.xlsx')
+        train_loc = os.path.join(dir_base, 'Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/data_folder_updated_final_train/seed' +str(config["seed"]) + '/train_df_seed' +str(config["seed"]) + '.xlsx')
         #train_loc = os.path.join(dir_base, 'Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/data_folder_updated/second_and_third_labeled_df'+ '.xlsx')
         train_df = pd.read_excel(train_loc, engine='openpyxl')
         valid_loc = os.path.join(dir_base,'Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/data_folder_finetuning/seed' +str(config["seed"]) + '/valid_df_seed' +str(config["seed"]) + '.xlsx')
         valid_df = pd.read_excel(valid_loc, engine='openpyxl')
-        test_loc = os.path.join(dir_base,'Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/data_folder_finetuning/seed' +str(config["seed"]) + '/test_df_seed' +str(config["seed"]) + '.xlsx')
+        test_loc = os.path.join(dir_base,'Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/data_folder_updated/seed' +str(config["seed"]) + '/test_df_seed' +str(config["seed"]) + '.xlsx')
         test_df = pd.read_excel(test_loc, engine='openpyxl')
 
     save_df = True

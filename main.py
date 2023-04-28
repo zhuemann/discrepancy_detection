@@ -3,8 +3,8 @@ import os
 import numpy as np
 
 import pandas as pd
-#from train_discrepancy_detection import train_discrepancy_detection
-from train_discrepancy_detection_random_test_data import train_discrepancy_detection
+from train_discrepancy_detection import train_discrepancy_detection
+#from train_discrepancy_detection_random_test_data import train_discrepancy_detection
 
 from next_setence_prediction import train_discrepancy_detection_nsp
 from inference_on_all_data import inference_on_all_data
@@ -43,13 +43,13 @@ if __name__ == '__main__':
     #count_duplicates(config)
     #pick_test_set(config)
     #print(fail)
-    seeds = [98, 117, 295, 456, 712, 915, 1367]
+    #seeds = [98, 117, 295, 456, 712, 915, 1367]
     #seeds = [295, 98, 456, 915, 1367, 712]
     #seeds = [712]
 
     #seeds = [456, 712, 915, 1367]
     #seeds = [915, 1367, 712]
-    #seeds = [117]
+    seeds = [117]
     #seeds = [98, 117, 295]
     #seeds = [712]
     accur_list = []
@@ -57,7 +57,7 @@ if __name__ == '__main__':
     for seed in seeds:
 
         folder_name = "seed" + str(seed) + "/"
-        save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/radbert_fine_turning_original_v79/" + folder_name
+        save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/radbert_final_model_first_train_v80/" + folder_name
         save_location = os.path.join(directory_base, save_string)
 
         config["seed"] = seed
