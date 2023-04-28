@@ -135,6 +135,7 @@ def inference_on_all_data(config):
         training_accuracy = []
         gc.collect()
         torch.cuda.empty_cache()
+        confusion_matrix = [[0, 0], [0, 0]]
 
         loss_list = []
 
@@ -185,14 +186,26 @@ def inference_on_all_data(config):
                     training_accuracy.append(1)
                 else:
                     training_accuracy.append(0)
+
+                make_cf = True
+                if make_cf:
+                    for i in range(0, len(outputs)):
+                        actual = targets[i].detach().cpu().data.numpy()
+                        predicted = outputs[i].detach().cpu().data.numpy()
+                        confusion_matrix[int(predicted)][int(actual)] += 1
+
             #    training_dice.append(dice)
             #if prediction_idx > 20:
             #    break
 
         avg_training_accuracy = np.average(training_accuracy)
         print(f"Epoch {str(epoch)}, Average Score of All Pairs = {avg_training_accuracy}")
+        print(f"Test Confusion matrix: {confusion_matrix}")
 
     #save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/second_dataset_bce_loss_less_train_datav5/seed117/"
+    matrix_path = os.path.join(config["save_location"], "confusion_matrix" + str(config["seed"]) + '.xlsx')
+    df_matrix = pd.DataFrame(confusion_matrix)
+    df_matrix.to_excel(matrix_path, index=False)
     save_location = os.path.join(config["dir_base"], save_string)
     filepath = os.path.join(save_location, "inference" + '.xlsx')
     predictions.to_excel(filepath, index=False)
