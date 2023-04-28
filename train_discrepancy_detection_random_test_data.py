@@ -69,7 +69,8 @@ def train_discrepancy_detection(config):
 
     load_df_from_preset_location = True
     if load_df_from_preset_location:
-        train_loc = os.path.join(dir_base, 'Zach_Analysis/result_logs/discrepancy_detection/second_labeling_batch/data_folder/seed' +str(config["seed"]) + '/train_df_seed' +str(config["seed"]) + '.xlsx')
+        #train_loc = os.path.join(dir_base, 'Zach_Analysis/result_logs/discrepancy_detection/second_labeling_batch/data_folder/seed' +str(config["seed"]) + '/train_df_seed' +str(config["seed"]) + '.xlsx')
+        train_loc = os.path.join(dir_base, 'Zach_Analysis/discrepancy_detection_data/used_to_train_first_model//seed' +str(config["seed"]) + '/final_finetuning_train_df_seed117' +str(config["seed"]) + '.xlsx')
         train_df = pd.read_excel(train_loc, engine='openpyxl')
         train_orig_loc = os.path.join(dir_base, 'Zach_Analysis/result_logs/discrepancy_detection/second_labeling_batch/saving_original_dataframe/seed' +str(config["seed"]) + '/train_df_seed' +str(config["seed"]) + '.xlsx')
         original_df = pd.read_excel(train_orig_loc, engine='openpyxl')
@@ -106,7 +107,7 @@ def train_discrepancy_detection(config):
 
     # start the model from the pretrained model
     saved_path = os.path.join(dir_base,
-                             'Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/radbert_pool_data_v71/seed' + str(
+                             'Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/radbert_final_model_first_train_v80/seed' + str(
                                  config["seed"]) + '/best_model_seed' + str(config["seed"]))
 
     model.load_state_dict(torch.load(saved_path))
