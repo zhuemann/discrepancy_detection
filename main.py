@@ -43,6 +43,7 @@ if __name__ == '__main__':
     config["save_location"] = save_location
     inference_on_all_data(config)
     print(fail)
+
     #discrepancy_datasetup(config)
     #count_duplicates(config)
     #pick_test_set(config)
