@@ -313,6 +313,7 @@ def discrepancy_datasetup_second_set(config):
 
 
     for _, row in df.iterrows():
+
         if row["Discrepancy"] == "Exclude":
             num_exclude += 1
             continue
@@ -323,6 +324,9 @@ def discrepancy_datasetup_second_set(config):
             continue
         if row["Report Type"] == "Preliminary":
             if not pd.isna(row["Discrepancy"]):
+
+                if row['Accession Number'] == "UWHC22846536":
+                    continue
                 prelim_with_values += 1
                 # The prelim exam has a score so we need to get the final report and using the assession number
                 #print(f"prelim accession number: {row['Accession Number']}")
