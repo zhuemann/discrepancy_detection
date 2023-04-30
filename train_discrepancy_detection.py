@@ -17,11 +17,11 @@ from discrepancy_datasetup import balance_dataset
 def train_discrepancy_detection(config):
     nltk.download('punkt')
     dir_base = config["dir_base"]
-    need_setup = False
+    need_setup = True
     if need_setup:
         df = discrepancy_datasetup_second_set(config)
         #df = discrepancy_datasetup(config)
-        save_path = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/used_to_train_third_model/new_location.xlsx')
+        save_path = os.path.join(dir_base, 'Zach_Analysis/discrepancy_data/used_to_train_third_model/original_training_set_relabeled.xlsx')
         df.to_excel(save_path, index=False)
         print(fail)
 
