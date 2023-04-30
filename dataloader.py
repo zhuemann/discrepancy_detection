@@ -119,7 +119,7 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
          stratify=test_valid_df.label.values
     )
 
-    train_df = pd.concat(train_df, test_df)
+    train_df = pd.concat([train_df, test_df])
 
     #train_df = balance_dataset(df, config)
     #train_df = balance_dataset(train_df, config, aug_factor=1)
