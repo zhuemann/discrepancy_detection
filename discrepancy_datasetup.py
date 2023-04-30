@@ -378,7 +378,7 @@ def discrepancy_datasetup_second_set(config):
             #if int(str(row['Discrepancy score'])[-1]) <= 3 or row['Discrepancy'] == 0: #was == 0
             if row['Discrepancy'] == 0:
                 label = 0
-                if num_neg < 2800:
+                if num_neg < 280000:
                     data_with_labels.loc[label_idx] = [prelim_accession, prelim_impression, final_impression, label]
                     num_neg += 1
             else:
