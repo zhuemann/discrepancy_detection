@@ -119,6 +119,7 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
          stratify=test_valid_df.label.values
     )
 
+    train_df = pd.concat(train_df, test_df)
 
     #train_df = balance_dataset(df, config)
     #train_df = balance_dataset(train_df, config, aug_factor=1)
@@ -127,7 +128,7 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
     test_df.set_index("id", inplace=True)
 
     #print(fail)
-    load_df_from_preset_location = True
+    load_df_from_preset_location = False
     if load_df_from_preset_location:
         #train_loc = os.path.join(dir_base, 'Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/data_folder_updated_final_train/seed' +str(config["seed"]) + '/train_df_seed' +str(config["seed"]) + '.xlsx')
         #train_loc = os.path.join(dir_base, 'Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/data_folder_updated/second_and_third_labeled_df'+ '.xlsx')
@@ -151,9 +152,9 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
         print(valid_dataframe_location)
         valid_df.to_excel(valid_dataframe_location, index=True)
 
-        test_dataframe_location = os.path.join(save_location, 'test_df_seed' + str(config["seed"]) + '.xlsx')
-        print(test_dataframe_location)
-        test_df.to_excel(test_dataframe_location, index=True)
+        #test_dataframe_location = os.path.join(save_location, 'test_df_seed' + str(config["seed"]) + '.xlsx')
+        #print(test_dataframe_location)
+        #test_df.to_excel(test_dataframe_location, index=True)
 
     training_set = TextDataset(train_df, tokenizer, dir_base=dir_base, wordDict= wordDict)
     valid_set = TextDataset(valid_df, tokenizer, dir_base=dir_base)

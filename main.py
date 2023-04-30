@@ -33,7 +33,7 @@ if __name__ == '__main__':
     else:
         directory_base = "/UserData/"
 
-    config = {"seed": 1, "batch_size": 16, "dir_base": directory_base, "epochs": 15, "n_classes": 2, "LR": 5e-6,
+    config = {"seed": 1, "batch_size": 16, "dir_base": directory_base, "epochs": 1, "n_classes": 2, "LR": 5e-6,
                   "train_samples": .75, "valid_samples": .4, "data_path": "D:/candid_ptx/"} #was .8 .5 lr was 1e-5 5e-6 5e-6 is best
 
     # best results for far are with lr 5e-6 and 20 epochs
@@ -49,13 +49,13 @@ if __name__ == '__main__':
     #count_duplicates(config)
     #pick_test_set(config)
     #print(fail)
-    #seeds = [98, 117, 295, 456, 712, 915, 1367]
+    seeds = [98, 117, 295, 456, 712, 915, 1367]
     #seeds = [295, 98, 456, 915, 1367, 712]
     #seeds = [712]
 
     #seeds = [456, 712, 915, 1367]
     #seeds = [915, 1367, 712]
-    seeds = [117]
+    #seeds = [117]
     #seeds = [98, 117, 295]
     #seeds = [712]
     accur_list = []
