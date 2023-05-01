@@ -115,8 +115,8 @@ def inference_on_all_data(config):
     #print(fail)
     #save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/initial_testing_augmented_data_unbalanced_v6/seed98"
     #save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/radbert_baseline_v41_best/seed" + str(config["seed"])
-    save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/radbert_final_model_second_train_finetune_v81/seed" + str(config["seed"])
-
+    #save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/radbert_final_model_second_train_finetune_v81/seed" + str(config["seed"])
+    save_string = config["save_location"] + "seed" + str(config["seed"])
     save_location = os.path.join(config["dir_base"], save_string)
     saved_path = os.path.join(save_location, "best_model_seed" + str(config["seed"]))
     model.load_state_dict(torch.load(saved_path))
