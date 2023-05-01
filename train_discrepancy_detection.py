@@ -83,10 +83,10 @@ def train_discrepancy_detection(config):
     for param in model.parameters():
         param.requires_grad = True
 
-    fine_tune_step = True
+    fine_tune_step = False
     if fine_tune_step:
         # loading in the model we want to fine tune
-        model_path_new = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/radbert_trained_on_first_second_set_pretrain_v84/seed" + str(config["seed"])
+        model_path_new = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/radbert_trained_on_first_second_set_pretrain_v86/seed" + str(config["seed"])
         saved_path = os.path.join(model_path_new, "best_model_seed" + str(config["seed"]))
         model.load_state_dict(torch.load(saved_path))
 
@@ -243,7 +243,6 @@ def train_discrepancy_detection(config):
 
             if avg_valid_acc >= best_acc:
                 best_acc = avg_valid_acc
-                print(f"config save location: {config['save_location']}")
                 save_path = os.path.join(config["save_location"], "best_model_seed" + str(config["seed"]))
                 torch.save(model.state_dict(), save_path)
 
