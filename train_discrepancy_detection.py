@@ -83,7 +83,7 @@ def train_discrepancy_detection(config):
     for param in model.parameters():
         param.requires_grad = True
 
-    fine_tune_step = False
+    fine_tune_step = True
     if fine_tune_step:
         # loading in the model we want to fine tune
         model_path_new = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/radbert_trained_on_first_second_set_pretrain_v86/seed" + str(config["seed"])

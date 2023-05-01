@@ -33,7 +33,7 @@ if __name__ == '__main__':
     else:
         directory_base = "/UserData/"
 
-    config = {"seed": 1, "batch_size": 16, "dir_base": directory_base, "epochs": 15, "n_classes": 2, "LR": 5e-6,
+    config = {"seed": 1, "batch_size": 16, "dir_base": directory_base, "epochs": 12, "n_classes": 2, "LR": 2e-6,
                   "train_samples": .75, "valid_samples": .4, "data_path": "D:/candid_ptx/"} #was .8 .5 lr was 1e-5 5e-6 5e-6 is best
 
     # best results for far are with lr 5e-6 and 20 epochs
@@ -66,7 +66,7 @@ if __name__ == '__main__':
     for seed in seeds:
 
         folder_name = "seed" + str(seed) + "/"
-        save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/radbert_trained_on_first_second_set_pretrain_v86/" + folder_name
+        save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/radbert_trained_on_first_second_set_finetune_v87/" + folder_name
         save_location = os.path.join(directory_base, save_string)
 
         config["seed"] = seed
