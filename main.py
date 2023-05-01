@@ -37,16 +37,16 @@ if __name__ == '__main__':
                   "train_samples": .75, "valid_samples": .4, "data_path": "D:/candid_ptx/"} #was .8 .5 lr was 1e-5 5e-6 5e-6 is best
 
     # best results for far are with lr 5e-6 and 20 epochs
-    #seeds = [98, 117, 295, 456, 712, 915, 1367]
-    #for seed in seeds:
+    seeds = [98, 117, 295, 456, 712, 915, 1367]
+    for seed in seeds:
 
-    #    config["seed"] = seed
-    #    folder_name = "seed" + str(config["seed"]) + "/"
-    #    save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/radbert_final_model_first_train_pretrain_v83/" + folder_name
-    #    save_location = os.path.join(directory_base, save_string)
-    #    config["save_location"] = save_location
-    #    inference_on_all_data(config)
-    #print(fail)
+        config["seed"] = seed
+        folder_name = "seed" + str(config["seed"]) + "/"
+        save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/radbert_trained_on_first_second_set_finetune_v87/" + folder_name
+        save_location = os.path.join(directory_base, save_string)
+        config["save_location"] = save_location
+        inference_on_all_data(config)
+    print(fail)
 
     #discrepancy_datasetup(config)
     #count_duplicates(config)
