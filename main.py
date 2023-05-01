@@ -40,7 +40,7 @@ if __name__ == '__main__':
     seeds = [98, 117, 295, 456, 712, 915, 1367]
     for seed in seeds:
 
-        config["seed"] = 117
+        config["seed"] = seed
         folder_name = "seed" + str(config["seed"]) + "/"
         save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/radbert_final_model_first_train_pretrain_v83/" + folder_name
         save_location = os.path.join(directory_base, save_string)
