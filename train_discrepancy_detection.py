@@ -86,7 +86,7 @@ def train_discrepancy_detection(config):
     fine_tune_step = True
     if fine_tune_step:
         # loading in the model we want to fine tune
-        model_path_new = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/radbert_final_model_first_train_pretrain_v83/seed" + str(config["seed"])
+        model_path_new = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/radbert_trained_on_first_second_set_pretrain_v84/seed" + str(config["seed"])
         saved_path = os.path.join(model_path_new, "best_model_seed" + str(config["seed"]))
         model.load_state_dict(torch.load(saved_path))
 
