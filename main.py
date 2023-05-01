@@ -42,7 +42,7 @@ if __name__ == '__main__':
 
         config["seed"] = 117
         folder_name = "seed" + str(config["seed"]) + "/"
-        save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/radbert_final_model_second_train_finetune_v84/" + folder_name
+        save_string = "/UserData/Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/radbert_final_model_first_train_pretrain_v83/" + folder_name
         save_location = os.path.join(directory_base, save_string)
         config["save_location"] = save_location
         inference_on_all_data(config)
