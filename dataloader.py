@@ -135,11 +135,15 @@ def setup_dataloader(df, config, tokenizer, wordDict=None):
         #training set
         #train_loc = os.path.join(dir_base, 'Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/data_folder_updated_first_train/seed' + str(config["seed"]) + '/train_df_seed' +str(config["seed"]) + '.xlsx')
         train_loc = os.path.join(dir_base, 'Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/data_folder_updated_finetune/seed' + str(config["seed"]) + '/train_df_seed' +str(config["seed"]) + '.xlsx')
+        train_loc = os.path.join(dir_base, 'Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/data_folder_updated_first_train_first_second_labeled/seed' + str(config["seed"]) + '/train_df_seed' +str(config["seed"]) + '.xlsx')
+
         train_df = pd.read_excel(train_loc, engine='openpyxl')
 
         #valid_loc = os.path.join(dir_base,'Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/data_folder_finetuning/seed' +str(config["seed"]) + '/valid_df_seed' +str(config["seed"]) + '.xlsx')
         #valid_loc = os.path.join(dir_base,'Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/data_folder_updated_first_train/seed' +str(config["seed"]) + '/valid_df_seed' +str(config["seed"]) + '.xlsx')
         valid_loc = os.path.join(dir_base,'Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/data_folder_updated_finetune/seed' +str(config["seed"]) + '/valid_df_seed' +str(config["seed"]) + '.xlsx')
+        valid_loc = os.path.join(dir_base,'Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/data_folder_updated_first_train_first_second_labeled/seed' +str(config["seed"]) + '/valid_df_seed' +str(config["seed"]) + '.xlsx')
+
 
         valid_df = pd.read_excel(valid_loc, engine='openpyxl')
         test_loc = os.path.join(dir_base,'Zach_Analysis/result_logs/discrepancy_detection/third_labeling_batch/data_folder_updated_v1/seed' +str(config["seed"]) + '/test_df_seed' +str(config["seed"]) + '.xlsx')
